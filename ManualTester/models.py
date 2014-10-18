@@ -198,13 +198,6 @@ class TestSuite(models.Model):
         null=True,
     )
 
-    test_cases = models.ManyToManyField(
-        "ManualTester.TestCase",
-        verbose_name="Related Test Cases",
-        blank=True,
-        null=True,
-    )
-
     def __str__(self):
         return self.name
 
@@ -286,3 +279,15 @@ class OrderTestStep(models.Model):
     number = models.PositiveIntegerField()
     test_case = models.ForeignKey(TestCase)
     test_step = models.ForeignKey(TestStep)
+
+    class Meta:
+        unique_together = (("number", "test_case"),)
+
+
+class OrderTestCase(models.Model):
+    number = models.PositiveIntegerField()
+    test_suite = models.ForeignKey(TestSuite)
+    test_case = models.ForeignKey(TestCase)
+
+    class Meta:
+        unique_together = (("number", "test_suite"),)

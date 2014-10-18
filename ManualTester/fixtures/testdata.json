@@ -61,10 +61,18 @@
             "author": 2,
             "description": "Simple example of test suite",
             "name": "Test Suite example",
-            "tags": [1, 2],
-            "test_cases": [1]
+            "tags": [1, 2]
         },
         "model": "ManualTester.testsuite"
+    },
+    {
+        "model": "ManualTester.ordertestcase",
+        "pk": 1,
+        "fields": {
+            "test_case": 1,
+            "test_suite": 1,
+            "number": 1
+        }
     },
     {
         "pk": 1,

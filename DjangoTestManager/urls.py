@@ -5,7 +5,6 @@ from django.views.generic import RedirectView
 from TestManagerCore.forms import UserLoginForm
 
 from TestManagerCore.views import UserRegistrationView, UserLogOutView, UserProfileUpdateView
-from TestManagerCore.views import HomePageView
 from DjangoTestManager import settings
 
 
@@ -13,8 +12,7 @@ urlpatterns = patterns(
     '',
     url(r'', include('ManualTester.urls')),
 
-    url(r'^homepage/$', HomePageView.as_view(), name='homepage'),
-    url(r'^$', RedirectView.as_view(url='/homepage/'), name='redirect_from_root'),
+    url(r'^$', RedirectView.as_view(url='/content/testsuites/'), name='redirect_from_root'),
 
     url(r'^accounts/admin/', include(admin.site.urls)),
     url(r'^accounts/register/$', UserRegistrationView.as_view(), name='user_registration'),

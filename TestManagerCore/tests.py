@@ -82,9 +82,10 @@ class HomePageViewTests(TestCase):
     def test_login_required_redirect(self):
         """Verify login required requirement."""
 
-        response = self.client.get('/homepage/', follow=True)
+        response = self.client.get('/', follow=True)
 
         self.assertEquals(
-            [('http://testserver/accounts/login/?next=/homepage/', 302)],
+            [('http://testserver/content/testsuites/', 301),
+             ('http://testserver/accounts/login/?next=/content/testsuites/', 302)],
             response.redirect_chain
         )

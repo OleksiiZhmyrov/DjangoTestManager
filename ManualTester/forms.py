@@ -39,12 +39,6 @@ class TestSuiteUpdateForm(forms.ModelForm):
         required=False,
     )
 
-    test_cases = forms.ModelMultipleChoiceField(
-        queryset=TestCase.objects,
-        widget=forms.CheckboxSelectMultiple(),
-        required=False,
-    )
-
     def __init__(self, *args, **kwargs):
         super(TestSuiteUpdateForm, self).__init__(*args, **kwargs)
         self.error_class = CustomErrorList
@@ -65,7 +59,6 @@ class TestSuiteUpdateForm(forms.ModelForm):
             }
         )
 
-
     class Meta:
         model = TestSuite
-        fields = ['name', 'description', 'tags', 'test_cases', ]
+        fields = ['name', 'description', 'tags', ]

@@ -4,7 +4,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, UpdateView
 from django.views.generic.list import ListView
 from ManualTester.forms import TestSuiteCreateForm, TestSuiteUpdateForm
-from ManualTester.models import TestSuite
+from ManualTester.models import TestSuite, OrderTestCase
 
 
 class TestSuiteListView(ListView):
@@ -44,11 +44,17 @@ class TestSuiteModifyView(UpdateView):
     template_name = "pages/test_suite_modify_page.html"
     model = TestSuite
     form_class = TestSuiteUpdateForm
-    success_url = '/content/testsuites/'
+
+    def get_success_url(self):
+        return reverse('test_suite_edit', args=(self.object.id,))
 
     def get_context_data(self, **kwargs):
+        """
+        Adding pk of the TestSuite object to substitute to form URL.
+        """
         context = super(TestSuiteModifyView, self).get_context_data(**kwargs)
         context['pk'] = self.object.pk
+        context['order_test_cases'] = OrderTestCase.objects.filter(test_suite=self.object).order_by('number')
         return context
 
     @method_decorator(login_required)

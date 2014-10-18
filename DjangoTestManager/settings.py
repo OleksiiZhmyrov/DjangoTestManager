@@ -117,4 +117,4 @@ CACHES = {
     }
 }
 
-LOGIN_REDIRECT_URL = '/homepage/'
+LOGIN_REDIRECT_URL = '/'

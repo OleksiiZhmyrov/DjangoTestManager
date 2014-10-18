@@ -18,6 +18,15 @@
 
             <div class="col-md-9 personal-info">
                 {% include "forms/test_suite_modify_form.html" %}
+
+                <hr>
+
+                <ul>
+                    {% for item in order_test_cases %}
+                        <li>{{ item.number }} -- {{ item.test_case.name }}</li>
+                    {% endfor %}
+                </ul>
+
             </div>
 
         </div>
