@@ -1,0 +1,42 @@
+<form class="form-horizontal" role="form" id="form" method="post" action="/accounts/profile/">
+
+    {% csrf_token %}
+
+    <div class="form-group form-group-lg {% if form.first_name.errors %}has-error{% endif %}">
+        <label class="col-lg-3 control-label">First name:</label>
+
+        <div class="col-lg-8">
+            {{ form.first_name }}
+            {{ form.first_name.errors | safe }}
+        </div>
+    </div>
+
+    <div class="form-group form-group-lg {% if form.last_name.errors %}has-error{% endif %}">
+        <label class="col-lg-3 control-label">Last name:</label>
+
+        <div class="col-lg-8">
+            {{ form.last_name }}
+            {{ form.last_name.errors | safe }}
+        </div>
+    </div>
+
+    <div class="form-group form-group-lg {% if form.email.errors %}has-error{% endif %}">
+        <label class="col-lg-3 control-label">Email address:</label>
+
+        <div class="col-lg-8">
+            {{ form.email }}
+            {{ form.email.errors | safe }}
+        </div>
+    </div>
+
+    <div class="form-group form-group-lg ">
+        <label class="col-md-3 control-label"></label>
+
+        <div class="col-md-8">
+            <input type="submit" class="btn btn-primary" value="Save Changes">
+            <span></span>
+            <a href="/accounts/profile/" type="button" class="btn btn-default">Discard</a>
+        </div>
+    </div>
+</form>
+

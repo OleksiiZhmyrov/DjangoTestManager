@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from TestManagerCore.forms import UserLoginForm
 
-from TestManagerCore.views import UserRegistrationView, UserLogOutView
+from TestManagerCore.views import UserRegistrationView, UserLogOutView, UserProfileUpdateView
 from TestManagerCore.views import HomePageView
 from DjangoTestManager import settings
 
@@ -20,6 +20,7 @@ urlpatterns = patterns(
         'template_name': 'pages/login_page.html',
         'authentication_form': UserLoginForm}, name='user_login'),
     url(r'^accounts/logout/$', UserLogOutView.as_view(), name='user_logout'),
+    url(r'^accounts/profile/$', UserProfileUpdateView.as_view(), name='user_profile'),
 
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
