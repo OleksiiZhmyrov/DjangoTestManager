@@ -1,0 +1,46 @@
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 footer-left">
+                <ul class="list-inline">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    {% if not user.is_authenticated %}
+                        <li>
+                            <a href="/accounts/register/">Registration</a>
+                        </li>
+                    {% endif %}
+                </ul>
+                <p>
+                    <iframe id="gh-fork"
+                            src="http://ghbtns.com/github-btn.html?user=OleksiiZhmyrov&repo=DjangoTestManager&type=fork"
+                            allowtransparency="true" frameborder="0" scrolling="0" width="55px" height="20px"></iframe>
+                    <iframe id="gh-star"
+                            src="http://ghbtns.com/github-btn.html?user=OleksiiZhmyrov&repo=DjangoTestManager&type=watch&count=true"
+                            allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"></iframe>
+                </p>
+            </div>
+            <div class="col-md-6 footer-right">
+                <p>Test Manager is a project founded and maintained by Oleksii Zhmyrov.</p>
+
+                <p><a href="http://www.python.org/">
+                    <img src="https://www.python.org/static/community_logos/python-powered-w-70x28.png"
+                         border="0" alt="Powered by Python." title="Powered by Python."/></a>
+                    <a href="http://www.djangoproject.com/">
+                        <img src="https://www.djangoproject.com/m/img/badges/djangoproject120x25.gif"
+                             border="0" alt="A Django project." title="A Django project."/></a>
+                </p>
+
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-lg-12 footer-below">
+                <p>Powered by <a href="https://www.djangoproject.com/">Django</a> Web Framework.
+                    <br>Based on <a href="http://getbootstrap.com/">Bootstrap</a> and
+                    <a href="http://startbootstrap.com/">StartBootstrap</a> theme.</p>
+            </div>
+        </div>
+    </div>
+</footer>

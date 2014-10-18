@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Login to Test Manager{% endblock %}
+
+{% block marquee %}
+
+    {% load staticfiles %}
+
+    <header
+            class="marquee"
+            style="background-image: url('{% static "/static/img/tile.png" %}');">
+        <div class="container">
+            <span class="brand-name">Test Manager</span>
+
+            <h1>Free and OpenSource test management software</h1>
+            <p>Please login or <a href="/accounts/register/">sign up</a> to access application features</p>
+
+            <div>
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    {% include "components/../forms/login_form.html" %}
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+
+        </div>
+
+        </div>
+    </header>
+
+
+
+{% endblock %}

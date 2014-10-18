@@ -52,3 +52,10 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Application specific
+.idea/
+static/*
+db.sqlite3
+DjangoTestManager/settings_local.py
+*/migrations/00*.py

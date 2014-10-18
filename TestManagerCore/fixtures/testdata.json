@@ -1,0 +1,38 @@
+[
+    {
+        "fields": {
+            "name": "CI",
+            "description": "Continuous integration environment",
+            "url": "http://ci.example.com:8000/"
+        },
+        "pk": 1,
+        "model": "TestManagerCore.environment"
+    },
+    {
+        "fields": {
+            "version": "38.0.2125.101 m",
+            "name": "Google Chrome",
+            "note": "Latest stable version of popular web browser from Google"
+        },
+        "pk": 1,
+        "model": "TestManagerCore.browser"
+    },
+    {
+        "fields": {
+            "version": "8.0.7601.17514",
+            "name": "Microsoft Internet Explorer",
+            "note": "The most widely used version of web browser from Microsoft"
+        },
+        "pk": 2,
+        "model": "TestManagerCore.browser"
+    },
+    {
+        "fields": {
+            "version": "29.0.1",
+            "name": "Mozilla Firefox",
+            "note": "Stable version of popular free web browser by Mozilla Foundation"
+        },
+        "pk": 3,
+        "model": "TestManagerCore.browser"
+    }
+]

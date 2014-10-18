@@ -1,0 +1,96 @@
+[
+    {
+        "pk": 1,
+        "fields": {
+            "description": "Open a new browser tab and navigate to URI http://google.com",
+            "expected_result": "Browser is directed to Google search page.",
+            "name": "Navigate to search page",
+            "status": 2,
+            "author": 2,
+            "screenshot": "",
+            "creation_date": "1970-01-01T00:00:00.000Z",
+            "tags": []
+        },
+        "model": "ManualTester.teststep"
+    },
+    {
+        "pk": 2,
+        "fields": {
+            "description": "Type \"Billy Jean\" into search input field and left-click Search button.",
+            "expected_result": "Browser is directed to Search results page. Page contains results for Billy Jean.",
+            "name": "Search for Billy Jean",
+            "status": 2,
+            "author": 2,
+            "screenshot": "",
+            "creation_date": "1970-01-01T00:00:00.000Z",
+            "tags": []
+        },
+        "model": "ManualTester.teststep"
+    },
+    {
+        "pk": 3,
+        "fields": {
+            "description": "Left-click Google logo in the page header to go back to initial page.",
+            "expected_result": "Browser is directed to Google search page.",
+            "name": "Go back to search page",
+            "status": 2,
+            "author": 2,
+            "screenshot": "",
+            "creation_date": "1970-01-01T00:00:00.000Z",
+            "tags": []
+        },
+        "model": "ManualTester.teststep"
+    },
+    {
+        "pk": 1,
+        "fields": {
+            "author": 2,
+            "linked_issues": [],
+            "status": 1,
+            "creation_date": "1970-01-01T00:00:00.000Z",
+            "tags": [],
+            "description": "Verify basic search functionality on Google home page.",
+            "name": "Google search functionality"
+        },
+        "model": "ManualTester.testcase"
+    },
+    {
+        "pk": 1,
+        "fields": {
+            "creation_date": "1970-01-01T00:00:00.000Z",
+            "author": 2,
+            "description": "Simple example of test suite",
+            "name": "Test Suite example",
+            "tags": [],
+            "test_cases": [1]
+        },
+        "model": "ManualTester.testsuite"
+    },
+    {
+        "pk": 1,
+        "fields": {
+            "number": 1,
+            "test_case": 1,
+            "test_step": 1
+        },
+        "model": "ManualTester.orderteststep"
+    },
+    {
+        "pk": 2,
+        "fields": {
+            "number": 2,
+            "test_case": 1,
+            "test_step": 2
+        },
+        "model": "ManualTester.orderteststep"
+    },
+    {
+        "pk": 3,
+        "fields": {
+            "number": 3,
+            "test_case": 1,
+            "test_step": 3
+        },
+        "model": "ManualTester.orderteststep"
+    }
+]

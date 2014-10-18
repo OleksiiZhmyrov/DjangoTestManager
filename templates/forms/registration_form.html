@@ -1,0 +1,39 @@
+<form class="form" role="form" id="register_form" method="post" action="/accounts/register/">
+
+    {% csrf_token %}
+
+    <div class="form-group form-group-lg
+    {% if form.username.errors %}has-error{% endif %}">
+        {{ form.username }}
+        {{ form.username.errors | safe }}
+        <span class="help-block">{{ form.username.help_text }}</span>
+    </div>
+
+    <div class="form-group form-group-lg
+    {% if form.password1.errors %}has-error{% endif %}">
+        {{ form.password1 }}
+        {{ form.password1.errors | safe }}
+        <span class="help-block">{{ form.password1.help_text }}</span>
+    </div>
+
+    <div class="form-group form-group-lg
+    {% if form.password2.errors %}has-error{% endif %}">
+        {{ form.password2 }}
+        {{ form.password2.errors | safe }}
+        <span class="help-block">{{ form.password2.help_text }}</span>
+    </div>
+
+    <div>
+        {{ form.non_field_errors | safe }}
+    </div>
+
+    <div class="form-group form-group-lg">
+        <button
+                class="btn btn-lg btn-primary btn-block"
+                type="submit"
+                value="submit">
+            Register me!
+        </button>
+    </div>
+
+</form>
