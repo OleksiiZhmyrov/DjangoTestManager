@@ -61,7 +61,7 @@
             "author": 2,
             "description": "Simple example of test suite",
             "name": "Test Suite example",
-            "tags": [],
+            "tags": [1, 2],
             "test_cases": [1]
         },
         "model": "ManualTester.testsuite"

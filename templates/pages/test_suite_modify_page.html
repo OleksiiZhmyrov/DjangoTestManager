@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Modify Test Suite{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <h1>Modify Test Suite</h1>
+
+        <hr>
+
+        <div class="row">
+
+            <div class="col-md-3">
+                [123]
+            </div>
+
+            <div class="col-md-9 personal-info">
+                {% include "forms/test_suite_modify_form.html" %}
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}

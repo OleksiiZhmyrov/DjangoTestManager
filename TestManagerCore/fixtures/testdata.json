@@ -34,5 +34,26 @@
         },
         "pk": 3,
         "model": "TestManagerCore.browser"
+    },
+    {
+        "pk": 1,
+        "fields": {
+            "name": "smoke"
+        },
+        "model": "TestManagerCore.tag"
+    },
+    {
+        "pk": 2,
+        "fields": {
+            "name": "regression"
+        },
+        "model": "TestManagerCore.tag"
+    },
+    {
+        "pk": 3,
+        "fields": {
+            "name": "first priority"
+        },
+        "model": "TestManagerCore.tag"
     }
 ]

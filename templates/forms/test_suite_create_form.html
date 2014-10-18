@@ -1,0 +1,31 @@
+<form class="form-horizontal" role="form" id="form" method="post" action="/content/testsuites/create/">
+
+    {% csrf_token %}
+
+    <div class="form-group form-group-lg {% if form.name.errors %}has-error{% endif %}">
+        <label class="col-lg-3 control-label">Test Suite name:</label>
+
+        <div class="col-lg-8">
+            {{ form.name }}
+            {{ form.name.errors | safe }}
+        </div>
+    </div>
+
+    <div class="form-group form-group-lg {% if form.description.errors %}has-error{% endif %}">
+        <label class="col-lg-3 control-label">Description:</label>
+
+        <div class="col-lg-8">
+            {{ form.description }}
+            {{ form.description.errors | safe }}
+        </div>
+    </div>
+
+    <div class="form-group form-group-lg ">
+        <label class="col-md-3 control-label"></label>
+
+        <div class="col-md-8">
+            <input type="submit" class="btn btn-primary" value="Continue">
+        </div>
+    </div>
+</form>
+
