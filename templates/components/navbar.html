@@ -14,6 +14,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
 
+                {% if user.is_authenticated %}
 
                 <li>
                     <a href="#" title="History">History</a>
@@ -31,7 +32,8 @@
                     <ul class="dropdown-menu">
 
                         <li>
-                            <a href="/accounts/admin/">Administration Console</a>
+                            <a href="/accounts/admin/"><span class="glyphicon glyphicon-wrench"></span>
+                                Administration Console</a>
                         </li>
 
                         <li class="divider"></li>
@@ -47,6 +49,9 @@
                 <li>
                     <a href="#" title="Help Pages">Help</a>
                 </li>
+
+                {% endif %}
+
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -60,7 +65,8 @@
                         <ul class="dropdown-menu">
 
                             <li>
-                                <a href="/accounts/logout/">Log Out</a>
+                                <a href="/accounts/logout/"><span class="glyphicon glyphicon-off"></span>
+                                    Log Out</a>
                             </li>
 
                             <li class="divider"></li>
@@ -70,7 +76,8 @@
                             </li>
 
                             <li>
-                                <a href="/accounts/profile">Edit profile data</a>
+                                <a href="/accounts/profile"><span class="glyphicon glyphicon-pencil"></span>
+                                    Edit profile data</a>
                             </li>
 
                         </ul>
@@ -78,7 +85,7 @@
                     </li>
                 {% else %}
                     <li>
-                        <a href="/accounts/register/" title="Register new account">Register new account</a>
+                        <a href="/accounts/register/" title="Register new account">Register new profile</a>
                     </li>
                 {% endif %}
 

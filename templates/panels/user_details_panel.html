@@ -2,27 +2,27 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <i class="fa fa-bell fa-fw"></i> Profile details
+        <span class="glyphicon glyphicon-user"></span> Profile details
     </div>
     <div class="panel-body">
         <div class="list-group">
-        
+
             <div href="#" class="list-group-item">
-                <i class="fa fa-comment fa-fw"></i> Date joined
+                Date joined
                                     <span class="pull-right text-muted small">
                                         <em>{{ user.date_joined|date:"Y-m-d" }}</em>
                                     </span>
             </div>
 
             <div href="#" class="list-group-item">
-                <i class="fa fa-twitter fa-fw"></i> Last logged in
+                Last logged in
                                     <span class="pull-right text-muted small">
                                         <em>{{ user.last_login|naturaltime }}</em>
                                     </span>
             </div>
 
             <div href="#" class="list-group-item">
-                <i class="fa fa-envelope fa-fw"></i> Is staff member
+                Is staff member
                                     <span class="pull-right text-muted small">
                                         <em>{% if user.is_staff %}Yes{% else %}No{% endif %}</em>
                                     </span>
