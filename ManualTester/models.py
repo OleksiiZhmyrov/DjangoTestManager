@@ -290,9 +290,9 @@ class OrderTestStep(models.Model):
 
 
 class OrderTestCase(models.Model):
-    number = models.PositiveIntegerField(primary_key=True)
+    number = models.PositiveIntegerField()
     test_suite = models.ForeignKey(TestSuite)
     test_case = models.ForeignKey(TestCase)
 
     class Meta:
-        unique_together = (("number", "test_suite"),)
+        unique_together = (("number", "test_suite"), ("test_suite", "test_case"))

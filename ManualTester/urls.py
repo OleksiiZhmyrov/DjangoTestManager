@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, url
-from ManualTester.views import TestSuiteListView, TestSuiteCreateView, TestSuiteModifyView, OrderTestCaseCreateView
+from ManualTester.views import TestSuiteListView, TestSuiteCreateView, TestSuiteModifyView, OrderTestCaseCreateView, \
+    OrderTestCaseDeleteView
 
 
 urlpatterns = patterns(
@@ -16,6 +17,9 @@ urlpatterns = patterns(
 
     url(r'^content/testsuites/(?P<test_suite_pk>[0-9])/ordertestcase/add/', OrderTestCaseCreateView.as_view(),
         name='ordertestcase_create'),
+
+    url(r'^content/testsuites/(?P<test_suite_pk>[0-9])/ordertestcase/(?P<pk>[0-9])/remove/', OrderTestCaseDeleteView.as_view(),
+        name='ordertestcase_remove'),
 
 )
 

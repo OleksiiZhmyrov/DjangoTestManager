@@ -1,10 +1,12 @@
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
 from django.db import IntegrityError
+from django.forms.util import ErrorList
+from django.forms.forms import NON_FIELD_ERRORS
+from django.core.urlresolvers import reverse
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
+
 from ManualTester.forms import TestSuiteCreateForm, TestSuiteUpdateForm, OrderTestCaseCreateForm
 from ManualTester.models import TestSuite, OrderTestCase
 
@@ -82,8 +84,19 @@ class OrderTestCaseCreateView(CreateView):
         form.instance.test_suite = TestSuite.objects.get(
             pk=self.get_context_data()['view'].kwargs.get('test_suite_pk')
         )
-        form.save()
-        return super(OrderTestCaseCreateView, self).form_valid(form)
+        try:
+            form.save()
+            return super(OrderTestCaseCreateView, self).form_valid(form)
+        except IntegrityError:
+            """
+                Append non-field error to already validated form.
+                _errors is a part of Django Forms public API and may be
+                accessed from outside of the form class.
+                Please refer to documentation for detailed explanation.
+            """
+            errors = form._errors.setdefault(NON_FIELD_ERRORS, ErrorList())
+            errors.append('Test case is already present in Test Suite.')
+            return super(OrderTestCaseCreateView, self).form_invalid(form)
 
     def get_success_url(self):
         return reverse('test_suite_edit', args=(self.object.test_suite.id,))
@@ -91,3 +104,15 @@ class OrderTestCaseCreateView(CreateView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(OrderTestCaseCreateView, self).dispatch(*args, **kwargs)
+
+
+class OrderTestCaseDeleteView(DeleteView):
+    model = OrderTestCase
+    template_name = "pages/ordertestcase_remove_page.html"
+
+    def get_success_url(self):
+        return reverse('test_suite_edit', args=(self.object.test_suite.id,))
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(OrderTestCaseDeleteView, self).dispatch(*args, **kwargs)

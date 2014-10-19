@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Add Test Case into Test Suite{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <h1>Remove Test Case from Test Suite</h1>
+
+        <hr>
+
+        <div class="row">
+
+            <div class="col-md-3">
+                [123]
+            </div>
+
+            <div class="col-md-9">
+
+                <h3>{{ object.test_suite.name }}</h3>
+
+                <span class="help-block">
+                    {{ object.test_suite.description }}
+                </span>
+
+                <hr>
+
+                <form action="" method="post">
+
+                    {% csrf_token %}
+
+                    <p>Are you sure you want to remove "{{ object.test_case.name }}" from Test Suite?</p>
+
+                    <div class="clearfix">
+                        <div class="form-group form-group-lg pull-right">
+                            <a href="/content/testsuites/modify/{{ object.test_suite.pk }}/" type="button"
+                               class="btn btn-default">Discard</a>
+                            <span></span>
+                            <input type="submit" class="btn btn-primary" value="Confirm">
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}

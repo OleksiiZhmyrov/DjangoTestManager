@@ -4,6 +4,8 @@
 
     {% csrf_token %}
 
+    {{ form.non_field_errors | safe }}
+
      <div class="form-group {% if form.number.errors %}has-error{% endif %}">
         <label class="col-lg-3 control-label">Test Case number:</label>
 
