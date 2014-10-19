@@ -4,7 +4,7 @@ from django.forms.util import ErrorList
 from django.forms.forms import NON_FIELD_ERRORS
 from django.core.urlresolvers import reverse
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView, TemplateView, DetailView
 from django.views.generic.list import ListView
 
 from ManualTester.forms import TestSuiteCreateForm, TestSuiteUpdateForm, OrderTestCaseCreateForm, \
@@ -135,3 +135,18 @@ class OrderTestCaseDeleteView(DeleteView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(OrderTestCaseDeleteView, self).dispatch(*args, **kwargs)
+
+
+class TestSuiteView(DetailView):
+    model = TestSuite
+    template_name = "pages/test_suite_view_page.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(TestSuiteView, self).get_context_data(**kwargs)
+        context['test_suite'] = self.object
+        context['order_test_cases'] = OrderTestCase.objects.filter(test_suite=self.object).order_by('number')
+        return context
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(TestSuiteView, self).dispatch(*args, **kwargs)

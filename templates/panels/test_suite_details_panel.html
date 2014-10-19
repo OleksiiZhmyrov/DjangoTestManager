@@ -1,0 +1,44 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Test Suite Details
+    </div>
+    <div class="panel-body">
+        <div class="list-group">
+
+            <div href="#" class="list-group-item">Author
+                <span class="pull-right text-muted small">
+                    <em>
+                        {% if test_suite.author.first_name or test_suite.author.last_name %}
+                            {{ test_suite.author.first_name }} {{ test_suite.author.last_name }}
+                        {% else %}
+                            {{ test_suite.author.username }}
+                        {% endif %}
+                    </em>
+                </span>
+            </div>
+
+            <div href="#" class="list-group-item">Creation date
+                <span class="pull-right text-muted small">
+                    <em>{{ test_suite.creation_date|date:"Y-m-d" }}</em>
+                </span>
+            </div>
+
+            <div href="#" class="list-group-item">Tags
+                <span class="pull-right text-muted small">
+                    <em>
+                        {% for tag in test_suite.tags.all %}
+                            <span class="label label-info">{{ tag.name }}</span>
+                        {% endfor %}
+                    </em>
+                </span>
+            </div>
+
+            <div href="#" class="list-group-item">Disabled
+                <span class="pull-right text-muted small">
+                    <em>{% if test_suite.disabled %}Yes{% else %}No{% endif %}</em>
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
