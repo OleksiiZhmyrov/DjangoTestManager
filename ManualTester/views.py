@@ -10,6 +10,7 @@ from ManualTester.models import TestSuite, OrderTestCase
 class TestSuiteListView(ListView):
     model = TestSuite
     template_name = "pages/test_suite_list_page.html"
+    queryset = TestSuite.objects.filter(disabled=False).order_by('name')
 
     def get_context_data(self, **kwargs):
         context = super(TestSuiteListView, self).get_context_data(**kwargs)

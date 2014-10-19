@@ -1,0 +1,59 @@
+<div class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <div class="pull-left">Test Cases</div>
+        <div class="pull-right">
+            <a href="/content/testsuites/{{ pk }}/ordertestcase/add/"
+               type="button" class="btn btn-default btn-xs">
+                add test case
+            </a>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Tags</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for item in order_test_cases %}
+            <tr>
+                <td>{{ item.number }}</td>
+                <td><a href="/content/testcases/{{ item.test_case.pk }}/">
+                    {{ item.test_case.name }}
+                </a></td>
+                <td>{{ item.test_case.status.name }}</td>
+                <td>
+                    {% for tag in item.test_case.tags.all %}
+                        <span class="label label-info">{{ tag.name }}</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="/content/testsuites/{{ item.test_suite.pk }}/ordertestcase/{{ item.pk }}/modify/"
+                       type="button" class="btn btn-default btn-xs">
+                        modify
+                    </a>
+                    <a href="/content/testsuites/{{ item.test_suite.pk }}/ordertestcase/{{ item.pk }}/remove/"
+                       type="button" class="btn btn-default btn-xs">
+                        remove
+                    </a>
+                </td>
+            </tr>
+
+        {% empty %}
+            <tr>
+                <td colspan="5" class="text-center">
+                    No testcases in this test suite yet.
+                </td>
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>

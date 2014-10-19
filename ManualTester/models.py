@@ -174,6 +174,11 @@ class TestSuite(models.Model):
 
     author = models.ForeignKey("auth.User")
 
+    disabled = models.BooleanField(
+        "Disabled",
+        default=False,
+    )
+
     creation_date = models.DateTimeField(
         "Creation date",
         auto_now_add=True,

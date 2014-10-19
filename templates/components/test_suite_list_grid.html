@@ -8,7 +8,11 @@
             <div class="clearfix">
 
                 <div class="pull-left">
-                    {{ test_suite.author.username }} |
+                    {% if test_suite.author.first_name or test_suite.author.last_name %}
+                        {{ test_suite.author.first_name }} {{ test_suite.author.last_name }}
+                    {% else %}
+                        {{ test_suite.author.username }}
+                    {% endif %} |
                     Created on {{ test_suite.creation_date|date:"Y-m-d" }} |
                     <a href="/content/testsuites/modify/{{ test_suite.pk }}/">modify</a>
                 </div>
