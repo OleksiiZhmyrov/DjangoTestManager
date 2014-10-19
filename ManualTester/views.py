@@ -1,9 +1,11 @@
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
+from django.db import IntegrityError
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, UpdateView
 from django.views.generic.list import ListView
-from ManualTester.forms import TestSuiteCreateForm, TestSuiteUpdateForm
+from ManualTester.forms import TestSuiteCreateForm, TestSuiteUpdateForm, OrderTestCaseCreateForm
 from ManualTester.models import TestSuite, OrderTestCase
 
 
@@ -61,3 +63,31 @@ class TestSuiteModifyView(UpdateView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(TestSuiteModifyView, self).dispatch(*args, **kwargs)
+
+
+class OrderTestCaseCreateView(CreateView):
+    model = OrderTestCase
+    template_name = "pages/ordertestcase_create_page.html"
+    fields = ['number', 'test_case', ]
+    form_class = OrderTestCaseCreateForm
+
+    def get_context_data(self, **kwargs):
+        context = super(OrderTestCaseCreateView, self).get_context_data(**kwargs)
+        context['test_suite'] = TestSuite.objects.get(
+            pk=context['view'].kwargs.get('test_suite_pk')
+        )
+        return context
+
+    def form_valid(self, form):
+        form.instance.test_suite = TestSuite.objects.get(
+            pk=self.get_context_data()['view'].kwargs.get('test_suite_pk')
+        )
+        form.save()
+        return super(OrderTestCaseCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('test_suite_edit', args=(self.object.test_suite.id,))
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(OrderTestCaseCreateView, self).dispatch(*args, **kwargs)

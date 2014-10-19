@@ -1,6 +1,6 @@
 from django import forms
 
-from ManualTester.models import TestSuite, TestCase
+from ManualTester.models import TestSuite, TestCase, OrderTestCase
 from TestManagerCore.models import Tag
 from TestManagerCore.utils import CustomErrorList
 
@@ -62,3 +62,14 @@ class TestSuiteUpdateForm(forms.ModelForm):
     class Meta:
         model = TestSuite
         fields = ['name', 'description', 'tags', ]
+
+
+class OrderTestCaseCreateForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(OrderTestCaseCreateForm, self).__init__(*args, **kwargs)
+        self.error_class = CustomErrorList
+
+    class Meta:
+        model = OrderTestCase
+        fields = ['number', 'test_case', ]

@@ -290,7 +290,7 @@ class OrderTestStep(models.Model):
 
 
 class OrderTestCase(models.Model):
-    number = models.PositiveIntegerField()
+    number = models.PositiveIntegerField(primary_key=True)
     test_suite = models.ForeignKey(TestSuite)
     test_case = models.ForeignKey(TestCase)
 
