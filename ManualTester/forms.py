@@ -73,3 +73,14 @@ class OrderTestCaseCreateForm(forms.ModelForm):
     class Meta:
         model = OrderTestCase
         fields = ['number', 'test_case', ]
+
+
+class OrderTestCaseModifyForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(OrderTestCaseModifyForm, self).__init__(*args, **kwargs)
+        self.error_class = CustomErrorList
+
+    class Meta:
+        model = OrderTestCase
+        fields = ['number', 'test_case', ]

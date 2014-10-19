@@ -7,7 +7,8 @@ from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 
-from ManualTester.forms import TestSuiteCreateForm, TestSuiteUpdateForm, OrderTestCaseCreateForm
+from ManualTester.forms import TestSuiteCreateForm, TestSuiteUpdateForm, OrderTestCaseCreateForm, \
+    OrderTestCaseModifyForm
 from ManualTester.models import TestSuite, OrderTestCase
 
 
@@ -75,6 +76,11 @@ class OrderTestCaseCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(OrderTestCaseCreateView, self).get_context_data(**kwargs)
+        """
+            At this moment OrderTestCase object does not have Test Suite assigned.
+            Therefore test_suite template variable contains Test Suite for
+            displaying on the page.
+        """
         context['test_suite'] = TestSuite.objects.get(
             pk=context['view'].kwargs.get('test_suite_pk')
         )
@@ -104,6 +110,19 @@ class OrderTestCaseCreateView(CreateView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(OrderTestCaseCreateView, self).dispatch(*args, **kwargs)
+
+
+class OrderTestCaseModifyView(UpdateView):
+    template_name = "pages/ordertestcase_modify_page.html"
+    model = OrderTestCase
+    form_class = OrderTestCaseModifyForm
+
+    def get_success_url(self):
+        return reverse('test_suite_edit', args=(self.object.test_suite.id,))
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(OrderTestCaseModifyView, self).dispatch(*args, **kwargs)
 
 
 class OrderTestCaseDeleteView(DeleteView):

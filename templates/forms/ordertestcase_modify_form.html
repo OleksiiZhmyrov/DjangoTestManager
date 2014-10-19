@@ -1,6 +1,6 @@
 <form class="form-horizontal m2m"
       role="form" id="form"
-      method="post" action="/content/testsuites/{{ test_suite.pk }}/ordertestcase/add/">
+      method="post" action="/content/testsuites/{{ object.test_suite.pk }}/ordertestcase/{{ object.id }}/modify/">
 
     {% csrf_token %}
 
@@ -26,7 +26,7 @@
 
     <div class="clearfix">
         <div class="form-group form-group-lg pull-right">
-            <a href="/content/testsuites/modify/{{ test_suite.pk }}/" type="button" class="btn btn-default">Discard</a>
+            <a href="/content/testsuites/modify/{{ object.test_suite.pk }}/" type="button" class="btn btn-default">Discard</a>
             <span></span>
             <input type="submit" class="btn btn-primary" value="Save Changes">
         </div>

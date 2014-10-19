@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Add Test Case into Test Suite{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <h1>Modify Test Case in Test Suite</h1>
+
+        <hr>
+
+        <div class="row">
+
+            <div class="col-md-3">
+                [123]
+            </div>
+
+            <div class="col-md-9">
+
+                <h3>{{ object.test_suite.name }}</h3>
+
+                <span class="help-block">
+                    {{ object.test_suite.description }}
+                </span>
+
+                <hr>
+
+                {% include "forms/ordertestcase_modify_form.html" %}
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}
