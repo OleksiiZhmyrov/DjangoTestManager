@@ -13,5 +13,20 @@ textarea {
 }
 
 .m2m ul {
-    list-style: none;
+    overflow: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.m2m li {
+    display: inline-block;
+    width: 30%;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+}
+.m2m li:before {
+    padding: 5px;
+    margin-right: 5px; /* you can tweak the gap */
+    display: inline-block;
 }
