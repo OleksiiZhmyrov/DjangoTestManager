@@ -8,8 +8,8 @@ from django.views.generic import CreateView, UpdateView, DeleteView, TemplateVie
 from django.views.generic.list import ListView
 
 from ManualTester.forms import TestSuiteCreateForm, TestSuiteUpdateForm, OrderTestCaseCreateForm, \
-    OrderTestCaseModifyForm, TestCaseCreateForm
-from ManualTester.models import TestSuite, OrderTestCase, TestCase
+    OrderTestCaseModifyForm, TestCaseCreateForm, TestCaseUpdateForm
+from ManualTester.models import TestSuite, OrderTestCase, TestCase, OrderTestStep
 
 
 class TestSuiteListView(ListView):
@@ -179,7 +179,7 @@ class TestCaseListView(ListView):
 class TestCaseCreateView(CreateView):
     model = TestCase
     template_name = "pages/test_case_create_page.html"
-    fields = ['name', 'description', ]
+    fields = ['name', 'description', 'status', ]
     form_class = TestCaseCreateForm
 
     def form_valid(self, form):
@@ -193,3 +193,22 @@ class TestCaseCreateView(CreateView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(TestCaseCreateView, self).dispatch(*args, **kwargs)
+
+
+class TestCaseModifyView(UpdateView):
+    template_name = "pages/test_case_modify_page.html"
+    model = TestCase
+    form_class = TestCaseUpdateForm
+    context_object_name = 'test_case'
+
+    def get_success_url(self):
+        return reverse('test_case_edit', args=(self.object.id,))
+
+    def get_context_data(self, **kwargs):
+        context = super(TestCaseModifyView, self).get_context_data(**kwargs)
+        context['order_test_steps'] = OrderTestStep.objects.filter(test_case=self.object).order_by('number')
+        return context
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(TestCaseModifyView, self).dispatch(*args, **kwargs)

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Modify Test Case{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <h1>Modify Test Case</h1>
+
+        <hr>
+
+        <div class="row">
+
+            <div class="col-md-3">
+                [123]
+            </div>
+
+            <div class="col-md-9 personal-info">
+
+                {% include "forms/test_case_modify_form.html" %}
+
+                <hr>
+
+                {% include "panels/test_step_cmd_panel.html" %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

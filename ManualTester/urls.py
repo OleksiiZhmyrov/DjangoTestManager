@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, url
 from ManualTester.views import TestSuiteListView, TestSuiteCreateView, TestSuiteModifyView, OrderTestCaseCreateView, \
-    OrderTestCaseDeleteView, OrderTestCaseModifyView, TestSuiteView, TestCaseListView, TestCaseCreateView
+    OrderTestCaseDeleteView, OrderTestCaseModifyView, TestSuiteView, TestCaseListView, TestCaseCreateView, \
+    TestCaseModifyView
 
 
 urlpatterns = patterns(
@@ -32,6 +33,10 @@ urlpatterns = patterns(
 
     url(r'^content/testcases/create/$', TestCaseCreateView.as_view(),
         name='test_case_create'),
+
+    url(r'^content/testcases/modify/(?P<pk>[0-9])/$', TestCaseModifyView.as_view(),
+        name='test_case_edit'),
+
 )
 
 

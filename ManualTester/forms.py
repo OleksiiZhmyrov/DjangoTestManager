@@ -145,3 +145,43 @@ class TestCaseCreateForm(forms.ModelForm):
     class Meta:
         model = TestCase
         fields = ['name', 'description', 'status', ]
+
+
+class TestCaseUpdateForm(forms.ModelForm):
+
+    tags = forms.ModelMultipleChoiceField(
+        queryset=Tag.objects,
+        widget=forms.CheckboxSelectMultiple(),
+        required=False,
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(TestCaseUpdateForm, self).__init__(*args, **kwargs)
+        self.error_class = CustomErrorList
+
+        self.fields['name'].widget = forms.TextInput(
+            attrs={
+                'class': 'form-control ',
+                'autofocus': '',
+                'required': '',
+                'placeholder': 'Name',
+            },
+        )
+
+        self.fields['description'].widget = forms.Textarea(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Verbose description',
+            },
+        )
+
+        self.fields['status'].widget = forms.Select(
+            choices=((i.pk, i.name) for i in TestCaseStatus.objects.all()),
+            attrs={
+                'class': 'form-control',
+            },
+        )
+
+    class Meta:
+        model = TestCase
+        fields = ['name', 'description', 'status', 'tags', ]
