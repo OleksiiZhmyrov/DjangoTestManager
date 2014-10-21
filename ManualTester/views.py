@@ -14,7 +14,7 @@ from ManualTester.models import TestSuite, OrderTestCase, TestCase, OrderTestSte
 
 class TestSuiteListView(ListView):
     model = TestSuite
-    template_name = "pages/test_suite_list_page.html"
+    template_name = "pages/test_suite/test_suite_list_page.html"
     queryset = TestSuite.objects.filter(disabled=False).order_by('name')
     context_object_name = 'test_suite_list'
     paginate_by = 10
@@ -26,7 +26,7 @@ class TestSuiteListView(ListView):
 
 class TestSuiteCreateView(CreateView):
     model = TestSuite
-    template_name = "pages/test_suite_create_page.html"
+    template_name = "pages/test_suite/test_suite_create_page.html"
     fields = ['name', 'description', ]
     form_class = TestSuiteCreateForm
 
@@ -44,7 +44,7 @@ class TestSuiteCreateView(CreateView):
 
 
 class TestSuiteModifyView(UpdateView):
-    template_name = "pages/test_suite_modify_page.html"
+    template_name = "pages/test_suite/test_suite_modify_page.html"
     model = TestSuite
     form_class = TestSuiteUpdateForm
     context_object_name = 'test_suite'
@@ -64,7 +64,7 @@ class TestSuiteModifyView(UpdateView):
 
 class OrderTestCaseCreateView(CreateView):
     model = OrderTestCase
-    template_name = "pages/ordertestcase_create_page.html"
+    template_name = "pages/ordertestcase/ordertestcase_create_page.html"
     fields = ['number', 'test_case', ]
     form_class = OrderTestCaseCreateForm
 
@@ -107,7 +107,7 @@ class OrderTestCaseCreateView(CreateView):
 
 
 class OrderTestCaseModifyView(UpdateView):
-    template_name = "pages/ordertestcase_modify_page.html"
+    template_name = "pages/ordertestcase/ordertestcase_modify_page.html"
     model = OrderTestCase
     form_class = OrderTestCaseModifyForm
 
@@ -139,7 +139,7 @@ class OrderTestCaseModifyView(UpdateView):
 
 class OrderTestCaseDeleteView(DeleteView):
     model = OrderTestCase
-    template_name = "pages/ordertestcase_remove_page.html"
+    template_name = "pages/ordertestcase/ordertestcase_remove_page.html"
 
     def get_success_url(self):
         return reverse('test_suite_edit', args=(self.object.test_suite.id,))
@@ -151,7 +151,7 @@ class OrderTestCaseDeleteView(DeleteView):
 
 class TestSuiteView(DetailView):
     model = TestSuite
-    template_name = "pages/test_suite_view_page.html"
+    template_name = "pages/test_suite/test_suite_view_page.html"
     context_object_name = 'test_suite'
 
     def get_context_data(self, **kwargs):
@@ -166,7 +166,7 @@ class TestSuiteView(DetailView):
 
 class TestCaseListView(ListView):
     model = TestCase
-    template_name = "pages/test_case_list_page.html"
+    template_name = "pages/test_case/test_case_list_page.html"
     queryset = TestCase.objects.all().order_by('name')
     context_object_name = 'test_case_list'
     paginate_by = 10
@@ -178,7 +178,7 @@ class TestCaseListView(ListView):
 
 class TestCaseCreateView(CreateView):
     model = TestCase
-    template_name = "pages/test_case_create_page.html"
+    template_name = "pages/test_case/test_case_create_page.html"
     fields = ['name', 'description', 'status', ]
     form_class = TestCaseCreateForm
 
@@ -196,7 +196,7 @@ class TestCaseCreateView(CreateView):
 
 
 class TestCaseModifyView(UpdateView):
-    template_name = "pages/test_case_modify_page.html"
+    template_name = "pages/test_case/test_case_modify_page.html"
     model = TestCase
     form_class = TestCaseUpdateForm
     context_object_name = 'test_case'
@@ -216,7 +216,7 @@ class TestCaseModifyView(UpdateView):
 
 class TestCaseView(DetailView):
     model = TestCase
-    template_name = "pages/test_case_view_page.html"
+    template_name = "pages/test_case/test_case_view_page.html"
     context_object_name = 'test_case'
 
     def get_context_data(self, **kwargs):
