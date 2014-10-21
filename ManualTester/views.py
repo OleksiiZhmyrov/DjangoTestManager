@@ -8,7 +8,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView, TemplateVie
 from django.views.generic.list import ListView
 
 from ManualTester.forms import TestSuiteCreateForm, TestSuiteUpdateForm, OrderTestCaseCreateForm, \
-    OrderTestCaseModifyForm
+    OrderTestCaseModifyForm, TestCaseCreateForm
 from ManualTester.models import TestSuite, OrderTestCase, TestCase
 
 
@@ -114,6 +114,24 @@ class OrderTestCaseModifyView(UpdateView):
     def get_success_url(self):
         return reverse('test_suite_edit', args=(self.object.test_suite.id,))
 
+    def form_valid(self, form):
+        form.instance.test_suite = TestSuite.objects.get(
+            pk=self.get_context_data()['view'].kwargs.get('test_suite_pk')
+        )
+        try:
+            form.save()
+            return super(OrderTestCaseModifyView, self).form_valid(form)
+        except IntegrityError:
+            """
+                Append non-field error to already validated form.
+                _errors is a part of Django Forms public API and may be
+                accessed from outside of the form class.
+                Please refer to documentation for detailed explanation.
+            """
+            errors = form._errors.setdefault(NON_FIELD_ERRORS, ErrorList())
+            errors.append('Test case is already present in Test Suite.')
+            return super(OrderTestCaseModifyView, self).form_invalid(form)
+
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(OrderTestCaseModifyView, self).dispatch(*args, **kwargs)
@@ -147,7 +165,7 @@ class TestSuiteView(DetailView):
 
 
 class TestCaseListView(ListView):
-    model = TestSuite
+    model = TestCase
     template_name = "pages/test_case_list_page.html"
     queryset = TestCase.objects.all().order_by('name')
     context_object_name = 'test_case_list'
@@ -157,3 +175,21 @@ class TestCaseListView(ListView):
     def dispatch(self, *args, **kwargs):
         return super(TestCaseListView, self).dispatch(*args, **kwargs)
 
+
+class TestCaseCreateView(CreateView):
+    model = TestCase
+    template_name = "pages/test_case_create_page.html"
+    fields = ['name', 'description', ]
+    form_class = TestCaseCreateForm
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.save()
+        return super(TestCaseCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('test_case_edit', args=(self.object.id,))
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(TestCaseCreateView, self).dispatch(*args, **kwargs)

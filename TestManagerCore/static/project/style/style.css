@@ -31,3 +31,7 @@ textarea {
     margin-right: 5px; /* you can tweak the gap */
     display: inline-block;
 }
+
+.custom-error-message li {
+    display: inline-block;
+}

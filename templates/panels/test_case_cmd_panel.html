@@ -1,6 +1,6 @@
 <div class="panel panel-default">
     <div class="panel-heading clearfix">
-        <div class="pull-left">Test Cases</div>
+        <div class="pull-left">Included Test Cases</div>
         <div class="pull-right">
             <a href="/content/testsuites/{{ test_suite.pk }}/ordertestcase/add/"
                type="button" class="btn btn-default btn-xs">
@@ -24,7 +24,7 @@
         {% for item in order_test_cases %}
             <tr>
                 <td>{{ item.number }}</td>
-                <td><a href="/content/testcases/{{ item.test_case.pk }}/">
+                <td><a href="/content/testcases/view/{{ item.test_case.pk }}/">
                     {{ item.test_case.name }}
                 </a></td>
                 <td>{{ item.test_case.status.name }}</td>

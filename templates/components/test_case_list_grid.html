@@ -14,6 +14,7 @@
                         {{ test_case.author.username }}
                     {% endif %} |
                     Created on {{ test_case.creation_date|date:"Y-m-d" }} |
+                    Status: {{ test_case.status.name }} |
                     <a href="/content/testcases/modify/{{ test_case.pk }}/">modify</a>
                 </div>
 

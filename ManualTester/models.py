@@ -154,13 +154,6 @@ class TestCase(models.Model):
         null=True,
     )
 
-    test_steps = models.ManyToManyField(
-        "ManualTester.TestStep",
-        verbose_name="Related Test Steps",
-        blank=True,
-        null=True,
-    )
-
     def __str__(self):
         return self.name
 

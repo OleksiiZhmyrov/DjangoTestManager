@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Create Test Case{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <h1>Create Test Case</h1>
+
+        <hr>
+
+        <div class="row">
+
+            <div class="col-md-3">
+                [123]
+            </div>
+
+            <div class="col-md-9">
+                {% include "forms/test_case_create_form.html" %}
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}
