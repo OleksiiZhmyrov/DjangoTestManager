@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}{{ test_case.name }}{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <h1>{{ test_case.name }}</h1>
+        <span class="help-block">{{ test_case.description }}</span>
+
+        <hr>
+
+        <div class="row">
+
+            <div class="col-md-4">
+                {% include "panels/test_case_actions_panel.html" %}
+                <div></div>
+                {% include "panels/test_case_details_panel.html" %}
+                <div></div>
+                {% include "panels/test_case_part_of_test_suites_panel.html" %}
+            </div>
+
+            <div class="col-md-8 personal-info">
+                {% include "components/test_case_included_teststeps_grid.html" %}
+                <div></div>
+                {% include "components/test_case_execution_history_grid.html" %}
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

@@ -212,3 +212,19 @@ class TestCaseModifyView(UpdateView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(TestCaseModifyView, self).dispatch(*args, **kwargs)
+
+
+class TestCaseView(DetailView):
+    model = TestCase
+    template_name = "pages/test_case_view_page.html"
+    context_object_name = 'test_case'
+
+    def get_context_data(self, **kwargs):
+        context = super(TestCaseView, self).get_context_data(**kwargs)
+        context['order_test_steps'] = OrderTestStep.objects.filter(test_case=self.object).order_by('number')
+        context['order_test_cases'] = OrderTestCase.objects.filter(test_case=self.object)
+        return context
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(TestCaseView, self).dispatch(*args, **kwargs)

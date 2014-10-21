@@ -1,0 +1,44 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Test Case Details
+    </div>
+    <div class="panel-body">
+        <div class="list-group">
+
+            <div href="#" class="list-group-item">Author
+                <span class="pull-right text-muted small">
+                    <em>
+                        {% if test_case.author.first_name or test_case.author.last_name %}
+                            {{ test_case.author.first_name }} {{ test_case.author.last_name }}
+                        {% else %}
+                            {{ test_case.author.username }}
+                        {% endif %}
+                    </em>
+                </span>
+            </div>
+
+            <div href="#" class="list-group-item">Creation date
+                <span class="pull-right text-muted small">
+                    <em>{{ test_case.creation_date|date:"Y-m-d" }}</em>
+                </span>
+            </div>
+
+            <div href="#" class="list-group-item">Tags
+                <span class="pull-right text-muted small">
+                    <em>
+                        {% for tag in test_case.tags.all %}
+                            <span class="label label-info">{{ tag.name }}</span>
+                        {% endfor %}
+                    </em>
+                </span>
+            </div>
+
+            <div href="#" class="list-group-item">Disabled
+                <span class="pull-right text-muted small">
+                    <em>{% if test_case.disabled %}Yes{% else %}No{% endif %}</em>
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
