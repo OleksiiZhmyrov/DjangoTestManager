@@ -9,18 +9,15 @@ from django.views.generic.list import ListView
 
 from ManualTester.forms import TestSuiteCreateForm, TestSuiteUpdateForm, OrderTestCaseCreateForm, \
     OrderTestCaseModifyForm
-from ManualTester.models import TestSuite, OrderTestCase
+from ManualTester.models import TestSuite, OrderTestCase, TestCase
 
 
 class TestSuiteListView(ListView):
     model = TestSuite
     template_name = "pages/test_suite_list_page.html"
     queryset = TestSuite.objects.filter(disabled=False).order_by('name')
-
-    def get_context_data(self, **kwargs):
-        context = super(TestSuiteListView, self).get_context_data(**kwargs)
-        context['test_suite_list'] = context['object_list']
-        return context
+    context_object_name = 'test_suite_list'
+    paginate_by = 10
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -50,16 +47,13 @@ class TestSuiteModifyView(UpdateView):
     template_name = "pages/test_suite_modify_page.html"
     model = TestSuite
     form_class = TestSuiteUpdateForm
+    context_object_name = 'test_suite'
 
     def get_success_url(self):
         return reverse('test_suite_edit', args=(self.object.id,))
 
     def get_context_data(self, **kwargs):
-        """
-        Adding pk of the TestSuite object to substitute to form URL.
-        """
         context = super(TestSuiteModifyView, self).get_context_data(**kwargs)
-        context['pk'] = self.object.pk
         context['order_test_cases'] = OrderTestCase.objects.filter(test_suite=self.object).order_by('number')
         return context
 
@@ -140,13 +134,26 @@ class OrderTestCaseDeleteView(DeleteView):
 class TestSuiteView(DetailView):
     model = TestSuite
     template_name = "pages/test_suite_view_page.html"
+    context_object_name = 'test_suite'
 
     def get_context_data(self, **kwargs):
         context = super(TestSuiteView, self).get_context_data(**kwargs)
-        context['test_suite'] = self.object
         context['order_test_cases'] = OrderTestCase.objects.filter(test_suite=self.object).order_by('number')
         return context
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(TestSuiteView, self).dispatch(*args, **kwargs)
+
+
+class TestCaseListView(ListView):
+    model = TestSuite
+    template_name = "pages/test_case_list_page.html"
+    queryset = TestCase.objects.all().order_by('name')
+    context_object_name = 'test_case_list'
+    paginate_by = 10
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(TestCaseListView, self).dispatch(*args, **kwargs)
+

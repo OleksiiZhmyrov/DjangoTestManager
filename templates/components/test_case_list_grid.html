@@ -1,0 +1,32 @@
+<div>
+    {% for test_case in test_case_list %}
+        <div>
+            <h3><a href="/content/testcases/view/{{ test_case.pk }}/">{{ test_case.name }}</a></h3>
+            <span class="help-block">
+                {{ test_case.description }}
+            </span>
+            <div class="clearfix">
+
+                <div class="pull-left">
+                    {% if test_case.author.first_name or test_case.author.last_name %}
+                        {{ test_case.author.first_name }} {{ test_case.author.last_name }}
+                    {% else %}
+                        {{ test_case.author.username }}
+                    {% endif %} |
+                    Created on {{ test_case.creation_date|date:"Y-m-d" }} |
+                    <a href="/content/testcases/modify/{{ test_case.pk }}/">modify</a>
+                </div>
+
+                <div class="pull-right">
+                    {% for tag in test_case.tags.all %}
+                        <span class="label label-info">{{ tag.name }}</span>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+        <hr>
+    {% empty %}
+        <div>No test cases yet.</div>
+    {% endfor %}
+</div>

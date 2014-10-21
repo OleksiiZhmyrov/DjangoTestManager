@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 from ManualTester.views import TestSuiteListView, TestSuiteCreateView, TestSuiteModifyView, OrderTestCaseCreateView, \
-    OrderTestCaseDeleteView, OrderTestCaseModifyView, TestSuiteView
+    OrderTestCaseDeleteView, OrderTestCaseModifyView, TestSuiteView, TestCaseListView
 
 
 urlpatterns = patterns(
@@ -26,6 +26,9 @@ urlpatterns = patterns(
 
     url(r'^content/testsuites/(?P<test_suite_pk>[0-9])/ordertestcase/(?P<pk>[0-9])/remove/', OrderTestCaseDeleteView.as_view(),
         name='ordertestcase_remove'),
+
+    url(r'^content/testcases/$', TestCaseListView.as_view(),
+        name='test_case_list'),
 
 )
 

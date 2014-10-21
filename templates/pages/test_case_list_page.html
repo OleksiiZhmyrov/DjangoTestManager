@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Test Suites{% endblock %}
+{% block title %}Test Cases{% endblock %}
 
 {% block content %}
 
     <div class="container">
 
-        <h1>Test Suites</h1>
+        <h1>Test Cases</h1>
 
         <hr>
 
@@ -20,16 +20,16 @@
                     </div>
                     <div class="panel-body text-center">
                         <a class="btn btn-default btn-cta"
-                           href="/content/testsuites/create/">
+                           href="/content/testcase/create/">
                             <span class="glyphicon glyphicon-plus"></span>
-                            Create new Test Suite</a>
+                            Create new Test Case</a>
                     </div>
                 </div>
 
             </div>
 
             <div class="col-md-9">
-                {% include "components/test_suite_list_grid.html" %}
+                {% include "components/test_case_list_grid.html" %}
                 {% include "components/paginator.html" %}
             </div>
 

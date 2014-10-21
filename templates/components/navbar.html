@@ -16,39 +16,64 @@
 
                 {% if user.is_authenticated %}
 
-                <li>
-                    <a href="/content/testsuites/" title="Test Suites">Test Suites</a>
-                </li>
+                    <li class="dropdown">
+                        <a href="#"
+                           class="dropdown-toggle"
+                           data-toggle="dropdown"
+                           title="Access to application content">
+                            Content <b class="caret"></b>
+                        </a>
 
-                <li class="dropdown">
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/content/testsuites/" title="Test Suites">
+                                    <span class="glyphicon glyphicon-tags"></span> Test Suites</a>
+                            </li>
+                            <li>
+                                <a href="/content/testcases/" title="Test Cases">
+                                    <span class="glyphicon glyphicon-tag"></span> Test Cases</a>
+                            </li>
 
-                    <a href="#"
-                       class="dropdown-toggle"
-                       data-toggle="dropdown"
-                       title="Tools and Settings">
-                        Tools and Settings <b class="caret"></b>
-                    </a>
+                            <li class="divider"></li>
+                            <li class="dropdown-header">
+                                Maintenance:
+                            </li>
 
-                    <ul class="dropdown-menu">
+                            <li>
+                                <a href="/content/teststeps/" title="Manage Test Steps">Manage Test Steps</a>
+                            </li>
+                        </ul>
+                    </li>
 
-                        <li>
-                            <a href="/accounts/admin/"><span class="glyphicon glyphicon-wrench"></span>
-                                Administration Console</a>
-                        </li>
+                    <li class="dropdown">
 
-                        <li class="divider"></li>
+                        <a href="#"
+                           class="dropdown-toggle"
+                           data-toggle="dropdown"
+                           title="Tools and Settings">
+                            Tools and Settings <b class="caret"></b>
+                        </a>
 
-                        <li class="dropdown-header">
-                            Tools:
-                        </li>
-                        <li>
-                            <a href="/content/testsuites/create/">Create new Test Suite</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" title="Help Pages">Help</a>
-                </li>
+                        <ul class="dropdown-menu">
+
+                            <li>
+                                <a href="/accounts/admin/"><span class="glyphicon glyphicon-wrench"></span>
+                                    Administration Console</a>
+                            </li>
+
+                            <li class="divider"></li>
+
+                            <li class="dropdown-header">
+                                Tools:
+                            </li>
+                            <li>
+                                <a href="/content/testsuites/create/">Create new Test Suite</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" title="Help Pages">Help</a>
+                    </li>
 
                 {% endif %}
 
