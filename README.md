@@ -1,8 +1,9 @@
 DjangoTestManager
 =================
 
-Free and OpenSource test management software based on Django framework
-Currently the application is under active development. This file will be updates with detailed information later.
+Free and OpenSource test management software based on Django framework.
+
+Currently the application is under active development. This file will be updated with detailed information later.
 
 ## Requirements
 Test Manager requires the following software:
