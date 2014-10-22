@@ -1,6 +1,6 @@
 from django import forms
 
-from ManualTester.models import TestSuite, TestCase, OrderTestCase, TestCaseStatus
+from ManualTester.models import TestSuite, TestCase, OrderTestCase, TestCaseStatus, TestStep, OrderTestStep
 from TestManagerCore.models import Tag
 from TestManagerCore.utils import CustomErrorList
 
@@ -185,3 +185,53 @@ class TestCaseUpdateForm(forms.ModelForm):
     class Meta:
         model = TestCase
         fields = ['name', 'description', 'status', 'tags', ]
+
+
+class OrderTestStepCreateForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(OrderTestStepCreateForm, self).__init__(*args, **kwargs)
+        self.error_class = CustomErrorList
+
+        self.fields['number'].widget = forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Integer value',
+            },
+        )
+
+        self.fields['test_step'].widget = forms.Select(
+            choices=((i.pk, i.name) for i in TestStep.objects.all()),
+            attrs={
+                'class': 'form-control',
+            },
+        )
+
+    class Meta:
+        model = OrderTestStep
+        fields = ['number', 'test_step', ]
+
+
+class OrderTestStepModifyForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(OrderTestStepModifyForm, self).__init__(*args, **kwargs)
+        self.error_class = CustomErrorList
+
+        self.fields['number'].widget = forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Integer value',
+            },
+        )
+
+        self.fields['test_step'].widget = forms.Select(
+            choices=((i.pk, i.name) for i in TestStep.objects.all()),
+            attrs={
+                'class': 'form-control',
+            },
+        )
+
+    class Meta:
+        model = OrderTestStep
+        fields = ['number', 'test_step', ]

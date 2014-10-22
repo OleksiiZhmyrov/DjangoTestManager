@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Add Test Case into Test Suite{% endblock %}
+{% block title %}Modify Test Step in Test Case{% endblock %}
 
 {% block content %}
 
     <div class="container">
 
-        <h1>Add Test Case into Test Suite</h1>
+        <h1>Modify Test Step in Test Case</h1>
 
         <hr>
 
@@ -14,21 +14,21 @@
 
             <div class="col-md-3">
 
-                {% include "panels/ordertestcase_actions_panel.html" %}
+                {% include "panels/orderteststep_actions_panel.html" %}
 
             </div>
 
             <div class="col-md-9">
 
-                <h3>{{ test_suite.name }}</h3>
+                <h3>{{ object.test_case.name }}</h3>
 
                 <span class="help-block">
-                    {{ test_suite.description }}
+                    {{ object.test_case.description }}
                 </span>
 
                 <hr>
 
-                {% include "forms/ordertestcase_create_form.html" %}
+                {% include "forms/orderteststep_modify_form.html" %}
             </div>
 
         </div>

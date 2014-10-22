@@ -279,7 +279,7 @@ class OrderTestStep(models.Model):
     test_step = models.ForeignKey(TestStep)
 
     class Meta:
-        unique_together = (("number", "test_case"),)
+        unique_together = (("number", "test_case"), ("test_case", "test_step"))
 
 
 class OrderTestCase(models.Model):

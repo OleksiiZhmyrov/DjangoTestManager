@@ -1,7 +1,12 @@
 from django.conf.urls import patterns, url
-from ManualTester.views import TestSuiteListView, TestSuiteCreateView, TestSuiteModifyView, OrderTestCaseCreateView, \
-    OrderTestCaseDeleteView, OrderTestCaseModifyView, TestSuiteView, TestCaseListView, TestCaseCreateView, \
-    TestCaseModifyView, TestCaseView
+
+from ManualTester.views import TestSuiteListView
+from ManualTester.views import TestSuiteView, TestSuiteCreateView, TestSuiteModifyView
+from ManualTester.views import OrderTestCaseCreateView, OrderTestCaseModifyView, OrderTestCaseDeleteView
+
+from ManualTester.views import TestCaseListView
+from ManualTester.views import TestCaseView, TestCaseCreateView, TestCaseModifyView
+from ManualTester.views import OrderTestStepCreateView, OrderTestStepModifyView, OrderTestStepDeleteView
 
 
 urlpatterns = patterns(
@@ -39,6 +44,15 @@ urlpatterns = patterns(
 
     url(r'^content/testcases/modify/(?P<pk>[0-9])/$', TestCaseModifyView.as_view(),
         name='test_case_edit'),
+
+    url(r'^content/testcases/(?P<test_case_pk>[0-9])/orderteststep/add/', OrderTestStepCreateView.as_view(),
+        name='orderteststep_create'),
+
+    url(r'^content/testcases/(?P<test_case_pk>[0-9])/orderteststep/(?P<pk>[0-9])/modify/', OrderTestStepModifyView.as_view(),
+        name='orderteststep_modify'),
+
+    url(r'^content/testcases/(?P<test_case_pk>[0-9])/orderteststep/(?P<pk>[0-9])/remove/', OrderTestStepDeleteView.as_view(),
+        name='orderteststep_remove'),
 
 )
 

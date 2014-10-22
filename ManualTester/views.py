@@ -4,12 +4,15 @@ from django.forms.util import ErrorList
 from django.forms.forms import NON_FIELD_ERRORS
 from django.core.urlresolvers import reverse
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, UpdateView, DeleteView, TemplateView, DetailView
+from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.views.generic.list import ListView
 
-from ManualTester.forms import TestSuiteCreateForm, TestSuiteUpdateForm, OrderTestCaseCreateForm, \
-    OrderTestCaseModifyForm, TestCaseCreateForm, TestCaseUpdateForm
 from ManualTester.models import TestSuite, OrderTestCase, TestCase, OrderTestStep
+
+from ManualTester.forms import TestSuiteCreateForm, TestSuiteUpdateForm
+from ManualTester.forms import OrderTestCaseCreateForm, OrderTestCaseModifyForm
+from ManualTester.forms import TestCaseCreateForm, TestCaseUpdateForm
+from ManualTester.forms import OrderTestStepCreateForm, OrderTestStepModifyForm
 
 
 class TestSuiteListView(ListView):
@@ -228,3 +231,90 @@ class TestCaseView(DetailView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(TestCaseView, self).dispatch(*args, **kwargs)
+
+
+class OrderTestStepCreateView(CreateView):
+    model = OrderTestStep
+    template_name = "pages/orderteststep/orderteststep_create_page.html"
+    fields = ['number', 'test_step', ]
+    form_class = OrderTestStepCreateForm
+
+    def get_context_data(self, **kwargs):
+        context = super(OrderTestStepCreateView, self).get_context_data(**kwargs)
+        """
+            At this moment OrderTestStep object does not have Test Case assigned.
+            Therefore test_case template variable contains Test Case for
+            displaying on the page.
+        """
+        context['test_case'] = TestCase.objects.get(
+            pk=context['view'].kwargs.get('test_case_pk')
+        )
+        return context
+
+    def form_valid(self, form):
+        form.instance.test_case = TestCase.objects.get(
+            pk=self.get_context_data()['view'].kwargs.get('test_case_pk')
+        )
+        try:
+            form.save()
+            return super(OrderTestStepCreateView, self).form_valid(form)
+        except IntegrityError:
+            """
+                Append non-field error to already validated form.
+                _errors is a part of Django Forms public API and may be
+                accessed from outside of the form class.
+                Please refer to documentation for detailed explanation.
+            """
+            errors = form._errors.setdefault(NON_FIELD_ERRORS, ErrorList())
+            errors.append('Test step is already present in Test Case.')
+            return super(OrderTestStepCreateView, self).form_invalid(form)
+
+    def get_success_url(self):
+        return reverse('test_case_edit', args=(self.object.test_case.id,))
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(OrderTestStepCreateView, self).dispatch(*args, **kwargs)
+
+
+class OrderTestStepModifyView(UpdateView):
+    template_name = "pages/orderteststep/orderteststep_modify_page.html"
+    model = OrderTestStep
+    form_class = OrderTestStepModifyForm
+
+    def get_success_url(self):
+        return reverse('test_case_edit', args=(self.object.test_case.id,))
+
+    def form_valid(self, form):
+        form.instance.test_suite = TestCase.objects.get(
+            pk=self.get_context_data()['view'].kwargs.get('test_case_pk')
+        )
+        try:
+            form.save()
+            return super(OrderTestStepModifyView, self).form_valid(form)
+        except IntegrityError:
+            """
+                Append non-field error to already validated form.
+                _errors is a part of Django Forms public API and may be
+                accessed from outside of the form class.
+                Please refer to documentation for detailed explanation.
+            """
+            errors = form._errors.setdefault(NON_FIELD_ERRORS, ErrorList())
+            errors.append('Test step is already present in Test Case.')
+            return super(OrderTestStepModifyView, self).form_invalid(form)
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(OrderTestStepModifyView, self).dispatch(*args, **kwargs)
+
+
+class OrderTestStepDeleteView(DeleteView):
+    model = OrderTestStep
+    template_name = "pages/orderteststep/orderteststep_remove_page.html"
+
+    def get_success_url(self):
+        return reverse('test_case_edit', args=(self.object.test_case.id,))
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(OrderTestStepDeleteView, self).dispatch(*args, **kwargs)

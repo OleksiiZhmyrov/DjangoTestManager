@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Remove Test Case from Test Suite{% endblock %}
+{% block title %}Remove Test Step from Test Case{% endblock %}
 
 {% block content %}
 
     <div class="container">
 
-        <h1>Remove Test Case from Test Suite</h1>
+        <h1>Remove Test Step from Test Case</h1>
 
         <hr>
 
@@ -18,10 +18,10 @@
 
             <div class="col-md-9">
 
-                <h3>{{ object.test_suite.name }}</h3>
+                <h3>{{ object.test_case.name }}</h3>
 
                 <span class="help-block">
-                    {{ object.test_suite.description }}
+                    {{ object.test_case.description }}
                 </span>
 
                 <hr>
@@ -30,11 +30,11 @@
 
                     {% csrf_token %}
 
-                    <p>Are you sure you want to remove "{{ object.test_case.name }}" from Test Suite?</p>
+                    <p>Are you sure you want to remove "{{ object.test_step.name }}" from Test Case?</p>
 
                     <div class="clearfix">
                         <div class="form-group form-group-lg pull-right">
-                            <a href="/content/testsuites/modify/{{ object.test_suite.pk }}/" type="button"
+                            <a href="/content/testcases/modify/{{ object.test_case.pk }}/" type="button"
                                class="btn btn-default">Discard</a>
                             <span></span>
                             <input type="submit" class="btn btn-primary" value="Confirm">
