@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -18,6 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 from DjangoTestManager.settings_local import SECRET_KEY as SECRET_KEY_LOCAL
+
 SECRET_KEY = SECRET_KEY_LOCAL
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -99,7 +101,7 @@ STATICFILES_FINDERS = (
 )
 
 TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR,  'templates'),
+    os.path.join(BASE_DIR, 'templates'),
 )
 
 FIXTURE_DIRS = (
@@ -118,3 +120,11 @@ CACHES = {
 }
 
 LOGIN_REDIRECT_URL = '/'
+
+FILE_UPLOAD_HANDLERS = (
+    "django.core.files.uploadhandler.MemoryFileUploadHandler",
+    "django.core.files.uploadhandler.TemporaryFileUploadHandler",
+)
+
+CONTENT_TYPES = ['image/jpeg']
+MAX_UPLOAD_SIZE = 2621440

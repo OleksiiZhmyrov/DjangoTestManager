@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.forms.util import ErrorList
@@ -7,12 +8,13 @@ from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.views.generic.list import ListView
 
-from ManualTester.models import TestSuite, OrderTestCase, TestCase, OrderTestStep
+from ManualTester.models import TestSuite, OrderTestCase, TestCase, OrderTestStep, TestStep
 
 from ManualTester.forms import TestSuiteCreateForm, TestSuiteUpdateForm
 from ManualTester.forms import OrderTestCaseCreateForm, OrderTestCaseModifyForm
 from ManualTester.forms import TestCaseCreateForm, TestCaseUpdateForm
 from ManualTester.forms import OrderTestStepCreateForm, OrderTestStepModifyForm
+from ManualTester.forms import TestStepCreateForm, TestStepUpdateForm
 
 
 class TestSuiteListView(ListView):
@@ -318,3 +320,52 @@ class OrderTestStepDeleteView(DeleteView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(OrderTestStepDeleteView, self).dispatch(*args, **kwargs)
+
+
+class TestStepListView(ListView):
+    model = TestStep
+    template_name = "pages/test_step/list_page.html"
+    queryset = TestStep.objects.all().order_by('name')
+    context_object_name = 'test_step_list'
+    paginate_by = 10
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(TestStepListView, self).dispatch(*args, **kwargs)
+
+
+class TestStepCreateView(CreateView):
+    model = TestStep
+    template_name = "pages/test_step/create_page.html"
+    form_class = TestStepCreateForm
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.save()
+        return super(TestStepCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('test_step_edit', args=(self.object.id,))
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(TestStepCreateView, self).dispatch(*args, **kwargs)
+
+
+class TestStepModifyView(UpdateView):
+    template_name = "pages/test_step/modify_page.html"
+    model = TestStep
+    form_class = TestStepUpdateForm
+    context_object_name = 'test_step'
+
+    # def form_valid(self, form):
+    #     form.save(commit=True)
+    #     messages.success(self.request, 'File uploaded!')
+    #     return super(TestStepModifyView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('test_step_edit', args=(self.object.id,))
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(TestStepModifyView, self).dispatch(*args, **kwargs)

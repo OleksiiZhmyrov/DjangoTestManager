@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Modify Test Case{% endblock %}
+{% block title %}Create Test Step{% endblock %}
 
 {% block content %}
 
     <div class="container">
 
-        <h1>Modify Test Case</h1>
+        <h1>Create Test Step</h1>
 
         <hr>
 
@@ -17,17 +17,10 @@
             </div>
 
             <div class="col-md-9">
-
-                {% include "forms/test_case_modify_form.html" %}
-
-                <hr>
-
-                {% include "panels/test_step_cmd_panel.html" %}
-
+                {% include "forms/test_step_create_form.html" %}
             </div>
 
         </div>
-
     </div>
 
 {% endblock %}

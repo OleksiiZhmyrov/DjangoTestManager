@@ -1,0 +1,37 @@
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Creation date</th>
+        <th>Author</th>
+        <th>Tags</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for test_step in test_step_list %}
+        <tr>
+            <td><a href="/content/teststeps/{{ test_step.pk }}/view/">{{ test_step.name }}</a></td>
+            <td>{{ test_step.status.name }}</td>
+            <td>{{ test_step.creation_date | date:"Y-m-d" }}</td>
+            <td>{{ test_step.author }}</td>
+            <td>
+                {% for tag in test_step.tags.all %}
+                    <span class="label label-info">{{ tag.name }}</span>
+                {% endfor %}
+            </td>
+            <td>
+                <a href="/content/teststeps/modify/{{ test_step.pk }}/" type="button" class="btn btn-default btn-xs">
+                    modify</a>
+                <a href="/content/teststeps/remove/{{ test_step.pk }}/" type="button" class="btn btn-default btn-xs">
+                    remove</a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr>
+            <td colspan="6">No test suites yet.</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

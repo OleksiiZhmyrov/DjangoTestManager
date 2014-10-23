@@ -56,6 +56,7 @@ target/
 # Application specific
 .idea/
 static/*
+media/*
 db.sqlite3
 DjangoTestManager/settings_local.py
 */migrations/00*.py

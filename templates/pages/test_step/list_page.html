@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Test Steps{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <h1>Test Steps</h1>
+
+        <hr>
+
+        <div class="row">
+
+            <div class="col-md-3">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Actions</h3>
+                    </div>
+                    <div class="panel-body text-center">
+                        <a class="btn btn-default btn-cta"
+                           href="/content/teststeps/create/">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            Create new Test Step</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-9">
+                {% include "components/test_step_list_grid.html" %}
+                {% include "components/paginator.html" %}
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

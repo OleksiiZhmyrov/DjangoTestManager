@@ -8,6 +8,9 @@ from ManualTester.views import TestCaseListView
 from ManualTester.views import TestCaseView, TestCaseCreateView, TestCaseModifyView
 from ManualTester.views import OrderTestStepCreateView, OrderTestStepModifyView, OrderTestStepDeleteView
 
+from ManualTester.views import TestStepListView
+from ManualTester.views import TestStepCreateView, TestStepModifyView
+
 
 urlpatterns = patterns(
     '',
@@ -53,6 +56,15 @@ urlpatterns = patterns(
 
     url(r'^content/testcases/(?P<test_case_pk>[0-9])/orderteststep/(?P<pk>[0-9])/remove/', OrderTestStepDeleteView.as_view(),
         name='orderteststep_remove'),
+
+    url(r'^content/teststeps/$', TestStepListView.as_view(),
+        name='test_step_list'),
+
+    url(r'^content/teststeps/create/$', TestStepCreateView.as_view(),
+        name='test_step_create'),
+
+    url(r'^content/teststeps/modify/(?P<pk>[0-9])/$', TestStepModifyView.as_view(),
+        name='test_step_edit'),
 
 )
 
