@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-default no-print">
     <div class="panel-heading">
         <h3 class="panel-title">Actions</h3>
     </div>
@@ -7,5 +7,10 @@
            href="/content/testcases/modify/{{ test_case.pk }}/">
             <span class="glyphicon glyphicon-pencil"></span>
             Modify Test Case</a>
+        <p></p>
+        <a class="btn btn-default btn-cta"
+           href="/content/testcases/print/{{ test_case.pk }}/">
+            <span class="glyphicon glyphicon-print"></span>
+            Printer-friendly view</a>
     </div>
 </div>

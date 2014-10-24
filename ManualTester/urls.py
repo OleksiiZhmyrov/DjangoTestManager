@@ -14,6 +14,8 @@ from ManualTester.views import TestStepView, TestStepCreateView, TestStepModifyV
 from ManualTester.views import ScreenshotListView
 from ManualTester.views import ScreenshotCreateView, ScreenshotModifyView
 
+from ManualTester.views import TestCasePrintView
+
 
 urlpatterns = patterns(
     '',
@@ -46,7 +48,10 @@ urlpatterns = patterns(
         name='test_case_create'),
 
     url(r'^content/testcases/view/(?P<pk>[0-9])/$', TestCaseView.as_view(),
-        name='test_suite_view'),
+        name='test_case_view'),
+
+    url(r'^content/testcases/print/(?P<pk>[0-9])/$', TestCasePrintView.as_view(),
+        name='test_case_print_view'),
 
     url(r'^content/testcases/modify/(?P<pk>[0-9])/$', TestCaseModifyView.as_view(),
         name='test_case_edit'),

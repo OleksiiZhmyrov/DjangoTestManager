@@ -236,6 +236,21 @@ class TestCaseView(DetailView):
         return super(TestCaseView, self).dispatch(*args, **kwargs)
 
 
+class TestCasePrintView(DetailView):
+    model = TestCase
+    template_name = "pages/test_case/print_page.html"
+    context_object_name = 'test_case'
+
+    def get_context_data(self, **kwargs):
+        context = super(TestCasePrintView, self).get_context_data(**kwargs)
+        context['order_test_steps'] = OrderTestStep.objects.filter(test_case=self.object).order_by('number')
+        return context
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(TestCasePrintView, self).dispatch(*args, **kwargs)
+
+
 class OrderTestStepCreateView(CreateView):
     model = OrderTestStep
     template_name = "pages/orderteststep/create_page.html"
