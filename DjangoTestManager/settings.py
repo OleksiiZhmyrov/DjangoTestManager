@@ -56,6 +56,11 @@ MIDDLEWARE_CLASSES = (
     'TestManagerCore.middleware.PageGenerationDatetime',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.media',
+    'django.contrib.auth.context_processors.auth',
+)
+
 ROOT_URLCONF = 'DjangoTestManager.urls'
 
 WSGI_APPLICATION = 'DjangoTestManager.wsgi.application'
@@ -126,5 +131,8 @@ FILE_UPLOAD_HANDLERS = (
     "django.core.files.uploadhandler.TemporaryFileUploadHandler",
 )
 
-CONTENT_TYPES = ['image/jpeg']
+CONTENT_TYPES = ['image/jpeg', 'image/png', ]
 MAX_UPLOAD_SIZE = 2621440
+
+MEDIA_ROOT = 'media/'
+MEDIA_URL = '/media/'

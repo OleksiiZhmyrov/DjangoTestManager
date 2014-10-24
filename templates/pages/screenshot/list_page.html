@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Screenshots{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <h1>Screenshots</h1>
+
+        <hr>
+
+        <div class="row">
+
+            <div class="col-md-3">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Actions</h3>
+                    </div>
+                    <div class="panel-body text-center">
+                        <a class="btn btn-default btn-cta"
+                           href="/content/screenshots/create/">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            Upload new Screenshot</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-9">
+                {% include "components/screenshot_list_grid.html" %}
+                {% include "components/paginator.html" %}
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

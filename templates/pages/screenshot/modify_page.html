@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Modify Test Step{% endblock %}
+{% block title %}Modify Screenshot{% endblock %}
 
 {% block content %}
 
     <div class="container">
 
-        <h1>Modify Test Step</h1>
+        <h1>Modify Screenshot</h1>
 
         <hr>
 
@@ -14,13 +14,13 @@
 
             <div class="col-md-3">
 
-                {% include "components/screenshot_preview_panel.html" with screenshot=test_step.screenshot %}
+                {% include "components/screenshot_preview_panel.html" %}
 
             </div>
 
             <div class="col-md-9">
 
-                {% include "forms/test_step_modify_form.html" %}
+                {% include "forms/screenshot_modify_form.html" %}
 
             </div>
 

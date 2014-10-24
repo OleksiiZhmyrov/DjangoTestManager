@@ -22,8 +22,7 @@ class UploadFileHelper(object):
         m = hashlib.md5()
         m.update(filename.encode('utf-8'))
 
-        given_filename = '{owner}_{hash}.{ext}'.format(
-            owner=instance.author.username,
+        given_filename = 'img_{hash}.{ext}'.format(
             hash=m.hexdigest(),
             ext=ext
         )

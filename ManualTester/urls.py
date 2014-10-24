@@ -9,7 +9,10 @@ from ManualTester.views import TestCaseView, TestCaseCreateView, TestCaseModifyV
 from ManualTester.views import OrderTestStepCreateView, OrderTestStepModifyView, OrderTestStepDeleteView
 
 from ManualTester.views import TestStepListView
-from ManualTester.views import TestStepCreateView, TestStepModifyView
+from ManualTester.views import TestStepView, TestStepCreateView, TestStepModifyView
+
+from ManualTester.views import ScreenshotListView
+from ManualTester.views import ScreenshotCreateView, ScreenshotModifyView
 
 
 urlpatterns = patterns(
@@ -60,11 +63,23 @@ urlpatterns = patterns(
     url(r'^content/teststeps/$', TestStepListView.as_view(),
         name='test_step_list'),
 
+    url(r'^content/teststeps/view/(?P<pk>[0-9])/$', TestStepView.as_view(),
+        name='test_step_view'),
+
     url(r'^content/teststeps/create/$', TestStepCreateView.as_view(),
         name='test_step_create'),
 
     url(r'^content/teststeps/modify/(?P<pk>[0-9])/$', TestStepModifyView.as_view(),
         name='test_step_edit'),
+
+    url(r'^content/screenshots/$', ScreenshotListView.as_view(),
+        name='screenshot_list'),
+
+    url(r'^content/screenshots/create/$', ScreenshotCreateView.as_view(),
+        name='screenshot_create'),
+
+    url(r'^content/screenshots/modify/(?P<pk>[0-9])/$', ScreenshotModifyView.as_view(),
+        name='screenshot_edit'),
 
 )
 

@@ -1,7 +1,4 @@
 from django.db import models
-from django.db.models import FileField
-from DjangoTestManager.settings import CONTENT_TYPES, MAX_UPLOAD_SIZE
-from TestManagerCore.utils import UploadFileHelper
 
 
 class TestStepStatus(models.Model):
@@ -95,11 +92,10 @@ class TestStep(models.Model):
         max_length=2048,
     )
 
-    screenshot = FileField(
-        "Screenshot",
+    screenshot = models.ForeignKey(
+        "TestManagerCore.Screenshot",
         blank=True,
         null=True,
-        upload_to=UploadFileHelper.update_filename,
     )
 
     tags = models.ManyToManyField(

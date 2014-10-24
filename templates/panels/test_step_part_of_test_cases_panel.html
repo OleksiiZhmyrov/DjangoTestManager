@@ -1,0 +1,14 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Test Cases with this Test Step</h3>
+    </div>
+    <div class="panel-body">
+        {% for item in order_test_steps %}
+            <p><i class="glyphicon glyphicon-tags"></i> <a href="/content/testcases/view/{{ item.test_case.pk }}/">
+                {{ item.test_case.name }}</a>
+            </p>
+        {% empty %}
+            No Test Cases in this list.
+        {% endfor %}
+    </div>
+</div>

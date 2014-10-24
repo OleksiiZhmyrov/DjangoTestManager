@@ -1,0 +1,42 @@
+<div>
+    {% for screenshot in screenshot_list %}
+
+        <div class="clearfix">
+
+            <div class="pull-left col-md-7">
+                <h3><a href="{{ screenshot.screenshot.url }}" target="_blank">{{ screenshot.name }}</a></h3>
+                    <span class="help-block">
+                {{ screenshot.description }}
+                <div>
+                    <br>
+                    Uploaded by:
+                    {% if screenshot.owner.first_name or screenshot.owner.last_name %}
+                        {{ screenshot.owner.first_name }} {{ screenshot.owner.last_name }}
+                    {% else %}
+                        {{ screenshot.owner.username }}
+                    {% endif %}
+                    <br>
+                    Date: {{ screenshot.creation_date | date:"Y-m-d" }}
+                    <br>
+                    <a href="/content/screenshots/modify/{{ screenshot.pk }}/"
+                       type="button" class="btn btn-default btn-xs">
+                        modify
+                    </a>
+                </div>
+            </span>
+            </div>
+            <div class="pull-right col-md-5">
+                <img data-src="holder.js/200x300"
+                     class="img-thumbnail"
+                     alt="{{ screenshot.name }}"
+                     src="{{ screenshot.screenshot.url }}"
+                     style="width: 300px; height: 200px;">
+            </div>
+
+        </div>
+        <hr>
+
+    {% empty %}
+        <div>No screenshots yet.</div>
+    {% endfor %}
+</div>

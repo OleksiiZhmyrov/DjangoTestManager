@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}{{ test_step.name }}{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <h1><i class="glyphicon glyphicon-tag"></i> {{ test_step.name }}</h1>
+        <span class="help-block">{{ test_step.description }}</span>
+
+        <hr>
+
+        <div class="row">
+
+            <div class="col-md-4">
+                {% include "panels/test_step_actions_panel.html" %}
+                <div></div>
+                {% include "panels/test_step_details_panel.html" %}
+                <div></div>
+                {% include "panels/test_step_part_of_test_cases_panel.html" %}
+            </div>
+
+            <div class="col-md-8 text-center">
+
+                {% if test_step.screenshot %}
+                    <div class="text-center">
+                        <img data-src="holder.js/800x600"
+                             class="img-thumbnail"
+                             alt="{{ test_step.screenshot.name }}"
+                             src="{{ test_step.screenshot.screenshot.url }}"
+                             style="width: 800px;">
+                    </div>
+                {% else %}
+                    This test step does not have associated screenshot.
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

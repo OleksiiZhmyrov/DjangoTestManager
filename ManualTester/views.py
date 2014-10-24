@@ -1,4 +1,3 @@
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.forms.util import ErrorList
@@ -9,12 +8,14 @@ from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.views.generic.list import ListView
 
 from ManualTester.models import TestSuite, OrderTestCase, TestCase, OrderTestStep, TestStep
+from TestManagerCore.models import Screenshot
 
 from ManualTester.forms import TestSuiteCreateForm, TestSuiteUpdateForm
 from ManualTester.forms import OrderTestCaseCreateForm, OrderTestCaseModifyForm
 from ManualTester.forms import TestCaseCreateForm, TestCaseUpdateForm
 from ManualTester.forms import OrderTestStepCreateForm, OrderTestStepModifyForm
 from ManualTester.forms import TestStepCreateForm, TestStepUpdateForm
+from ManualTester.forms import ScreenshotCreateForm, ScreenshotUpdateForm
 
 
 class TestSuiteListView(ListView):
@@ -334,6 +335,21 @@ class TestStepListView(ListView):
         return super(TestStepListView, self).dispatch(*args, **kwargs)
 
 
+class TestStepView(DetailView):
+    model = TestStep
+    template_name = "pages/test_step/view_page.html"
+    context_object_name = 'test_step'
+
+    def get_context_data(self, **kwargs):
+        context = super(TestStepView, self).get_context_data(**kwargs)
+        context['order_test_steps'] = OrderTestStep.objects.filter(test_step=self.object)
+        return context
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(TestStepView, self).dispatch(*args, **kwargs)
+
+
 class TestStepCreateView(CreateView):
     model = TestStep
     template_name = "pages/test_step/create_page.html"
@@ -358,14 +374,53 @@ class TestStepModifyView(UpdateView):
     form_class = TestStepUpdateForm
     context_object_name = 'test_step'
 
-    # def form_valid(self, form):
-    #     form.save(commit=True)
-    #     messages.success(self.request, 'File uploaded!')
-    #     return super(TestStepModifyView, self).form_valid(form)
-
     def get_success_url(self):
         return reverse('test_step_edit', args=(self.object.id,))
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(TestStepModifyView, self).dispatch(*args, **kwargs)
+
+
+class ScreenshotListView(ListView):
+    model = Screenshot
+    template_name = "pages/screenshot/list_page.html"
+    queryset = Screenshot.objects.all().order_by('name')
+    context_object_name = 'screenshot_list'
+    paginate_by = 10
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ScreenshotListView, self).dispatch(*args, **kwargs)
+
+
+class ScreenshotCreateView(CreateView):
+    model = Screenshot
+    template_name = "pages/screenshot/create_page.html"
+    form_class = ScreenshotCreateForm
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        form.save()
+        return super(ScreenshotCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('screenshot_edit', args=(self.object.id,))
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ScreenshotCreateView, self).dispatch(*args, **kwargs)
+
+
+class ScreenshotModifyView(UpdateView):
+    template_name = "pages/screenshot/modify_page.html"
+    model = Screenshot
+    form_class = ScreenshotUpdateForm
+    context_object_name = 'screenshot'
+
+    def get_success_url(self):
+        return reverse('screenshot_edit', args=(self.object.id,))
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ScreenshotModifyView, self).dispatch(*args, **kwargs)

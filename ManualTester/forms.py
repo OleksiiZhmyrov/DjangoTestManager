@@ -4,7 +4,7 @@ from DjangoTestManager.settings import CONTENT_TYPES, MAX_UPLOAD_SIZE
 
 from ManualTester.models import TestSuite, TestCase, OrderTestCase, TestCaseStatus, TestStep, OrderTestStep, \
     TestStepStatus
-from TestManagerCore.models import Tag
+from TestManagerCore.models import Tag, Screenshot
 from TestManagerCore.utils import CustomErrorList
 
 
@@ -315,6 +315,45 @@ class TestStepUpdateForm(forms.ModelForm):
             },
         )
 
+        self.fields['screenshot'].widget = forms.Select(
+            choices=self._get_screenshots_tupple(),
+            attrs={
+                'class': 'form-control',
+            },
+        )
+
+    @staticmethod
+    def _get_screenshots_tupple():
+        screenshot_queryset = Screenshot.objects.all()
+        screenshots = [('', 'none')] + [(i.pk, i.name) for i in screenshot_queryset]
+        return list(screenshots)
+
+    class Meta:
+        model = TestStep
+        fields = ['name', 'description', 'expected_result', 'status', 'tags', 'screenshot', ]
+
+
+class ScreenshotCreateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ScreenshotCreateForm, self).__init__(*args, **kwargs)
+        self.error_class = CustomErrorList
+
+        self.fields['name'].widget = forms.TextInput(
+            attrs={
+                'class': 'form-control ',
+                'autofocus': '',
+                'required': '',
+                'placeholder': 'Name',
+            },
+        )
+
+        self.fields['description'].widget = forms.Textarea(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Verbose description',
+            },
+        )
+
     def clean_screenshot(self):
         screenshot = self.cleaned_data['screenshot']
         if screenshot:
@@ -328,5 +367,32 @@ class TestStepUpdateForm(forms.ModelForm):
         return screenshot
 
     class Meta:
+        model = Screenshot
+        fields = ['name', 'description', 'screenshot', ]
+
+
+class ScreenshotUpdateForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ScreenshotUpdateForm, self).__init__(*args, **kwargs)
+        self.error_class = CustomErrorList
+
+        self.fields['name'].widget = forms.TextInput(
+            attrs={
+                'class': 'form-control ',
+                'autofocus': '',
+                'required': '',
+                'placeholder': 'Name',
+            },
+        )
+
+        self.fields['description'].widget = forms.Textarea(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Verbose description',
+            },
+        )
+
+    class Meta:
         model = TestStep
-        fields = ['name', 'description', 'expected_result', 'status', 'tags', 'screenshot', ]
+        fields = ['name', 'description', ]
