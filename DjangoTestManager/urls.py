@@ -10,7 +10,7 @@ from DjangoTestManager import settings
 
 urlpatterns = patterns(
     '',
-    url(r'', include('ManualTester.urls')),
+    url(r'', include('TestManagerContent.urls')),
 
     url(r'^$', RedirectView.as_view(url='/content/testsuites/'), name='redirect_from_root'),
 

@@ -1,20 +1,20 @@
 from django.conf.urls import patterns, url
 
-from ManualTester.views import TestSuiteListView
-from ManualTester.views import TestSuiteView, TestSuiteCreateView, TestSuiteModifyView
-from ManualTester.views import OrderTestCaseCreateView, OrderTestCaseModifyView, OrderTestCaseDeleteView
+from TestManagerContent.views import TestSuiteListView
+from TestManagerContent.views import TestSuiteView, TestSuiteCreateView, TestSuiteModifyView
+from TestManagerContent.views import OrderTestCaseCreateView, OrderTestCaseModifyView, OrderTestCaseDeleteView
 
-from ManualTester.views import TestCaseListView
-from ManualTester.views import TestCaseView, TestCaseCreateView, TestCaseModifyView
-from ManualTester.views import OrderTestStepCreateView, OrderTestStepModifyView, OrderTestStepDeleteView
+from TestManagerContent.views import TestCaseListView
+from TestManagerContent.views import TestCaseView, TestCaseCreateView, TestCaseModifyView
+from TestManagerContent.views import OrderTestStepCreateView, OrderTestStepModifyView, OrderTestStepDeleteView
 
-from ManualTester.views import TestStepListView
-from ManualTester.views import TestStepView, TestStepCreateView, TestStepModifyView
+from TestManagerContent.views import TestStepListView
+from TestManagerContent.views import TestStepView, TestStepCreateView, TestStepModifyView
 
-from ManualTester.views import ScreenshotListView
-from ManualTester.views import ScreenshotCreateView, ScreenshotModifyView
+from TestManagerContent.views import ScreenshotListView
+from TestManagerContent.views import ScreenshotCreateView, ScreenshotModifyView
 
-from ManualTester.views import TestCasePrintView
+from TestManagerContent.views import TestCasePrintView
 
 
 urlpatterns = patterns(

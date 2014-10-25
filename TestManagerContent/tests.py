@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django import test
-from ManualTester.models import TestStepStatus, TestCaseStatus, ExecutionResult, TestStep, TestCase, TestSuite
+from TestManagerContent.models import TestStepStatus, TestCaseStatus, ExecutionResult, TestStep, TestCase, TestSuite
 
 
 class TestStepStatusTests(test.TestCase):

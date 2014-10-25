@@ -7,15 +7,15 @@ from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.views.generic.list import ListView
 
-from ManualTester.models import TestSuite, OrderTestCase, TestCase, OrderTestStep, TestStep
+from TestManagerContent.models import TestSuite, OrderTestCase, TestCase, OrderTestStep, TestStep
 from TestManagerCore.models import Screenshot
 
-from ManualTester.forms import TestSuiteCreateForm, TestSuiteUpdateForm
-from ManualTester.forms import OrderTestCaseCreateForm, OrderTestCaseModifyForm
-from ManualTester.forms import TestCaseCreateForm, TestCaseUpdateForm
-from ManualTester.forms import OrderTestStepCreateForm, OrderTestStepModifyForm
-from ManualTester.forms import TestStepCreateForm, TestStepUpdateForm
-from ManualTester.forms import ScreenshotCreateForm, ScreenshotUpdateForm
+from TestManagerContent.forms import TestSuiteCreateForm, TestSuiteUpdateForm
+from TestManagerContent.forms import OrderTestCaseCreateForm, OrderTestCaseModifyForm
+from TestManagerContent.forms import TestCaseCreateForm, TestCaseUpdateForm
+from TestManagerContent.forms import OrderTestStepCreateForm, OrderTestStepModifyForm
+from TestManagerContent.forms import TestStepCreateForm, TestStepUpdateForm
+from TestManagerContent.forms import ScreenshotCreateForm, ScreenshotUpdateForm
 
 
 class TestSuiteListView(ListView):

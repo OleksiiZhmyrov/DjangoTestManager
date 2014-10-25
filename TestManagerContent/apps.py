@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class ManualTesterConfig(AppConfig):
-    name = 'ManualTester'
+    name = 'TestManagerContent'
     verbose_name = "Test Manager: Manual Tests"

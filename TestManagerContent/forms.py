@@ -2,7 +2,7 @@ from django import forms
 from django.template.defaultfilters import filesizeformat
 from DjangoTestManager.settings import CONTENT_TYPES, MAX_UPLOAD_SIZE
 
-from ManualTester.models import TestSuite, TestCase, OrderTestCase, TestCaseStatus, TestStep, OrderTestStep, \
+from TestManagerContent.models import TestSuite, TestCase, OrderTestCase, TestCaseStatus, TestStep, OrderTestStep, \
     TestStepStatus
 from TestManagerCore.models import Tag, Screenshot
 from TestManagerCore.utils import CustomErrorList

@@ -1,6 +1,6 @@
 [
     {
-        "model": "ManualTester.teststepstatus",
+        "model": "TestManagerContent.teststepstatus",
         "pk": 1,
         "fields": {
             "name": "Initial",
@@ -8,7 +8,7 @@
         }
     },
     {
-        "model": "ManualTester.teststepstatus",
+        "model": "TestManagerContent.teststepstatus",
         "pk": 2,
         "fields": {
             "name": "Verified",
@@ -16,7 +16,7 @@
         }
     },
     {
-        "model": "ManualTester.teststepstatus",
+        "model": "TestManagerContent.teststepstatus",
         "pk": 3,
         "fields": {
             "name": "Disabled",
@@ -24,7 +24,7 @@
         }
     },
     {
-        "model": "ManualTester.testcasestatus",
+        "model": "TestManagerContent.testcasestatus",
         "pk": 1,
         "fields": {
             "name": "Valid",
@@ -32,7 +32,7 @@
         }
     },
     {
-        "model": "ManualTester.testcasestatus",
+        "model": "TestManagerContent.testcasestatus",
         "pk": 2,
         "fields": {
             "name": "Disabled",
@@ -40,7 +40,7 @@
         }
     },
     {
-        "model": "ManualTester.testcasestatus",
+        "model": "TestManagerContent.testcasestatus",
         "pk": 3,
         "fields": {
             "name": "Outdated",
@@ -48,7 +48,7 @@
         }
     },
     {
-        "model": "ManualTester.executionresult",
+        "model": "TestManagerContent.executionresult",
         "pk": 1,
         "fields": {
             "name": "Passed",
@@ -56,7 +56,7 @@
         }
     },
     {
-        "model": "ManualTester.executionresult",
+        "model": "TestManagerContent.executionresult",
         "pk": 2,
         "fields": {
             "name": "Skipped",
@@ -64,7 +64,7 @@
         }
     },
     {
-        "model": "ManualTester.executionresult",
+        "model": "TestManagerContent.executionresult",
         "pk": 3,
         "fields": {
             "name": "Failed",
@@ -72,7 +72,7 @@
         }
     },
     {
-        "model": "ManualTester.executionresult",
+        "model": "TestManagerContent.executionresult",
         "pk": 4,
         "fields": {
             "name": "Not Run",

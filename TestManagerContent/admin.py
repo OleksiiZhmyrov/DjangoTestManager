@@ -1,7 +1,7 @@
 from django.contrib import admin
-from ManualTester.models import TestCase, TestCaseResult, TestCaseStatus, OrderTestCase
-from ManualTester.models import TestStep, TestStepResult, TestStepStatus
-from ManualTester.models import ExecutionResult, TestSuite, OrderTestStep
+from TestManagerContent.models import TestCase, TestCaseResult, TestCaseStatus, OrderTestCase
+from TestManagerContent.models import TestStep, TestStepResult, TestStepStatus
+from TestManagerContent.models import ExecutionResult, TestSuite, OrderTestStep
 
 admin.site.register(TestStep)
 admin.site.register(TestStepResult)

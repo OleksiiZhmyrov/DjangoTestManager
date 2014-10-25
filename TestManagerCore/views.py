@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView, CreateView, UpdateView
 
-from ManualTester.models import TestSuite
+from TestManagerContent.models import TestSuite
 from TestManagerCore.forms import UserRegistrationForm, UserProfileUpdateForm
 
 
