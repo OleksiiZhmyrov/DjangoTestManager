@@ -12,7 +12,7 @@ urlpatterns = patterns(
         'django.contrib.auth.views.login',
         {
             'template_name': 'pages/login_page.html',
-            'authentication_form': UserLoginForm
+            'authentication_form': UserLoginForm,
         },
         name='user_login'
     ),
