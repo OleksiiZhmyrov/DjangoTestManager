@@ -30,7 +30,8 @@
                         {% endif %}
                     </td>
                     <td>
-                        <a href="" type="button" class="btn btn-default btn-xs">view</a>
+                        <a href="{% url 'test_case_result_view' pk=test_case_result.pk %}"
+                           type="button" class="btn btn-default btn-xs">Report</a>
                     </td>
                 </tr>
             {% empty %}

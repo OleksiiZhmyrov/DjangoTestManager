@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}{{ test_case.name }}{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <h1><i class="glyphicon glyphicon-tag"></i> {{ test_case_result.test_case.name }}</h1>
+        <span class="help-block">{{ test_case_result.test_case.description }}</span>
+
+        <hr>
+
+        <div class="row">
+
+            <div class="col-md-3">
+
+                {% include "panels/test_case_result/test_case_result_actions_panel.html" %}
+
+            </div>
+
+            <div class="col-md-9 personal-info">
+
+                {% include "components/test_case_result/test_case_result_included_teststeps_grid.html" %}
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

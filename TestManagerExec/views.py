@@ -3,7 +3,7 @@ from django.core.exceptions import NON_FIELD_ERRORS
 from django.core.urlresolvers import reverse
 from django.forms.util import ErrorList
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DetailView
 from TestManagerContent.models import TestCase, OrderTestStep
 from TestManagerExec.forms import TestCaseResultCreateForm, TestStepResultUpdateForm
 from TestManagerExec.models import TestCaseResult, TestStepResult
@@ -92,6 +92,8 @@ class TestStepResultModifyView(UpdateView):
         context = super(TestStepResultModifyView, self).get_context_data(**kwargs)
 
         test_case_result = TestCaseResult.objects.get(test_step_results=self.object)
+        context['test_case_result'] = test_case_result
+
         test_case = test_case_result.test_case
         context['test_case'] = test_case
 
@@ -111,7 +113,6 @@ class TestStepResultModifyView(UpdateView):
             'total': total_int,
             'percentage': 100.0 * current_int / total_int,
         }
-
         return context
 
     def get_success_url(self):
@@ -120,3 +121,17 @@ class TestStepResultModifyView(UpdateView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(TestStepResultModifyView, self).dispatch(*args, **kwargs)
+
+
+class TestCaseResultView(DetailView):
+    model = TestCaseResult
+    template_name = "pages/test_case_result/view_page.html"
+    context_object_name = 'test_case_result'
+
+    def get_context_data(self, **kwargs):
+        context = super(TestCaseResultView, self).get_context_data(**kwargs)
+        return context
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(TestCaseResultView, self).dispatch(*args, **kwargs)

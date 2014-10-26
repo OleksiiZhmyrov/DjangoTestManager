@@ -1,0 +1,53 @@
+<div>
+    <h3>Test Steps</h3>
+
+    <div>
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Test Step</th>
+                <th>Tester</th>
+                <th>Status</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for item in test_case_result.test_step_results.all %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{ item.test_step.name }}</td>
+                    <td>
+                        {% if item.tester.first_name or item.tester.last_name %}
+                        {{ item.tester.first_name }} {{ item.tester.last_name }}
+                    {% else %}
+                        {{ item.tester.username }}
+                    {% endif %}
+                    </td>
+                    <td>{{ item.execution_result.name }}</td>
+                    <td>
+                        <a href="{% url 'test_step_result_modify' pk=item.pk %}"
+                           type="button" class="btn btn-default btn-xs">Jump to execution</a>
+                    </td>
+                </tr>
+
+            {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">
+                        No teststeps in this test case yet.
+                    </td>
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <hr>
+
+</div>
