@@ -62,5 +62,27 @@
             "name": "Sprint 0"
         },
         "model": "TestManagerCore.sprint"
+    },
+    {
+        "model": "TestManagerCore.screenshot",
+        "pk": 1,
+        "fields": {
+            "owner": 2,
+            "name": "Google homepage",
+            "creation_date": "1970-01-01T00:00:00.000Z",
+            "description": "Full screen browser window with Google search homepage.",
+            "screenshot": "media/uploads/img_03d017d11b9018aba8f80cdc35aaad9b.png"
+        }
+    },
+    {
+        "model": "TestManagerCore.screenshot",
+        "pk": 2,
+        "fields": {
+            "owner": 2,
+            "name": "Google search results page -- Billy Jean",
+            "creation_date": "1970-01-01T00:00:00.000Z",
+            "description": "Browser window with Google search results page. Page contains results for query \"Billy Jean\".",
+            "screenshot": "media/uploads/img_b01c2ce25e34f80d499f0488d034b00b.png"
+        }
     }
 ]
