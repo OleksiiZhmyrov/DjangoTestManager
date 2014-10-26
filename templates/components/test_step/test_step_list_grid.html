@@ -12,7 +12,7 @@
     <tbody>
     {% for test_step in test_step_list %}
         <tr>
-            <td><a href="/content/teststeps/{{ test_step.pk }}/view/">{{ test_step.name }}</a></td>
+            <td><a href="/content/teststeps/view/{{ test_step.pk }}/">{{ test_step.name }}</a></td>
             <td>{{ test_step.status.name }}</td>
             <td>{{ test_step.creation_date | date:"Y-m-d" }}</td>
             <td>{{ test_step.author }}</td>

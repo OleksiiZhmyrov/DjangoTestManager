@@ -1,7 +1,7 @@
 from django import forms
 from TestManagerCore.models import Environment, Sprint, Browser
 from TestManagerCore.utils import CustomErrorList
-from TestManagerExec.models import TestCaseResult
+from TestManagerExec.models import TestCaseResult, TestStepResult, ExecutionResult
 
 
 class TestCaseResultCreateForm(forms.ModelForm):
@@ -30,7 +30,6 @@ class TestCaseResultCreateForm(forms.ModelForm):
             choices=self._get_browsers_tupple(),
             attrs={
                 'class': 'form-control',
-                'required': '',
             },
         )
 
@@ -50,3 +49,22 @@ class TestCaseResultCreateForm(forms.ModelForm):
     class Meta:
         model = TestCaseResult
         fields = ['environment', 'sprint', 'browser', 'risks', ]
+
+
+class TestStepResultUpdateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(TestStepResultUpdateForm, self).__init__(*args, **kwargs)
+        self.error_class = CustomErrorList
+
+        self.fields['exec_result'].widget = forms.Select(
+            choices=((i.pk, i.name) for i in ExecutionResult.objects.all()),
+            attrs={
+                'class': 'form-control',
+                'required': '',
+            },
+        )
+
+    class Meta:
+        model = TestStepResult
+        fields = ['exec_result', ]
+

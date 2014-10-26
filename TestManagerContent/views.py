@@ -95,13 +95,7 @@ class OrderTestCaseCreateView(CreateView):
             form.save()
             return super(OrderTestCaseCreateView, self).form_valid(form)
         except IntegrityError:
-            """
-                Append non-field error to already validated form.
-                _errors is a part of Django Forms public API and may be
-                accessed from outside of the form class.
-                Please refer to documentation for detailed explanation.
-            """
-            errors = form._errors.setdefault(NON_FIELD_ERRORS, ErrorList())
+            errors = form.errors.setdefault(NON_FIELD_ERRORS, ErrorList())
             errors.append('Test case is already present in Test Suite.')
             return super(OrderTestCaseCreateView, self).form_invalid(form)
 
@@ -129,13 +123,7 @@ class OrderTestCaseModifyView(UpdateView):
             form.save()
             return super(OrderTestCaseModifyView, self).form_valid(form)
         except IntegrityError:
-            """
-                Append non-field error to already validated form.
-                _errors is a part of Django Forms public API and may be
-                accessed from outside of the form class.
-                Please refer to documentation for detailed explanation.
-            """
-            errors = form._errors.setdefault(NON_FIELD_ERRORS, ErrorList())
+            errors = form.errors.setdefault(NON_FIELD_ERRORS, ErrorList())
             errors.append('Test case is already present in Test Suite.')
             return super(OrderTestCaseModifyView, self).form_invalid(form)
 
@@ -288,13 +276,7 @@ class OrderTestStepCreateView(CreateView):
             form.save()
             return super(OrderTestStepCreateView, self).form_valid(form)
         except IntegrityError:
-            """
-                Append non-field error to already validated form.
-                _errors is a part of Django Forms public API and may be
-                accessed from outside of the form class.
-                Please refer to documentation for detailed explanation.
-            """
-            errors = form._errors.setdefault(NON_FIELD_ERRORS, ErrorList())
+            errors = form.errors.setdefault(NON_FIELD_ERRORS, ErrorList())
             errors.append('Test step is already present in Test Case.')
             return super(OrderTestStepCreateView, self).form_invalid(form)
 
@@ -322,13 +304,7 @@ class OrderTestStepModifyView(UpdateView):
             form.save()
             return super(OrderTestStepModifyView, self).form_valid(form)
         except IntegrityError:
-            """
-                Append non-field error to already validated form.
-                _errors is a part of Django Forms public API and may be
-                accessed from outside of the form class.
-                Please refer to documentation for detailed explanation.
-            """
-            errors = form._errors.setdefault(NON_FIELD_ERRORS, ErrorList())
+            errors = form.errors.setdefault(NON_FIELD_ERRORS, ErrorList())
             errors.append('Test step is already present in Test Case.')
             return super(OrderTestStepModifyView, self).form_invalid(form)
 

@@ -44,6 +44,20 @@ class TestStepResult(models.Model):
         null=True,
     )
 
+    previous_test_step_result = models.ForeignKey(
+        "TestManagerExec.TestStepResult",
+        related_name='Previous Test Step Result',
+        blank=True,
+        null=True,
+    )
+
+    next_test_step_result = models.ForeignKey(
+        "TestManagerExec.TestStepResult",
+        related_name='Next Test Step Result',
+        blank=True,
+        null=True,
+    )
+
     def __str__(self):
         return ', '.join([str(self.pk), self.test_step.name, self.tester.username])
 

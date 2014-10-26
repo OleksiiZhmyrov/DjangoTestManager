@@ -1,9 +1,11 @@
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import NON_FIELD_ERRORS
 from django.core.urlresolvers import reverse
+from django.forms.util import ErrorList
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 from TestManagerContent.models import TestCase, OrderTestStep
-from TestManagerExec.forms import TestCaseResultCreateForm
+from TestManagerExec.forms import TestCaseResultCreateForm, TestStepResultUpdateForm
 from TestManagerExec.models import TestCaseResult, TestStepResult
 
 
@@ -33,6 +35,14 @@ class TestCaseResultCreateView(CreateView):
         form.save()
 
         order_test_steps = OrderTestStep.objects.filter(test_case=form.instance.test_case).order_by('number')
+        if not order_test_steps:
+            errors = form.errors.setdefault(NON_FIELD_ERRORS, ErrorList())
+            errors.append('This Test Case does not have any Test Step and could not be executed.')
+            return super(TestCaseResultCreateView, self).form_invalid(form)
+
+        """
+            Create TestStepResults objects and link them to current TestCaseResult object.
+        """
         for order_test_step in order_test_steps.all():
             test_step_result = TestStepResult(
                 tester=self.request.user,
@@ -41,12 +51,50 @@ class TestCaseResultCreateView(CreateView):
             test_step_result.save()
             form.instance.steps_results.add(test_step_result)
 
+        """
+            Walk through linked TestStepResult objects and assign previous and next.
+        """
+        order_test_steps_list = [i for i in form.instance.steps_results.all()]
+        for index, order_test_step in enumerate(order_test_steps_list):
+            if index > 0:
+                order_test_step.previous_test_step_result = order_test_steps_list[index - 1]
+            if index < len(order_test_steps_list) - 1:
+                order_test_step.next_test_step_result = order_test_steps_list[index + 1]
+            order_test_step.save()
+
         form.save()
         return super(TestCaseResultCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('', args=(self.object.test_case.id,))
+        """
+            Redirect to the first test step execution.
+        """
+        order_test_step = OrderTestStep.objects.filter(
+            test_case=self.object.test_case,
+        ).order_by('number')[0]
+        test_step_result = self.object.steps_results.get(
+            test_step=order_test_step.test_step
+        )
+        return reverse('test_step_result_modify', args=(test_step_result.pk,))
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(TestCaseResultCreateView, self).dispatch(*args, **kwargs)
+
+
+class TestStepResultModifyView(UpdateView):
+    template_name = "pages/test_step_result/modify_page.html"
+    model = TestStepResult
+    form_class = TestStepResultUpdateForm
+    context_object_name = 'test_step_result'
+
+    def get_context_data(self, **kwargs):
+        context = super(TestStepResultModifyView, self).get_context_data(**kwargs)
+        return context
+
+    def get_success_url(self):
+        return reverse('test_step_result_modify', args=(self.object.pk,))
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(TestStepResultModifyView, self).dispatch(*args, **kwargs)
