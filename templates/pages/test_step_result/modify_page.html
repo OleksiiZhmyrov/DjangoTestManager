@@ -6,7 +6,10 @@
 
     <div class="container">
 
-        <h1>Execute Test Step</h1>
+        <h1>{{ test_case.name }}</h1>
+        <span class="help-block">
+            {{ test_case.description }}
+        </span>
 
         <hr>
 
@@ -14,13 +17,13 @@
 
             <div class="col-md-4">
 
-
                 <div class="well well-lg">
                     {% include "forms/test_step_result/test_step_result_modify_form.html" %}
                 </div>
 
-                {% include "panels/test_step/test_step_details_panel.html" with test_step=test_step_result.test_step %}
+                {% include "panels/test_step_result/test_step_result_actions_panel.html" %}
 
+                {% include "panels/test_step/test_step_details_panel.html" with test_step=test_step_result.test_step %}
 
             </div>
 
@@ -28,10 +31,11 @@
 
                 <h3>{{ test_step_result.test_step.name }}</h3>
 
+                {% include "panels/test_step_result/progress_bar_panel.html" %}
+
                 <div class="well well-lg">
                     {{ test_step_result.test_step.description }}
                 </div>
-
 
                 {% include "components/screenshot/screenshot_preview_panel_custom.html" with screenshot=test_step_result.test_step.screenshot width=800 height=600 %}
 

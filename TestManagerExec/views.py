@@ -49,12 +49,12 @@ class TestCaseResultCreateView(CreateView):
                 test_step=order_test_step.test_step,
             )
             test_step_result.save()
-            form.instance.steps_results.add(test_step_result)
+            form.instance.test_step_results.add(test_step_result)
 
         """
             Walk through linked TestStepResult objects and assign previous and next.
         """
-        order_test_steps_list = [i for i in form.instance.steps_results.all()]
+        order_test_steps_list = [i for i in form.instance.test_step_results.all()]
         for index, order_test_step in enumerate(order_test_steps_list):
             if index > 0:
                 order_test_step.previous_test_step_result = order_test_steps_list[index - 1]
@@ -72,7 +72,7 @@ class TestCaseResultCreateView(CreateView):
         order_test_step = OrderTestStep.objects.filter(
             test_case=self.object.test_case,
         ).order_by('number')[0]
-        test_step_result = self.object.steps_results.get(
+        test_step_result = self.object.test_step_results.get(
             test_step=order_test_step.test_step
         )
         return reverse('test_step_result_modify', args=(test_step_result.pk,))
@@ -90,6 +90,28 @@ class TestStepResultModifyView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(TestStepResultModifyView, self).get_context_data(**kwargs)
+
+        test_case_result = TestCaseResult.objects.get(test_step_results=self.object)
+        test_case = test_case_result.test_case
+        context['test_case'] = test_case
+
+        """
+            Calculate values for progress bar.
+        """
+        order_test_steps = OrderTestStep.objects.filter(
+            test_case=test_case
+        )
+        current_order_test_step = order_test_steps.get(
+            test_step=self.object.test_step
+        )
+        current_int = int(current_order_test_step.number)
+        total_int = len(order_test_steps)
+        context['progress_bar'] = {
+            'current': current_int,
+            'total': total_int,
+            'percentage': 100.0 * current_int / total_int,
+        }
+
         return context
 
     def get_success_url(self):

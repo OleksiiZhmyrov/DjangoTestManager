@@ -56,7 +56,7 @@ class TestStepResultUpdateForm(forms.ModelForm):
         super(TestStepResultUpdateForm, self).__init__(*args, **kwargs)
         self.error_class = CustomErrorList
 
-        self.fields['exec_result'].widget = forms.Select(
+        self.fields['execution_result'].widget = forms.Select(
             choices=((i.pk, i.name) for i in ExecutionResult.objects.all()),
             attrs={
                 'class': 'form-control',
@@ -66,5 +66,5 @@ class TestStepResultUpdateForm(forms.ModelForm):
 
     class Meta:
         model = TestStepResult
-        fields = ['exec_result', ]
+        fields = ['execution_result', ]
 

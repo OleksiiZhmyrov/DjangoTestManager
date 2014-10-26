@@ -22,8 +22,9 @@ class ExecutionResult(models.Model):
 
 
 class TestStepResult(models.Model):
-    exec_result = models.ForeignKey(
+    execution_result = models.ForeignKey(
         ExecutionResult,
+        related_name="Execution result",
         blank=True,
         null=True,
     )
@@ -82,7 +83,7 @@ class TestCaseResult(models.Model):
 
     test_case = models.ForeignKey(TestCase)
 
-    steps_results = models.ManyToManyField(
+    test_step_results = models.ManyToManyField(
         TestStepResult,
         verbose_name="Results of related test steps",
     )

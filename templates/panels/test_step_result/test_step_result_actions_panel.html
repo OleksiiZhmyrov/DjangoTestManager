@@ -1,0 +1,19 @@
+<div class="panel panel-default no-print">
+    <div class="panel-heading">
+        <h3 class="panel-title">Actions</h3>
+    </div>
+    <div class="panel-body text-center">
+        <a class="btn btn-default btn-cta btn-block"
+           href="{% url 'test_case_view' pk=test_case.pk %}">
+            <span class="glyphicon glyphicon-tag"></span>
+            Return to Test Case</a>
+
+        <p></p>
+
+        <a class="btn btn-default btn-cta btn-block"
+           href="{% url 'test_case_view' pk=test_case.pk %}">
+            <span class="glyphicon glyphicon-list-alt"></span>
+            View report</a>
+
+    </div>
+</div>
