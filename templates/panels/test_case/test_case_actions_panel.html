@@ -3,12 +3,17 @@
         <h3 class="panel-title">Actions</h3>
     </div>
     <div class="panel-body text-center">
-        <a class="btn btn-default btn-cta"
+        <a class="btn btn-success btn-cta btn-block"
+           href="/exec/testcases/run/{{ test_case.pk }}/">
+            <span class="glyphicon glyphicon-play"></span>
+            Run Test Case</a>
+        <p></p>
+        <a class="btn btn-default btn-cta btn-block"
            href="/content/testcases/modify/{{ test_case.pk }}/">
             <span class="glyphicon glyphicon-pencil"></span>
             Modify Test Case</a>
         <p></p>
-        <a class="btn btn-default btn-cta"
+        <a class="btn btn-default btn-cta btn-block"
            href="/content/testcases/print/{{ test_case.pk }}/">
             <span class="glyphicon glyphicon-print"></span>
             Printer-friendly view</a>

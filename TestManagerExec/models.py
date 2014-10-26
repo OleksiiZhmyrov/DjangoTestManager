@@ -35,7 +35,7 @@ class TestStepResult(models.Model):
         auto_now_add=True,
     )
 
-    step = models.ForeignKey(TestStep)
+    test_step = models.ForeignKey(TestStep)
 
     linked_issues = models.ManyToManyField(
         "TestManagerCore.JiraIssue",
@@ -43,6 +43,9 @@ class TestStepResult(models.Model):
         blank=True,
         null=True,
     )
+
+    def __str__(self):
+        return ', '.join([str(self.pk), self.test_step.name, self.tester.username])
 
     class Meta:
         verbose_name = "Test Step Result"
@@ -70,18 +73,23 @@ class TestCaseResult(models.Model):
         verbose_name="Results of related test steps",
     )
 
-    environment = models.CharField(
-        "Environment",
-        blank=True,
-        null=True,
-        max_length=512,
+    environment = models.ForeignKey(
+        "TestManagerCore.Environment",
     )
 
     sprint = models.ForeignKey(
         "TestManagerCore.Sprint",
+    )
+
+    risks = models.CharField(
+        "Risks",
+        max_length=512,
         blank=True,
         null=True,
     )
+
+    def __str__(self):
+        return ', '.join([str(self.pk), self.test_case.name, self.environment.name, self.tester.username])
 
     class Meta:
         verbose_name = "Test Case Result"

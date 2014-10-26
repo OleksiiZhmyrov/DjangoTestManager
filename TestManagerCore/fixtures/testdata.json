@@ -55,5 +55,12 @@
             "name": "first priority"
         },
         "model": "TestManagerCore.tag"
+    },
+    {
+        "pk": 1,
+        "fields": {
+            "name": "Sprint 0"
+        },
+        "model": "TestManagerCore.sprint"
     }
 ]
