@@ -1,36 +1,45 @@
 <div>
     <h3>Execution History</h3>
-
+    <span class="help-block">
+        Only last 50 runs are available in this view
+    </span>
     <div>
-
         <table class="table table-hover">
             <thead>
             <tr>
                 <th>Date</th>
+                <th>Execution result</th>
+                <th>Environment</th>
+                <th>Sprint</th>
                 <th>Tester</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1970-01-01</td>
-                <td>Billy Jean</td>
-                <td>
-                    <a href="" type="button" class="btn btn-default btn-xs">view</a>
-                </td>
-            </tr>
-            <tr>
-                <td>1970-01-03</td>
-                <td>Jack Torrance</td>
-                <td>
-                    <a href="" type="button" class="btn btn-default btn-xs">view</a>
-                </td>
-            </tr>
+            {% for test_case_result in test_case_results %}
+                <tr>
+                    <td>{{ test_case_result.creation_date | date:"Y-m-d H:i:s" }} UTC</td>
+                    <td>{{ test_case_result.exec_result.name }}</td>
+                    <td>{{ test_case_result.environment.name }}</td>
+                    <td>{{ test_case_result.sprint.name }}</td>
+                    <td>
+                        {% if test_case_result.tester.first_name or test_case_result.tester.last_name %}
+                            {{ test_case_result.tester.first_name }} {{ test_case_result.tester.last_name }}
+                        {% else %}
+                            {{ test_case_result.tester.username }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="" type="button" class="btn btn-default btn-xs">view</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center">No items in this list yet.</td>
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
-
     </div>
-
     <hr>
-
 </div>

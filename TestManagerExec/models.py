@@ -77,6 +77,12 @@ class TestCaseResult(models.Model):
         "TestManagerCore.Environment",
     )
 
+    browser = models.ForeignKey(
+        "TestManagerCore.Browser",
+        blank=True,
+        null=True,
+    )
+
     sprint = models.ForeignKey(
         "TestManagerCore.Sprint",
     )

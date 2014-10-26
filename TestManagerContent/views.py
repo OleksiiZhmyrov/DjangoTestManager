@@ -16,6 +16,7 @@ from TestManagerContent.forms import TestCaseCreateForm, TestCaseUpdateForm
 from TestManagerContent.forms import OrderTestStepCreateForm, OrderTestStepModifyForm
 from TestManagerContent.forms import TestStepCreateForm, TestStepUpdateForm
 from TestManagerContent.forms import ScreenshotCreateForm, ScreenshotUpdateForm
+from TestManagerExec.models import TestCaseResult
 
 
 class TestSuiteListView(ListView):
@@ -227,8 +228,18 @@ class TestCaseView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(TestCaseView, self).get_context_data(**kwargs)
-        context['order_test_steps'] = OrderTestStep.objects.filter(test_case=self.object).order_by('number')
-        context['order_test_cases'] = OrderTestCase.objects.filter(test_case=self.object)
+
+        context['order_test_steps'] = OrderTestStep.objects.filter(
+            test_case=self.object
+        ).order_by('number')
+
+        context['order_test_cases'] = OrderTestCase.objects.filter(
+            test_case=self.object
+        )
+        context['test_case_results'] = TestCaseResult.objects.filter(
+            test_case=self.object
+        ).order_by('-creation_date')[:50]
+
         return context
 
     @method_decorator(login_required)

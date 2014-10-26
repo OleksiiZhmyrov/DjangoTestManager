@@ -1,5 +1,5 @@
 from django import forms
-from TestManagerCore.models import Environment, Sprint
+from TestManagerCore.models import Environment, Sprint, Browser
 from TestManagerCore.utils import CustomErrorList
 from TestManagerExec.models import TestCaseResult
 
@@ -26,6 +26,14 @@ class TestCaseResultCreateForm(forms.ModelForm):
             },
         )
 
+        self.fields['browser'].widget = forms.Select(
+            choices=self._get_browsers_tupple(),
+            attrs={
+                'class': 'form-control',
+                'required': '',
+            },
+        )
+
         self.fields['risks'].widget = forms.TextInput(
             attrs={
                 'class': 'form-control ',
@@ -33,6 +41,12 @@ class TestCaseResultCreateForm(forms.ModelForm):
             },
         )
 
+    @staticmethod
+    def _get_browsers_tupple():
+        browser_queryset = Browser.objects.all().order_by('name', '-version')
+        browsers = [('', 'none')] + [(i.pk, ' '.join([i.name, i.version])) for i in browser_queryset]
+        return list(browsers)
+
     class Meta:
         model = TestCaseResult
-        fields = ['environment', 'sprint', 'risks', ]
+        fields = ['environment', 'sprint', 'browser', 'risks', ]
