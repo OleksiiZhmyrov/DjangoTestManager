@@ -23,6 +23,11 @@
 
             <div class="col-md-8 text-center">
 
+                <div class="well well-sm">
+                    <p><b>Expected result:</b></p>
+                    <p>{{ test_step.expected_result }}</p>
+                </div>
+
                 {% if test_step.screenshot %}
                     <div class="text-center">
                         <img data-src="holder.js/800x600"
