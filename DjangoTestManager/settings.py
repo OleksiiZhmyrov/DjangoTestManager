@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'TestManagerCore',
     'TestManagerContent',
+    'TestManagerExec',
 )
 
 MIDDLEWARE_CLASSES = (

@@ -46,37 +46,5 @@
             "name": "Outdated",
             "description": "Test case is outdated"
         }
-    },
-    {
-        "model": "TestManagerContent.executionresult",
-        "pk": 1,
-        "fields": {
-            "name": "Passed",
-            "description": "Execution of step or scenario successfully passed"
-        }
-    },
-    {
-        "model": "TestManagerContent.executionresult",
-        "pk": 2,
-        "fields": {
-            "name": "Skipped",
-            "description": "Execution of step or scenario has been skipped"
-        }
-    },
-    {
-        "model": "TestManagerContent.executionresult",
-        "pk": 3,
-        "fields": {
-            "name": "Failed",
-            "description": "Execution of step or scenario failed"
-        }
-    },
-    {
-        "model": "TestManagerContent.executionresult",
-        "pk": 4,
-        "fields": {
-            "name": "Not Run",
-            "description": "Execution of step or scenario has not been started"
-        }
     }
 ]

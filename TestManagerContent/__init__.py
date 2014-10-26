@@ -1,1 +1,1 @@
-default_app_config = 'TestManagerContent.apps.ManualTesterConfig'
+default_app_config = 'TestManagerContent.apps.TestManagerContentConfig'

@@ -1,0 +1,34 @@
+[
+    {
+        "model": "TestManagerExec.executionresult",
+        "pk": 1,
+        "fields": {
+            "name": "Passed",
+            "description": "Execution of step or scenario successfully passed"
+        }
+    },
+    {
+        "model": "TestManagerExec.executionresult",
+        "pk": 2,
+        "fields": {
+            "name": "Skipped",
+            "description": "Execution of step or scenario has been skipped"
+        }
+    },
+    {
+        "model": "TestManagerExec.executionresult",
+        "pk": 3,
+        "fields": {
+            "name": "Failed",
+            "description": "Execution of step or scenario failed"
+        }
+    },
+    {
+        "model": "TestManagerExec.executionresult",
+        "pk": 4,
+        "fields": {
+            "name": "Not Run",
+            "description": "Execution of step or scenario has not been started"
+        }
+    }
+]

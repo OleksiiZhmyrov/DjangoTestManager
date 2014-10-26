@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django import test
-from TestManagerContent.models import TestStepStatus, TestCaseStatus, ExecutionResult, TestStep, TestCase, TestSuite
+from TestManagerContent.models import TestStepStatus, TestCaseStatus, TestStep, TestCase, TestSuite
 
 
 class TestStepStatusTests(test.TestCase):
@@ -30,21 +30,6 @@ class TestCaseStatusTests(test.TestCase):
         self.assertEquals(
             'Approved',
             str(test_case_status),
-        )
-
-
-class ExecutionResultTests(test.TestCase):
-    """ExecutionResult model tests."""
-
-    def test_str(self):
-
-        execution_result = ExecutionResult(
-            name='Passed',
-            description='Passed with no errors')
-
-        self.assertEquals(
-            'Passed',
-            str(execution_result),
         )
 
 
