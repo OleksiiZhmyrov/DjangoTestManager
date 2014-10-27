@@ -36,6 +36,11 @@ class TestStepResult(models.Model):
         auto_now_add=True,
     )
 
+    modification_date = models.DateTimeField(
+        "Modification date",
+        auto_now=True,
+    )
+
     test_step = models.ForeignKey(TestStep)
 
     linked_issues = models.ManyToManyField(
@@ -79,6 +84,11 @@ class TestCaseResult(models.Model):
     creation_date = models.DateTimeField(
         "Creation date",
         auto_now_add=True,
+    )
+
+    modification_date = models.DateTimeField(
+        "Modification date",
+        auto_now=True,
     )
 
     test_case = models.ForeignKey(TestCase)

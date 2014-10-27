@@ -6,6 +6,7 @@
             <span class="help-block">
                 {{ test_case.description }}
             </span>
+
             <div class="clearfix">
 
                 <div class="pull-left">
@@ -15,6 +16,7 @@
                         {{ test_case.author.username }}
                     {% endif %} |
                     Created on {{ test_case.creation_date|date:"Y-m-d" }} |
+                    Modified on {{ test_case.modification_date|date:"Y-m-d" }} |
                     Status: {{ test_case.status.name }} |
                     <a href="/content/testcases/modify/{{ test_case.pk }}/">modify</a>
                 </div>

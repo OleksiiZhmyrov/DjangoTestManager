@@ -54,6 +54,11 @@ class TestStep(models.Model):
         auto_now_add=True,
     )
 
+    modification_date = models.DateTimeField(
+        "Modification date",
+        auto_now=True,
+    )
+
     name = models.CharField(
         "Name",
         max_length=256,
@@ -105,6 +110,11 @@ class TestCase(models.Model):
         auto_now_add=True,
     )
 
+    modification_date = models.DateTimeField(
+        "Modification date",
+        auto_now=True,
+    )
+
     name = models.CharField(
         "Name",
         max_length=256,
@@ -154,6 +164,11 @@ class TestSuite(models.Model):
     creation_date = models.DateTimeField(
         "Creation date",
         auto_now_add=True,
+    )
+
+    modification_date = models.DateTimeField(
+        "Modification date",
+        auto_now=True,
     )
 
     name = models.CharField(

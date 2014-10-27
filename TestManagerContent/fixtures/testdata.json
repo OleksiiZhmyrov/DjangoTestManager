@@ -8,6 +8,7 @@
             "status": 2,
             "author": 2,
             "creation_date": "1970-01-01T00:00:00.000Z",
+            "modification_date": "1970-01-01T00:00:00.000Z",
             "tags": [],
             "screenshot": 1
         },
@@ -22,6 +23,7 @@
             "status": 2,
             "author": 2,
             "creation_date": "1970-01-01T00:00:00.000Z",
+            "modification_date": "1970-01-01T00:00:00.000Z",
             "tags": [],
             "screenshot": 2
         },
@@ -36,6 +38,7 @@
             "status": 2,
             "author": 2,
             "creation_date": "1970-01-01T00:00:00.000Z",
+            "modification_date": "1970-01-01T00:00:00.000Z",
             "tags": [],
             "screenshot": 1
         },
@@ -48,6 +51,7 @@
             "linked_issues": [],
             "status": 1,
             "creation_date": "1970-01-01T00:00:00.000Z",
+            "modification_date": "1970-01-01T00:00:00.000Z",
             "tags": [1, 2],
             "description": "Verify basic search functionality on Google home page.",
             "name": "Google search functionality"
@@ -61,6 +65,7 @@
             "linked_issues": [],
             "status": 1,
             "creation_date": "1970-01-01T00:00:00.000Z",
+            "modification_date": "1970-01-01T00:00:00.000Z",
             "tags": [2, 3],
             "description": "Verify authentication functionality for Test Manager.",
             "name": "Login to Test Manager"
@@ -71,6 +76,7 @@
         "pk": 1,
         "fields": {
             "creation_date": "1970-01-01T00:00:00.000Z",
+            "modification_date": "1970-01-01T00:00:00.000Z",
             "author": 2,
             "description": "Simple example of test suite",
             "name": "Test Suite example",

@@ -4,6 +4,7 @@
         <th>Name</th>
         <th>Status</th>
         <th>Creation date</th>
+        <th>Modification date</th>
         <th>Author</th>
         <th>Tags</th>
         <th></th>
@@ -15,6 +16,7 @@
             <td><a href="/content/teststeps/view/{{ test_step.pk }}/">{{ test_step.name }}</a></td>
             <td>{{ test_step.status.name }}</td>
             <td>{{ test_step.creation_date | date:"Y-m-d" }}</td>
+            <td>{{ test_step.modification_date | date:"Y-m-d" }}</td>
             <td>{{ test_step.author }}</td>
             <td>
                 {% for tag in test_step.tags.all %}
