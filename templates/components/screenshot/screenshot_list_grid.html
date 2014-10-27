@@ -16,7 +16,7 @@
                         {{ screenshot.owner.username }}
                     {% endif %}
                     <br>
-                    Date: {{ screenshot.creation_date | date:"Y-m-d" }}
+                    Date: {{ screenshot.creation_date | date:"Y-m-d H:i:s" }} UTC
                     <br>
                     <a href="/content/screenshots/modify/{{ screenshot.pk }}/"
                        type="button" class="btn btn-default btn-xs">

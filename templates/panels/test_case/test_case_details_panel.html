@@ -18,13 +18,15 @@
             </div>
 
             <div href="#" class="list-group-item">Creation date
-                <span class="pull-right text-muted small">
+                <span class="pull-right text-muted small"
+                      title="{{ test_case.creation_date|date:"Y-m-d H:i:s" }} UTC">
                     <em>{{ test_case.creation_date|date:"Y-m-d" }}</em>
                 </span>
             </div>
 
             <div href="#" class="list-group-item">Modification date
-                <span class="pull-right text-muted small">
+                <span class="pull-right text-muted small"
+                      title="{{ test_case.modification_date|date:"Y-m-d H:i:s" }} UTC">
                     <em>{{ test_case.modification_date|date:"Y-m-d" }}</em>
                 </span>
             </div>

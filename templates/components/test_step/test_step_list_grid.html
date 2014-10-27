@@ -15,8 +15,12 @@
         <tr>
             <td><a href="/content/teststeps/view/{{ test_step.pk }}/">{{ test_step.name }}</a></td>
             <td>{{ test_step.status.name }}</td>
-            <td>{{ test_step.creation_date | date:"Y-m-d" }}</td>
-            <td>{{ test_step.modification_date | date:"Y-m-d" }}</td>
+            <td><span title="{{ test_step.creation_date | date:"Y-m-d H:i:s" }} UTC">
+                {{ test_step.creation_date | date:"Y-m-d" }}
+            </span></td>
+            <td><span title="{{ test_step.modification_date | date:"Y-m-d H:i:s" }} UTC">
+                {{ test_step.modification_date | date:"Y-m-d" }}
+            </span></td>
             <td>{{ test_step.author }}</td>
             <td>
                 {% for tag in test_step.tags.all %}

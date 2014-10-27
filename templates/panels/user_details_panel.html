@@ -9,23 +9,24 @@
 
             <div href="#" class="list-group-item">
                 Date joined
-                                    <span class="pull-right text-muted small">
-                                        <em>{{ user.date_joined|date:"Y-m-d" }}</em>
-                                    </span>
+                <span class="pull-right text-muted small"
+                      title="{{ user.date_joined|date:"Y-m-d H:i:s" }} UTC">
+                    <em>{{ user.date_joined|date:"Y-m-d" }}</em>
+                </span>
             </div>
 
             <div href="#" class="list-group-item">
                 Last logged in
-                                    <span class="pull-right text-muted small">
-                                        <em>{{ user.last_login|naturaltime }}</em>
-                                    </span>
+                <span class="pull-right text-muted small">
+                    <em>{{ user.last_login|naturaltime }}</em>
+                </span>
             </div>
 
             <div href="#" class="list-group-item">
                 Is staff member
-                                    <span class="pull-right text-muted small">
-                                        <em>{% if user.is_staff %}Yes{% else %}No{% endif %}</em>
-                                    </span>
+                <span class="pull-right text-muted small">
+                    <em>{% if user.is_staff %}Yes{% else %}No{% endif %}</em>
+                </span>
             </div>
 
         </div>

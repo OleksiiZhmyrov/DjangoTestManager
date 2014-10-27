@@ -14,8 +14,10 @@
                     {% else %}
                         {{ test_suite.author.username }}
                     {% endif %} |
-                    Created on {{ test_suite.creation_date|date:"Y-m-d" }} |
-                    Modified on {{ test_suite.modification_date|date:"Y-m-d" }} |
+                    Created on <span title="{{ test_suite.creation_date|date:"Y-m-d H:i:s" }} UTC">
+                        {{ test_suite.creation_date|date:"Y-m-d" }}</span> |
+                    Modified on <span title="{{ test_suite.modification_date|date:"Y-m-d H:i:s" }} UTC">
+                        {{ test_suite.modification_date|date:"Y-m-d" }}</span> |
                     <a href="/content/testsuites/modify/{{ test_suite.pk }}/">modify</a>
                 </div>
 
