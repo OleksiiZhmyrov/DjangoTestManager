@@ -1,4 +1,5 @@
-<form class="form" role="form" id="form" method="post" action="/accounts/login/">
+<form class="form" role="form" id="form" method="post"
+      action="{% url "user_login" %}">
 
     {% csrf_token %}
 
@@ -19,10 +20,7 @@
     <input type="hidden" name="next" value="{{ next }}" />
 
     <div class="form-group form-group-lg">
-        <button
-                class="btn btn-lg btn-primary btn-block"
-                type="submit"
-                value="submit">
+        <button class="btn btn-lg btn-primary btn-block" type="submit" value="submit">
             Sign in
         </button>
     </div>

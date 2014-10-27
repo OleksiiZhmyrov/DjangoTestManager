@@ -13,7 +13,7 @@
     <tbody>
     {% for test_step in test_step_list %}
         <tr>
-            <td><a href="/content/teststeps/view/{{ test_step.pk }}/">{{ test_step.name }}</a></td>
+            <td><a href="{% url "test_step_view" pk=test_step.pk %}">{{ test_step.name }}</a></td>
             <td>{{ test_step.status.name }}</td>
             <td><span title="{{ test_step.creation_date | date:"Y-m-d H:i:s" }} UTC">
                 {{ test_step.creation_date | date:"Y-m-d" }}
@@ -28,13 +28,14 @@
                 {% endfor %}
             </td>
             <td>
-                <a href="/content/teststeps/modify/{{ test_step.pk }}/" type="button" class="btn btn-default btn-xs">
+                <a href="{% url "test_step_edit" pk=test_step.pk %}"
+                   type="button" class="btn btn-default btn-xs">
                     modify</a>
             </td>
         </tr>
     {% empty %}
         <tr>
-            <td colspan="6">No test suites yet.</td>
+            <td colspan="7">No Test Steps yet.</td>
         </tr>
     {% endfor %}
     </tbody>

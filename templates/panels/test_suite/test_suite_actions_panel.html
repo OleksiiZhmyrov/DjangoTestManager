@@ -4,7 +4,7 @@
     </div>
     <div class="panel-body text-center">
         <a class="btn btn-default btn-cta btn-block"
-           href="/content/testsuites/modify/{{ test_suite.pk }}/">
+           href="{% url "test_suite_edit" pk=test_suite.pk %}">
             <span class="glyphicon glyphicon-pencil"></span>
             Modify Test Suite</a>
     </div>

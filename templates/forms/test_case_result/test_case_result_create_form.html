@@ -1,5 +1,5 @@
 <form class="form-horizontal custom-error-message" role="form" id="form" method="post"
-      action="/exec/testcases/init/{{ test_case.pk }}/">
+      action="{% url "test_case_result_create" test_case_pk=test_case.pk %}">
 
     {% csrf_token %}
     {{ form.non_field_errors | safe }}

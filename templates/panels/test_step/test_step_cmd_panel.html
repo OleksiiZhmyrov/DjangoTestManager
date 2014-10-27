@@ -2,7 +2,7 @@
     <div class="panel-heading clearfix">
         <div class="pull-left">Included Test Steps</div>
         <div class="pull-right">
-            <a href="/content/testcases/{{ test_case.pk }}/orderteststep/add/"
+            <a href="{% url "orderteststep_create" test_case_pk=test_case.pk %}"
                type="button" class="btn btn-default btn-xs">
                 add test step
             </a>
@@ -24,7 +24,7 @@
         {% for item in order_test_steps %}
             <tr>
                 <td>{{ item.number }}</td>
-                <td><a href="/content/teststeps/view/{{ item.test_step.pk }}/">
+                <td><a href="{% url "test_step_view" pk=item.test_step.pk %}">
                     {{ item.test_step.name }}
                 </a></td>
                 <td>{{ item.test_step.status.name }}</td>
@@ -34,11 +34,11 @@
                     {% endfor %}
                 </td>
                 <td>
-                    <a href="/content/testcases/{{ item.test_case.pk }}/orderteststep/{{ item.pk }}/modify/"
+                    <a href="{% url "orderteststep_modify" test_case_pk=item.test_case.pk pk=item.pk %}"
                        type="button" class="btn btn-default btn-xs">
                         modify
                     </a>
-                    <a href="/content/testcases/{{ item.test_case.pk }}/orderteststep/{{ item.pk }}/remove/"
+                    <a href="{% url "orderteststep_remove" test_case_pk=item.test_case.pk pk=item.pk %}"
                        type="button" class="btn btn-default btn-xs">
                         remove
                     </a>
@@ -48,7 +48,7 @@
         {% empty %}
             <tr>
                 <td colspan="5" class="text-center">
-                    No teststeps in this test case yet.
+                    No Test Steps in this Test Case yet.
                 </td>
             </tr>
 

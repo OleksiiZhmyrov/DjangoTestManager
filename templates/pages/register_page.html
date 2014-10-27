@@ -12,22 +12,19 @@
             <p class="lead">Registered users gain full assess to Test Manager features.</p>
 
             <p>After successful registration you will be automatically redirected to
-                <a href="/accounts/login/">login page</a>.</p>
+                <a href="{% url "user_login" %}">login page</a>.</p>
 
             <hr class="small">
 
             <div>
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
-                    {% include "components/../forms/auth/registration_form.html" %}
+                    {% include "forms/auth/registration_form.html" %}
                 </div>
                 <div class="col-md-4"></div>
             </div>
 
         </div>
-
     </div>
-
-
 
 {% endblock %}

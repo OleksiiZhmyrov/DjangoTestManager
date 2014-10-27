@@ -4,7 +4,7 @@
     </div>
     <div class="panel-body">
         {% for item in order_test_steps %}
-            <p><i class="glyphicon glyphicon-tags"></i> <a href="/content/testcases/view/{{ item.test_case.pk }}/">
+            <p><i class="glyphicon glyphicon-tags"></i> <a href="{% url "test_case_view" pk=item.test_case.pk %}">
                 {{ item.test_case.name }}</a>
             </p>
         {% empty %}

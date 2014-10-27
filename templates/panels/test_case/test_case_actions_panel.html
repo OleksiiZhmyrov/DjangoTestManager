@@ -4,17 +4,17 @@
     </div>
     <div class="panel-body text-center">
         <a class="btn btn-success btn-cta btn-block"
-           href="/exec/testcases/init/{{ test_case.pk }}/">
+           href="{% url "test_case_result_create" test_case_pk=test_case.pk %}">
             <span class="glyphicon glyphicon-play"></span>
             Run Test Case</a>
         <p></p>
         <a class="btn btn-default btn-cta btn-block"
-           href="/content/testcases/modify/{{ test_case.pk }}/">
+           href="{% url "test_case_edit" pk=test_case.pk %}">
             <span class="glyphicon glyphicon-pencil"></span>
             Modify Test Case</a>
         <p></p>
         <a class="btn btn-default btn-cta btn-block"
-           href="/content/testcases/print/{{ test_case.pk }}/">
+           href="{% url "test_case_print_view" pk=test_case.pk %}">
             <span class="glyphicon glyphicon-print"></span>
             Printer-friendly view</a>
     </div>

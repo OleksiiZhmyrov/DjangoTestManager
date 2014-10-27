@@ -6,7 +6,8 @@ from TestManagerCore.views import UserRegistrationView, UserLogOutView, UserProf
 
 urlpatterns = patterns(
     '',
-    url(r'^accounts/register/$', UserRegistrationView.as_view(), name='user_registration'),
+    url(r'^accounts/register/$', UserRegistrationView.as_view(),
+        name='user_registration'),
 
     url(r'^accounts/login/$',
         'django.contrib.auth.views.login',
@@ -17,9 +18,11 @@ urlpatterns = patterns(
         name='user_login'
     ),
 
-    url(r'^accounts/logout/$', UserLogOutView.as_view(), name='user_logout'),
+    url(r'^accounts/logout/$', UserLogOutView.as_view(),
+        name='user_logout'),
 
-    url(r'^accounts/profile/$', UserProfileUpdateView.as_view(), name='user_profile'),
+    url(r'^accounts/profile/$', UserProfileUpdateView.as_view(),
+        name='user_profile'),
 )
 
 

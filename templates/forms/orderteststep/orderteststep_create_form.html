@@ -1,6 +1,5 @@
-<form class="form-horizontal custom-error-message"
-      role="form" id="form"
-      method="post" action="/content/testcases/{{ test_case.pk }}/orderteststep/add/">
+<form class="form-horizontal custom-error-message" role="form" id="form" method="post"
+      action="{% url "orderteststep_create" test_case_pk=test_case.pk %}">
 
     {% csrf_token %}
 
@@ -26,7 +25,8 @@
 
     <div class="clearfix">
         <div class="form-group form-group-lg pull-right">
-            <a href="/content/testcases/modify/{{ test_case.pk }}/" type="button" class="btn btn-default">Discard</a>
+            <a href="{% url "test_case_edit" pk=test_case.pk %}"
+               type="button" class="btn btn-default">Discard</a>
             <span></span>
             <input type="submit" class="btn btn-primary" value="Save Changes">
         </div>

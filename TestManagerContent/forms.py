@@ -271,7 +271,7 @@ class TestStepCreateForm(forms.ModelForm):
 
     class Meta:
         model = TestStep
-        fields = ['name', 'description', 'status', ]
+        fields = ['name', 'description', 'expected_result', 'status', ]
 
 
 class TestStepUpdateForm(forms.ModelForm):

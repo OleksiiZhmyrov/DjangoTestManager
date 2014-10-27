@@ -2,7 +2,7 @@
     <div class="panel-heading clearfix">
         <div class="pull-left">Included Test Cases</div>
         <div class="pull-right">
-            <a href="/content/testsuites/{{ test_suite.pk }}/ordertestcase/add/"
+            <a href="{% url "ordertestcase_create" test_suite_pk=test_suite.pk %}"
                type="button" class="btn btn-default btn-xs">
                 add test case
             </a>
@@ -24,7 +24,7 @@
         {% for item in order_test_cases %}
             <tr>
                 <td>{{ item.number }}</td>
-                <td><a href="/content/testcases/view/{{ item.test_case.pk }}/">
+                <td><a href="{% url "test_case_view" pk=item.test_case.pk %}">
                     {{ item.test_case.name }}
                 </a></td>
                 <td>{{ item.test_case.status.name }}</td>
@@ -34,11 +34,11 @@
                     {% endfor %}
                 </td>
                 <td>
-                    <a href="/content/testsuites/{{ item.test_suite.pk }}/ordertestcase/{{ item.pk }}/modify/"
+                    <a href="{% url "ordertestcase_modify" test_suite_pk=item.test_suite.pk pk=item.pk %}"
                        type="button" class="btn btn-default btn-xs">
                         modify
                     </a>
-                    <a href="/content/testsuites/{{ item.test_suite.pk }}/ordertestcase/{{ item.pk }}/remove/"
+                    <a href="{% url "ordertestcase_remove" test_suite_pk=item.test_suite.pk pk=item.pk %}"
                        type="button" class="btn btn-default btn-xs">
                         remove
                     </a>

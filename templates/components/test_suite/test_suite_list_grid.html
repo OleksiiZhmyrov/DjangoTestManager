@@ -2,7 +2,7 @@
     {% for test_suite in test_suite_list %}
         <div>
             <h3><i class="glyphicon glyphicon-tags"></i>&nbsp;
-                <a href="/content/testsuites/view/{{ test_suite.pk }}/">{{ test_suite.name }}</a></h3>
+                <a href="{% url "test_suite_view" pk=test_suite.pk %}">{{ test_suite.name }}</a></h3>
             <span class="help-block">
                 {{ test_suite.description }}
             </span>
@@ -18,7 +18,7 @@
                         {{ test_suite.creation_date|date:"Y-m-d" }}</span> |
                     Modified on <span title="{{ test_suite.modification_date|date:"Y-m-d H:i:s" }} UTC">
                         {{ test_suite.modification_date|date:"Y-m-d" }}</span> |
-                    <a href="/content/testsuites/modify/{{ test_suite.pk }}/">modify</a>
+                    <a href="{% url "test_suite_edit" pk=test_suite.pk %}">modify</a>
                 </div>
 
                 <div class="pull-right">

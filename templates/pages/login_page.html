@@ -13,12 +13,12 @@
             <span class="brand-name">Test Manager</span>
 
             <h1>Free and OpenSource test management software</h1>
-            <p>Please login or <a href="/accounts/register/">sign up</a> to access application features</p>
+            <p>Please login or <a href="{% url "user_registration" %}">sign up</a> to access application features</p>
 
             <div>
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
-                    {% include "components/../forms/auth/login_form.html" %}
+                    {% include "forms/auth/login_form.html" %}
                 </div>
                 <div class="col-md-4"></div>
             </div>
@@ -27,7 +27,5 @@
 
         </div>
     </header>
-
-
 
 {% endblock %}

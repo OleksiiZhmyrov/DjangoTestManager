@@ -1,8 +1,5 @@
-<form class="form-horizontal m2m"
-      role="form"
-      id="form"
-      method="post"
-      action="/content/screenshots/modify/{{ screenshot.pk }}/">
+<form class="form-horizontal m2m" role="form" id="form" method="post"
+      action="{% url "screenshot_edit" pk=screenshot.pk %}">
 
     {% csrf_token %}
 

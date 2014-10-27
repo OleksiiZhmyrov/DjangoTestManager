@@ -18,9 +18,11 @@
             {% for item in order_test_cases %}
                 <tr>
                     <td>{{ item.number }}</td>
-                    <td><a href="/content/testcases/view/{{ item.test_case.pk }}/">
-                        {{ item.test_case.name }}
-                    </a></td>
+                    <td>
+                        <a href="{% url "test_case_view" pk=item.test_case.pk %}">
+                            {{ item.test_case.name }}
+                        </a>
+                    </td>
                     <td>{{ item.test_case.status.name }}</td>
                     <td>
                         {% for tag in item.test_case.tags.all %}
@@ -28,7 +30,7 @@
                         {% endfor %}
                     </td>
                     <td>
-                        <a href=""
+                        <a href="{% url "test_case_result_create" test_case_pk=item.test_case.pk %}"
                            type="button" class="btn btn-default btn-xs">
                             execute
                         </a>

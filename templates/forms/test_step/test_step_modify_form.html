@@ -1,8 +1,6 @@
 <form class="form-horizontal m2m"
-      role="form"
-      id="form"
-      method="post"
-      action="/content/teststeps/modify/{{ test_step.pk }}/">
+      role="form" id="form" method="post"
+      action="{% url "test_step_edit" pk=test_step.pk %}">
 
     {% csrf_token %}
 
@@ -10,7 +8,8 @@
 
     <div class="clearfix">
         <div class="form-group form-group-lg pull-right">
-            <a href="/content/testcases/modify/{{ test_step.pk }}/" type="button" class="btn btn-default">Discard</a>
+            <a href="{% url "test_step_edit" pk=test_step.pk %}"
+               type="button" class="btn btn-default">Discard</a>
             <span></span>
             <input type="submit" class="btn btn-primary" value="Save Changes">
         </div>

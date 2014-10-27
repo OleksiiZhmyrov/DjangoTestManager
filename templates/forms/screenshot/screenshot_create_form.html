@@ -1,13 +1,13 @@
-<form class="form-horizontal" role="form" id="form"
-      method="post" enctype="multipart/form-data" action="/content/screenshots/create/">
+<form class="form-horizontal" role="form" id="form" method="post" enctype="multipart/form-data"
+      action="{% url "screenshot_create" %}">
 
     {% csrf_token %}
 
     {{ form.as_p }}
 
     <div class="form-group form-group-lg pull-right">
-            <input type="submit" class="btn btn-primary" value="Continue">
-        </div>
+        <input type="submit" class="btn btn-primary" value="Continue">
     </div>
+
 </form>
 

@@ -13,7 +13,7 @@
         <div class="row">
 
             <div class="col-md-3">
-                [123]
+                [TODO: fill in this panel]
             </div>
 
             <div class="col-md-9">
@@ -26,7 +26,8 @@
 
                 <hr>
 
-                <form action="" method="post">
+                <form action="{% url "ordertestcase_remove" test_suite_pk=object.test_suite.pk pk=object.pk %}"
+                      method="post">
 
                     {% csrf_token %}
 
@@ -34,7 +35,7 @@
 
                     <div class="clearfix">
                         <div class="form-group form-group-lg pull-right">
-                            <a href="/content/testsuites/modify/{{ object.test_suite.pk }}/" type="button"
+                            <a href="{% url "test_suite_edit" pk=object.test_suite.pk %}" type="button"
                                class="btn btn-default">Discard</a>
                             <span></span>
                             <input type="submit" class="btn btn-primary" value="Confirm">

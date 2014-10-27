@@ -26,11 +26,11 @@
 
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="/content/testsuites/" title="Test Suites">
+                                <a href="{% url "test_suite_list" %}" title="Test Suites">
                                     <span class="glyphicon glyphicon-tags"></span> Test Suites</a>
                             </li>
                             <li>
-                                <a href="/content/testcases/" title="Test Cases">
+                                <a href="{% url "test_case_list" %}" title="Test Cases">
                                     <span class="glyphicon glyphicon-tag"></span> Test Cases</a>
                             </li>
 
@@ -40,10 +40,10 @@
                             </li>
 
                             <li>
-                                <a href="/content/teststeps/" title="Manage Test Steps">Test Steps</a>
+                                <a href="{% url "test_step_list" %}" title="Manage Test Steps">Test Steps</a>
                             </li>
                             <li>
-                                <a href="/content/screenshots/" title="Manage Screenshots">Screenshots</a>
+                                <a href="{% url "screenshot_list" %}" title="Manage Screenshots">Screenshots</a>
                             </li>
                         </ul>
                     </li>
@@ -70,11 +70,11 @@
                                 Tools:
                             </li>
                             <li>
-                                <a href="/content/testsuites/create/">
+                                <a href="{% url "test_suite_create" %}">
                                     <i class="glyphicon glyphicon-tags"></i>&nbsp;New Test Suite</a>
                             </li>
                             <li>
-                                <a href="/content/testcases/create/">
+                                <a href="{% url "test_case_create" %}">
                                     <i class="glyphicon glyphicon-tag"></i>&nbsp;New Test Case</a>
                             </li>
                         </ul>
@@ -98,7 +98,7 @@
                         <ul class="dropdown-menu">
 
                             <li>
-                                <a href="/accounts/logout/"><span class="glyphicon glyphicon-off"></span>
+                                <a href="{% url "user_logout" %}"><span class="glyphicon glyphicon-off"></span>
                                     Log Out</a>
                             </li>
 
@@ -109,7 +109,7 @@
                             </li>
 
                             <li>
-                                <a href="/accounts/profile"><span class="glyphicon glyphicon-pencil"></span>
+                                <a href="{% url "user_profile" %}"><span class="glyphicon glyphicon-pencil"></span>
                                     Edit profile data</a>
                             </li>
 
@@ -118,7 +118,7 @@
                     </li>
                 {% else %}
                     <li>
-                        <a href="/accounts/register/" title="Register new account">Register new profile</a>
+                        <a href="{% url "user_registration" %}" title="Register new account">Register new profile</a>
                     </li>
                 {% endif %}
 

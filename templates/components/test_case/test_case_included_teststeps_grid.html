@@ -16,16 +16,18 @@
             {% for item in order_test_steps %}
                 <tr>
                     <td>{{ item.number }}</td>
-                    <td><a href="/content/teststeps/view/{{ item.test_step.pk }}/">
-                        {{ item.test_step.name }}
-                    </a></td>
+                    <td>
+                        <a href="{% url "test_step_view" pk=item.test_step.pk %}">
+                            {{ item.test_step.name }}
+                        </a>
+                    </td>
                     <td>{{ item.test_step.status.name }}</td>
                 </tr>
 
             {% empty %}
                 <tr>
-                    <td colspan="5" class="text-center">
-                        No teststeps in this test case yet.
+                    <td colspan="3" class="text-center">
+                        No Test Steps in this Test Case yet.
                     </td>
                 </tr>
 

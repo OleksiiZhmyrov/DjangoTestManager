@@ -1,4 +1,5 @@
-<form class="form-horizontal" role="form" id="form" method="post" action="/content/testsuites/create/">
+<form class="form-horizontal" role="form" id="form" method="post"
+      action="{% url "test_suite_create" %}">
 
     {% csrf_token %}
 

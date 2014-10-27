@@ -18,7 +18,7 @@
                     <br>
                     Date: {{ screenshot.creation_date | date:"Y-m-d H:i:s" }} UTC
                     <br>
-                    <a href="/content/screenshots/modify/{{ screenshot.pk }}/"
+                    <a href="{% url "screenshot_edit" pk=screenshot.pk %}"
                        type="button" class="btn btn-default btn-xs">
                         modify
                     </a>
@@ -37,6 +37,6 @@
         <hr>
 
     {% empty %}
-        <div>No screenshots yet.</div>
+        <div>No Screenshots yet.</div>
     {% endfor %}
 </div>

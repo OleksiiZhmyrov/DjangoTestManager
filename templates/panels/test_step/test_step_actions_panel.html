@@ -4,7 +4,7 @@
     </div>
     <div class="panel-body text-center">
         <a class="btn btn-default btn-cta btn-block"
-           href="/content/teststeps/modify/{{ test_step.pk }}/">
+           href="{% url "test_step_edit" pk=test_step.pk %}">
             <span class="glyphicon glyphicon-pencil"></span>
             Modify Test Step</a>
     </div>

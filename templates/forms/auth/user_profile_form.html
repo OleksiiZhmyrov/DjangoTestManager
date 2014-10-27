@@ -1,4 +1,5 @@
-<form class="form-horizontal" role="form" id="form" method="post" action="/accounts/profile/">
+<form class="form-horizontal" role="form" id="form" method="post"
+      action="{% url "user_profile" %}">
 
     {% csrf_token %}
 
@@ -35,7 +36,7 @@
         <div class="col-md-8">
             <input type="submit" class="btn btn-primary" value="Save Changes">
             <span></span>
-            <a href="/accounts/profile/" type="button" class="btn btn-default">Discard</a>
+            <a href="{% url "user_profile" %}" type="button" class="btn btn-default">Discard</a>
         </div>
     </div>
 </form>
