@@ -32,13 +32,17 @@ class TestCaseResultCreateView(CreateView):
         form.instance.test_case = TestCase.objects.get(
             pk=self.get_context_data()['view'].kwargs.get('test_case_pk')
         )
-        form.save()
-
+        """
+            Verify if Test Case has included Test Steps and fail form validation
+            in case if there are no Test Steps available.
+        """
         order_test_steps = OrderTestStep.objects.filter(test_case=form.instance.test_case).order_by('number')
         if not order_test_steps:
             errors = form.errors.setdefault(NON_FIELD_ERRORS, ErrorList())
             errors.append('This Test Case does not have any Test Step and could not be executed.')
             return super(TestCaseResultCreateView, self).form_invalid(form)
+
+        form.save()
 
         """
             Create TestStepResults objects and link them to current TestCaseResult object.
