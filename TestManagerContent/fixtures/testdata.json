@@ -16,9 +16,9 @@
     {
         "pk": 2,
         "fields": {
-            "description": "Type \"Billy Jean\" into search input field and left-click Search button.",
-            "expected_result": "Browser is directed to Search results page. Page contains results for Billy Jean.",
-            "name": "Search for Billy Jean",
+            "description": "Type \"Billie Jean\" into search input field and left-click Search button.",
+            "expected_result": "Browser is directed to Search results page. Page contains results for Billie Jean.",
+            "name": "Search for Billie Jean",
             "status": 2,
             "author": 2,
             "creation_date": "1970-01-01T00:00:00.000Z",
