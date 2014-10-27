@@ -1,0 +1,28 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Test Case Result Details
+    </div>
+    <div class="panel-body">
+        <div class="list-group">
+
+            <div href="#" class="list-group-item">Executed by
+                <span class="pull-right text-muted small">
+                    <em>
+                        {% if test_case_result.tester.first_name or test_case_result.tester.last_name %}
+                            {{ test_case_result.tester.first_name }} {{ test_case_result.tester.last_name }}
+                        {% else %}
+                            {{ test_case_result.tester.username }}
+                        {% endif %}
+                    </em>
+                </span>
+            </div>
+
+            <div href="#" class="list-group-item">Execution date
+                <span class="pull-right text-muted small">
+                    <em>{{ test_case_result.creation_date|date:"Y-m-d H:i:s" }}</em>
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>

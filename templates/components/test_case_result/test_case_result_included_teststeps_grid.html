@@ -11,7 +11,7 @@
                 <th>Tester</th>
                 <th>Status</th>
                 <th></th>
-                <th></th>
+                <th class="no-print"></th>
             </tr>
             </thead>
             <tbody>
@@ -28,7 +28,7 @@
                     {% endif %}
                     </td>
                     <td>{{ item.execution_result.name }}</td>
-                    <td>
+                    <td class="no-print">
                         <a href="{% url 'test_step_result_modify' pk=item.pk %}"
                            type="button" class="btn btn-default btn-xs">Jump to execution</a>
                     </td>

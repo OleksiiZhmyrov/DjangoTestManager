@@ -79,9 +79,9 @@
         "pk": 2,
         "fields": {
             "owner": 2,
-            "name": "Google search results page -- Billy Jean",
+            "name": "Google search results page -- Billie Jean",
             "creation_date": "1970-01-01T00:00:00.000Z",
-            "description": "Browser window with Google search results page. Page contains results for query \"Billy Jean\".",
+            "description": "Browser window with Google search results page. Page contains results for query \"Billie Jean\".",
             "screenshot": "media/uploads/img_b01c2ce25e34f80d499f0488d034b00b.png"
         }
     }
