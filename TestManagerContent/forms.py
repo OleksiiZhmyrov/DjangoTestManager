@@ -202,6 +202,7 @@ class OrderTestStepCreateForm(forms.ModelForm):
             choices=((i.pk, i.name) for i in TestStep.objects.all()),
             attrs={
                 'class': 'form-control',
+                'size': '10',
             },
         )
 
@@ -226,6 +227,7 @@ class OrderTestStepModifyForm(forms.ModelForm):
             choices=((i.pk, i.name) for i in TestStep.objects.all()),
             attrs={
                 'class': 'form-control',
+                'size': '10',
             },
         )
 

@@ -8,9 +8,8 @@
             <tr>
                 <th>#</th>
                 <th>Test Step</th>
-                <th>Tester</th>
                 <th>Status</th>
-                <th>Modified</th>
+                <th>Comment</th>
                 <th></th>
                 <th class="no-print"></th>
             </tr>
@@ -21,16 +20,20 @@
                 <tr>
                     <td>{{forloop.counter}}</td>
                     <td>{{ item.test_step.name }}</td>
-                    <td>
+                    <td><span title="Changed by: {% spaceless %}
                         {% if item.tester.first_name or item.tester.last_name %}
-                        {{ item.tester.first_name }} {{ item.tester.last_name }}
-                    {% else %}
-                        {{ item.tester.username }}
-                    {% endif %}
+                            {{ item.tester.first_name }} {{ item.tester.last_name }}
+                        {% else %}
+                            {{ item.tester.username }}
+                        {% endif %} {% endspaceless %}">
+                        <span class="{{ item.execution_result.css_styling }}">
+                            {{ item.execution_result.name }}
+                        </span>
+                        </span>
                     </td>
-                    <td>{{ item.execution_result.name }}</td>
-                    <td><span title="{{ item.modification_date | date:"Y-m-d H:i:s" }} UTC">
-                        {{ item.modification_date | date:"Y-m-d" }}</span></td>
+                    <td>
+                        {{ item.comment | default_if_none:"" }}
+                    </td>
                     <td class="no-print">
                         <a href="{% url 'test_step_result_modify' pk=item.pk %}"
                            type="button" class="btn btn-default btn-xs">run</a>

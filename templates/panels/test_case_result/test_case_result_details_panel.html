@@ -17,6 +17,19 @@
                 </span>
             </div>
 
+            <div href="#" class="list-group-item">Environment
+                <span class="pull-right text-muted small">
+                    <em>{{ test_case_result.environment.name }}</em>
+                </span>
+            </div>
+
+            <div href="#" class="list-group-item">Browser
+                <span class="pull-right text-muted small">
+                    <em>{{ test_case_result.browser.name }} <small>
+                        {{ test_case_result.browser.version }}</small></em>
+                </span>
+            </div>
+
             <div href="#" class="list-group-item">Execution date
                 <span class="pull-right text-muted small">
                     <em>{{ test_case_result.creation_date|date:"Y-m-d H:i:s" }} UTC</em>

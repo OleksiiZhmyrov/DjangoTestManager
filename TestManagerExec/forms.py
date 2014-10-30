@@ -64,7 +64,14 @@ class TestStepResultUpdateForm(forms.ModelForm):
             },
         )
 
+        self.fields['comment'].widget = forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Comments',
+            },
+        )
+
     class Meta:
         model = TestStepResult
-        fields = ['execution_result', ]
+        fields = ['execution_result', 'comment', ]
 
