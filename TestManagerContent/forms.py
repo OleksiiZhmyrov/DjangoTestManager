@@ -6,6 +6,7 @@ from TestManagerContent.models import TestSuite, TestCase, OrderTestCase, TestCa
     TestStepStatus
 from TestManagerCore.models import Tag, Screenshot, ApplicationFeature
 from TestManagerCore.utils import CustomErrorList
+from TestManagerCore.widgets import GroupedSelect
 
 
 class TestSuiteCreateForm(forms.ModelForm):
@@ -198,13 +199,22 @@ class OrderTestStepCreateForm(forms.ModelForm):
             },
         )
 
-        self.fields['test_step'].widget = forms.Select(
-            choices=((i.pk, i.name) for i in TestStep.objects.all()),
+        self.fields['test_step'].widget = GroupedSelect(
+            choices=self._get_test_steps_tupple(),
             attrs={
                 'class': 'form-control',
-                'size': '10',
+                'size': '20',
             },
         )
+
+    @staticmethod
+    def _get_test_steps_tupple():
+        result = []
+        application_features = ApplicationFeature.objects.all()
+        for application_feature in application_features:
+            test_steps = ((i.pk, i.name) for i in TestStep.objects.filter(application_feature=application_feature))
+            result.append((application_feature.name, test_steps))
+        return tuple(result)
 
     class Meta:
         model = OrderTestStep
@@ -223,13 +233,22 @@ class OrderTestStepModifyForm(forms.ModelForm):
             },
         )
 
-        self.fields['test_step'].widget = forms.Select(
-            choices=((i.pk, i.name) for i in TestStep.objects.all()),
+        self.fields['test_step'].widget = GroupedSelect(
+            choices=self._get_test_steps_tupple(),
             attrs={
                 'class': 'form-control',
-                'size': '10',
+                'size': '20',
             },
         )
+
+    @staticmethod
+    def _get_test_steps_tupple():
+        result = []
+        application_features = ApplicationFeature.objects.all()
+        for application_feature in application_features:
+            test_steps = ((i.pk, i.name) for i in TestStep.objects.filter(application_feature=application_feature))
+            result.append((application_feature.name, test_steps))
+        return tuple(result)
 
     class Meta:
         model = OrderTestStep
