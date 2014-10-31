@@ -1,4 +1,5 @@
 from django.db import models
+from TestManagerCore.models import ApplicationFeature
 
 
 class TestStepStatus(models.Model):
@@ -90,6 +91,8 @@ class TestStep(models.Model):
     )
 
     status = models.ForeignKey(TestStepStatus)
+
+    application_feature = models.ForeignKey(ApplicationFeature)
 
     def __str__(self):
         return self.name

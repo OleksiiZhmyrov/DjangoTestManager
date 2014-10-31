@@ -4,7 +4,7 @@ from DjangoTestManager.settings import CONTENT_TYPES, MAX_UPLOAD_SIZE
 
 from TestManagerContent.models import TestSuite, TestCase, OrderTestCase, TestCaseStatus, TestStep, OrderTestStep, \
     TestStepStatus
-from TestManagerCore.models import Tag, Screenshot
+from TestManagerCore.models import Tag, Screenshot, ApplicationFeature
 from TestManagerCore.utils import CustomErrorList
 
 
@@ -264,6 +264,14 @@ class TestStepCreateForm(forms.ModelForm):
             },
         )
 
+        self.fields['application_feature'].widget = forms.Select(
+            choices=((i.pk, i.name) for i in ApplicationFeature.objects.all()),
+            attrs={
+                'class': 'form-control',
+                'required': '',
+            },
+        )
+
         self.fields['status'].widget = forms.Select(
             choices=((i.pk, i.name) for i in TestStepStatus.objects.all()),
             attrs={
@@ -273,7 +281,7 @@ class TestStepCreateForm(forms.ModelForm):
 
     class Meta:
         model = TestStep
-        fields = ['name', 'description', 'expected_result', 'status', ]
+        fields = ['name', 'description', 'expected_result', 'application_feature', 'status', ]
 
 
 class TestStepUpdateForm(forms.ModelForm):
@@ -310,6 +318,14 @@ class TestStepUpdateForm(forms.ModelForm):
             },
         )
 
+        self.fields['application_feature'].widget = forms.Select(
+            choices=((i.pk, i.name) for i in ApplicationFeature.objects.all()),
+            attrs={
+                'class': 'form-control',
+                'required': '',
+            },
+        )
+
         self.fields['status'].widget = forms.Select(
             choices=((i.pk, i.name) for i in TestStepStatus.objects.all()),
             attrs={
@@ -332,7 +348,7 @@ class TestStepUpdateForm(forms.ModelForm):
 
     class Meta:
         model = TestStep
-        fields = ['name', 'description', 'expected_result', 'status', 'tags', 'screenshot', ]
+        fields = ['name', 'description', 'expected_result', 'application_feature', 'status', 'tags', 'screenshot', ]
 
 
 class ScreenshotCreateForm(forms.ModelForm):

@@ -30,6 +30,15 @@
         </div>
     </div>
 
+    <div class="form-group form-group-lg {% if form.application_feature.errors %}has-error{% endif %}">
+        <label class="col-lg-3 control-label">Application feature:</label>
+
+        <div class="col-lg-8">
+            {{ form.application_feature }}
+            {{ form.application_feature.errors | safe }}
+        </div>
+    </div>
+
     <div class="form-group form-group-lg {% if form.status.errors %}has-error{% endif %}">
         <label class="col-lg-3 control-label">Status:</label>
 

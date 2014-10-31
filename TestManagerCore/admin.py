@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from TestManagerCore.models import Tag, Sprint, JiraIssue, Browser, Environment, Screenshot
+from TestManagerCore.models import Tag, Sprint, JiraIssue, Browser, Environment, Screenshot, ApplicationFeature
 
 
 admin.site.register(JiraIssue)
@@ -9,3 +9,4 @@ admin.site.register(Sprint)
 admin.site.register(Browser)
 admin.site.register(Environment)
 admin.site.register(Screenshot)
+admin.site.register(ApplicationFeature)

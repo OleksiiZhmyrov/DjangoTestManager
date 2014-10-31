@@ -2,6 +2,7 @@
     <thead>
     <tr>
         <th>Name</th>
+        <th>App.feature</th>
         <th>Status</th>
         <th>Creation date</th>
         <th>Modification date</th>
@@ -14,6 +15,7 @@
     {% for test_step in test_step_list %}
         <tr>
             <td><a href="{% url "test_step_view" pk=test_step.pk %}">{{ test_step.name }}</a></td>
+            <td>{{ test_step.application_feature.name }}</td>
             <td>{{ test_step.status.name }}</td>
             <td><span title="{{ test_step.creation_date | date:"Y-m-d H:i:s" }} UTC">
                 {{ test_step.creation_date | date:"Y-m-d" }}

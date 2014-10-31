@@ -1,0 +1,9 @@
+[
+    {
+        "model": "TestManagerCore.applicationfeature",
+        "fields": {
+            "name": "default"
+        },
+        "pk": 1
+    }
+]

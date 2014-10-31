@@ -2,6 +2,17 @@ from django.db import models
 from TestManagerCore.utils import UploadFileHelper
 
 
+class ApplicationFeature(models.Model):
+
+    name = models.CharField(
+        "Name",
+        max_length=64,
+    )
+
+    def __str__(self):
+        return self.name
+
+
 class JiraIssue(models.Model):
 
     key = models.CharField(

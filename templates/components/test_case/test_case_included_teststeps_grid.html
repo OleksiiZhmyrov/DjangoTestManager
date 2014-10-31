@@ -8,6 +8,7 @@
             <tr>
                 <th>#</th>
                 <th>Name</th>
+                <th>App.feature</th>
                 <th>Status</th>
             </tr>
             </thead>
@@ -21,6 +22,7 @@
                             {{ item.test_step.name }}
                         </a>
                     </td>
+                    <td>{{ item.test_step.application_feature.name }}</td>
                     <td>{{ item.test_step.status.name }}</td>
                 </tr>
 
