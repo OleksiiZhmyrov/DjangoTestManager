@@ -118,5 +118,7 @@ class Screenshot(models.Model):
         auto_now_add=True,
     )
 
+    application_feature = models.ForeignKey("TestManagerCore.ApplicationFeature")
+
     def __str__(self):
         return self.name

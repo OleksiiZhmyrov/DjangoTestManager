@@ -352,18 +352,22 @@ class TestStepUpdateForm(forms.ModelForm):
             },
         )
 
-        self.fields['screenshot'].widget = forms.Select(
+        self.fields['screenshot'].widget = GroupedSelect(
             choices=self._get_screenshots_tupple(),
             attrs={
                 'class': 'form-control',
+                'size': '20',
             },
         )
 
     @staticmethod
     def _get_screenshots_tupple():
-        screenshot_queryset = Screenshot.objects.all()
-        screenshots = [('', 'none')] + [(i.pk, i.name) for i in screenshot_queryset]
-        return list(screenshots)
+        result = []
+        application_features = ApplicationFeature.objects.all()
+        for application_feature in application_features:
+            screenshots = ((i.pk, i.name) for i in Screenshot.objects.filter(application_feature=application_feature))
+            result.append((application_feature.name, screenshots))
+        return tuple(result)
 
     class Meta:
         model = TestStep
@@ -391,6 +395,14 @@ class ScreenshotCreateForm(forms.ModelForm):
             },
         )
 
+        self.fields['application_feature'].widget = forms.Select(
+            choices=((i.pk, i.name) for i in ApplicationFeature.objects.all()),
+            attrs={
+                'class': 'form-control',
+                'required': '',
+            },
+        )
+
     def clean_screenshot(self):
         screenshot = self.cleaned_data['screenshot']
         if screenshot:
@@ -405,7 +417,7 @@ class ScreenshotCreateForm(forms.ModelForm):
 
     class Meta:
         model = Screenshot
-        fields = ['name', 'description', 'screenshot', ]
+        fields = ['name', 'description', 'application_feature', 'screenshot', ]
 
 
 class ScreenshotUpdateForm(forms.ModelForm):
@@ -430,6 +442,14 @@ class ScreenshotUpdateForm(forms.ModelForm):
             },
         )
 
+        self.fields['application_feature'].widget = forms.Select(
+            choices=((i.pk, i.name) for i in ApplicationFeature.objects.all()),
+            attrs={
+                'class': 'form-control',
+                'required': '',
+            },
+        )
+
     class Meta:
         model = TestStep
-        fields = ['name', 'description', ]
+        fields = ['name', 'description', 'application_feature', ]

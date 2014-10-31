@@ -18,6 +18,8 @@
                     <br>
                     Date: {{ screenshot.creation_date | date:"Y-m-d H:i:s" }} UTC
                     <br>
+                    App.feature: {{ screenshot.application_feature.name }}
+                    <br>
                     <a href="{% url "screenshot_edit" pk=screenshot.pk %}"
                        type="button" class="btn btn-default btn-xs">
                         modify
