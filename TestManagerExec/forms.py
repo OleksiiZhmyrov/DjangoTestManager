@@ -1,6 +1,8 @@
 from django import forms
-from TestManagerCore.models import Environment, Sprint, Browser
+
+from TestManagerCore.models import Environment, Sprint, Browser, JiraIssue
 from TestManagerCore.utils import CustomErrorList
+from TestManagerCore.widgets import GroupedSelectMultiple
 from TestManagerExec.models import TestCaseResult, TestStepResult, ExecutionResult
 
 
@@ -33,6 +35,23 @@ class TestCaseResultCreateForm(forms.ModelForm):
             },
         )
 
+        # self.fields['jira_issues'].widget = forms.SelectMultiple(
+        #     choices=((i.pk, '%s: %s' % (i.key, i.summary[:30])) for i in JiraIssue.objects.all()),
+        #     attrs={
+        #         'class': 'form-control',
+        #         'rows': 5,
+        #     }
+        # )
+
+        self.fields['jira_issues'].widget = GroupedSelectMultiple(
+            choices=((False, ((i.pk, '%s: %s' % (i.key, i.summary[:30])) for i in JiraIssue.objects.all())),),
+            attrs={
+                'class': 'form-control',
+                'size': '6',
+                'multiple': '',
+            },
+        )
+
         self.fields['risks'].widget = forms.TextInput(
             attrs={
                 'class': 'form-control ',
@@ -48,7 +67,7 @@ class TestCaseResultCreateForm(forms.ModelForm):
 
     class Meta:
         model = TestCaseResult
-        fields = ['environment', 'sprint', 'browser', 'risks', ]
+        fields = ['environment', 'sprint', 'browser', 'jira_issues', 'risks', ]
 
 
 class TestStepResultUpdateForm(forms.ModelForm):

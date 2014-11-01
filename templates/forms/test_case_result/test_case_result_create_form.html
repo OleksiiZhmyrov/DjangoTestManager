@@ -31,6 +31,15 @@
         </div>
     </div>
 
+    <div class="form-group {% if form.jira_issues.errors %}has-error{% endif %}">
+        <label class="col-lg-3 control-label">Related Jira Issues:</label>
+
+        <div class="col-lg-8">
+            {{ form.jira_issues }}
+            {{ form.jira_issues.errors | safe }}
+        </div>
+    </div>
+
     <div class="form-group form-group-lg {% if form.risks.errors %}has-error{% endif %}">
         <label class="col-lg-3 control-label">Risks:</label>
 

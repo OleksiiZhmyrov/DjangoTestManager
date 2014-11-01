@@ -133,6 +133,13 @@ class TestCaseResult(models.Model):
         null=True,
     )
 
+    jira_issues = models.ManyToManyField(
+        "TestManagerCore.JiraIssue",
+        related_name="Related Jira Issues",
+        blank=True,
+        null=True,
+    )
+
     def __str__(self):
         return ', '.join([str(self.pk), self.test_case.name, self.environment.name, self.tester.username])
 

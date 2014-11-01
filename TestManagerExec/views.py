@@ -12,7 +12,7 @@ from TestManagerExec.models import TestCaseResult, TestStepResult
 class TestCaseResultCreateView(CreateView):
     model = TestCaseResult
     template_name = "pages/test_case_result/create_page.html"
-    fields = ['environment', 'sprint', 'browser', 'risks', ]
+    fields = ['environment', 'sprint', 'browser', 'jira_issues', 'risks', ]
     form_class = TestCaseResultCreateForm
 
     def get_context_data(self, **kwargs):

@@ -7,10 +7,13 @@ class JiraIssueTests(TestCase):
 
     def test_str(self):
 
-        issue = JiraIssue(key='JIRA-0001')
+        issue = JiraIssue(
+            key='JIRA-0001',
+            summary='Jira Issue',
+        )
 
         self.assertEquals(
-            'JIRA-0001',
+            'JIRA-0001 Jira Issue',
             str(issue),
         )
 

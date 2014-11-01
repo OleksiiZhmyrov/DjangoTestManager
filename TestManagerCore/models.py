@@ -17,18 +17,23 @@ class JiraIssue(models.Model):
 
     key = models.CharField(
         "Key",
-        max_length=64
+        max_length=64,
+    )
+
+    summary = models.CharField(
+        "Summary",
+        max_length=512,
     )
 
     def __str__(self):
-        return self.key
+        return '%s %s' % (self.key, self.summary)
 
 
 class Tag(models.Model):
 
     name = models.CharField(
         "Name",
-        max_length=64
+        max_length=64,
     )
 
     def __str__(self):
@@ -39,7 +44,7 @@ class Sprint(models.Model):
 
     name = models.CharField(
         "Name",
-        max_length=64
+        max_length=64,
     )
 
     def __str__(self):
