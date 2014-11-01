@@ -17,8 +17,8 @@
             <tbody>
 
             {% for item in test_case_result.test_step_results.all %}
-                <tr>
-                    <td>{{forloop.counter}}</td>
+                <tr class="{{ item.execution_result.css_styling }}">
+                    <td>{{ forloop.counter }}</td>
                     <td>{{ item.test_step.name }}</td>
                     <td><span title="Changed by: {% spaceless %}
                         {% if item.tester.first_name or item.tester.last_name %}
@@ -26,9 +26,7 @@
                         {% else %}
                             {{ item.tester.username }}
                         {% endif %} {% endspaceless %}">
-                        <span class="{{ item.execution_result.css_styling }}">
                             {{ item.execution_result.name }}
-                        </span>
                         </span>
                     </td>
                     <td>

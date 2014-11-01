@@ -3,7 +3,7 @@ del /F /S /Q TestManagerCore\migrations\*
 del /F /S /Q TestManagerContent\migrations\*
 del /F /S /Q TestManagerExec\migrations\*
 del /F /S /Q static\*
-del /F /S /Q media\*
+echo del /F /S /Q media\*
 mkdir media\media\uploads
 cp init\test_images\* media\media\uploads
 python manage.py syncdb --noinput
