@@ -4,6 +4,8 @@ from django.core.urlresolvers import reverse
 from django.forms.util import ErrorList
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, UpdateView, DetailView
+import DjangoTestManager
+from DjangoTestManager.settings import JIRA_BROWSE_URL
 from TestManagerContent.models import TestCase, OrderTestStep
 from TestManagerExec.forms import TestCaseResultCreateForm, TestStepResultUpdateForm
 from TestManagerExec.models import TestCaseResult, TestStepResult
@@ -134,6 +136,7 @@ class TestCaseResultView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(TestCaseResultView, self).get_context_data(**kwargs)
+        context['jira_browse_url'] = JIRA_BROWSE_URL
         return context
 
     @method_decorator(login_required)

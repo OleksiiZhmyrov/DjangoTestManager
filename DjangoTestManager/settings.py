@@ -137,3 +137,7 @@ MAX_UPLOAD_SIZE = 2621440
 
 MEDIA_ROOT = 'media/'
 MEDIA_URL = '/media/'
+
+from DjangoTestManager.settings_local import JIRA_BROWSE_URL as JIRA_BROWSE_URL_LOCAL
+
+JIRA_BROWSE_URL = JIRA_BROWSE_URL_LOCAL

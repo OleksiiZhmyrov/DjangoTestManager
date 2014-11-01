@@ -14,7 +14,10 @@
 
             {% for item in test_case_result.jira_issues.all %}
                 <tr>
-                    <td>{{ item.key }}</td>
+                    <td><a href="{{ jira_browse_url }}{{ item.key }}">
+                        {{ item.key }}
+                        </a>
+                    </td>
                     <td>{{ item.summary }}</td>
                 </tr>
 
