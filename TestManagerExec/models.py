@@ -29,11 +29,11 @@ class ExecutionResult(models.Model):
 
 
 class TestStepResult(models.Model):
+
     execution_result = models.ForeignKey(
         ExecutionResult,
         related_name="Execution result",
-        blank=True,
-        null=True,
+        default=1,
     )
 
     tester = models.ForeignKey("auth.User")

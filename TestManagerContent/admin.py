@@ -66,7 +66,7 @@ admin.site.register(TestCase, TestCaseAdmin)
 
 
 class TestSuiteAdmin(admin.ModelAdmin):
-    
+
     list_display = (
         'name',
         'description',
