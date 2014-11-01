@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'TestManagerCore',
     'TestManagerContent',
     'TestManagerExec',
+    'axes',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -55,6 +56,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'TestManagerCore.middleware.PageGenerationDatetime',
+    'axes.middleware.FailedLoginMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -141,3 +143,6 @@ MEDIA_URL = '/media/'
 from DjangoTestManager.settings_local import JIRA_BROWSE_URL as JIRA_BROWSE_URL_LOCAL
 
 JIRA_BROWSE_URL = JIRA_BROWSE_URL_LOCAL
+
+AXES_LOCKOUT_TEMPLATE = "pages/account_locked.html"
+AXES_COOLOFF_TIME = 24

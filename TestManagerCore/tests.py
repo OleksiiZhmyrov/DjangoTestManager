@@ -89,6 +89,6 @@ class HomePageViewTests(TestCase):
 
         self.assertEquals(
             [('http://testserver/content/testsuites/', 301),
-             ('http://testserver/accounts/login/?next=/content/testsuites/', 302)],
+             ('http://testserver/accounts/login/?next=/content/testcases/', 302)],
             response.redirect_chain
         )

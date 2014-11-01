@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Account is locked{% endblock %}
+
+{% block content %}
+
+    {% load staticfiles %}
+
+    <div class="row">
+
+        <div class="col-lg-12 text-center">
+
+            <img src="{% static "/static/img/lock.png" %}">
+
+            <h1>Account is locked</h1>
+
+            <p class="lead">Your account has been temporary locked due to {{ failure_limit }} unsuccessfull login attempts.</p>
+
+            <p>Account will be automatically unlocked in {{ cooloff_time }}.
+                Afterwards you will be able to log in again on the
+                <a href="{% url "user_login" %}">login page</a>.</p>
+
+            <hr class="small">
+
+            <p>
+                <small>
+                    Alternatively contact Test Manager administrator to unlock your account instantly.
+                </small>
+            </p>
+
+        </div>
+    </div>
+
+{% endblock %}
