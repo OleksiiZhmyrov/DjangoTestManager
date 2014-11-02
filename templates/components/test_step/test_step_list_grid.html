@@ -23,7 +23,13 @@
             <td><span title="{{ test_step.modification_date | date:"Y-m-d H:i:s" }} UTC">
                 {{ test_step.modification_date | date:"Y-m-d" }}
             </span></td>
-            <td>{{ test_step.author }}</td>
+            <td>
+                {% if test_step.author.first_name or test_step.author.last_name %}
+                    {{ test_step.author.first_name }} {{ test_step.author.last_name }}
+                {% else %}
+                    {{ test_step.author.username }}
+                {% endif %}
+            </td>
             <td>
                 {% for tag in test_step.tags.all %}
                     <span class="label label-info">{{ tag.name }}</span>
