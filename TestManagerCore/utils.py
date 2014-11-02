@@ -1,6 +1,10 @@
+import bleach
 from django.forms.utils import ErrorList
 from os.path import join
 import hashlib
+from DjangoTestManager.settings import BLEACH_ALLOWED_TAGS, BLEACH_ALLOWED_ATTRIBUTES, BLEACH_ALLOWED_STYLES
+from DjangoTestManager.settings import BLEACH_STRIP_TAGS, BLEACH_STRIP_COMMENTS
+
 
 class CustomErrorList(ErrorList):
 
@@ -27,3 +31,19 @@ class UploadFileHelper(object):
             ext=ext
         )
         return join(path, given_filename)
+
+
+class BleachWrapper(object):
+    """
+        Wraps clean method of bleach to apply project-wide bleach settings.
+    """
+    @staticmethod
+    def clean(text):
+        return bleach.clean(
+            text,
+            tags=BLEACH_ALLOWED_TAGS,
+            attributes=BLEACH_ALLOWED_ATTRIBUTES,
+            styles=BLEACH_ALLOWED_STYLES,
+            strip=BLEACH_STRIP_TAGS,
+            strip_comments=BLEACH_STRIP_COMMENTS,
+        )

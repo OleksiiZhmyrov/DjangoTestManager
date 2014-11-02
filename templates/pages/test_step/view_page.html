@@ -4,10 +4,11 @@
 
 {% block content %}
 
+    {% load bleach_tags %}
+
     <div class="container">
 
         <h1><i class="glyphicon glyphicon-tag"></i> {{ test_step.name }}</h1>
-        <span class="help-block">{{ test_step.description }}</span>
 
         <hr>
 
@@ -21,13 +22,22 @@
                 {% include "panels/test_step/test_step_part_of_test_cases_panel.html" %}
             </div>
 
-            <div class="col-md-8 text-center">
+            <div class="col-md-8">
 
-                <div class="well well-sm">
-                    <p><b>Expected result:</b></p>
-                    <p>{{ test_step.expected_result }}</p>
+                <div>
+                    <h3>Description</h3>
+                    <p>
+                        {{ test_step.description | bleach }}
+                    </p>
                 </div>
-
+                <hr>
+                <div>
+                    <h3>Expected result</h3>
+                    <p>
+                        {{ test_step.expected_result | bleach }}
+                    </p>
+                </div>
+                <hr>
                 {% if test_step.screenshot %}
                     <div class="text-center">
                         <img data-src="holder.js/800x600"

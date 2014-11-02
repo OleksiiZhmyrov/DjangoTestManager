@@ -4,6 +4,8 @@
 
 {% block content %}
 
+    {% load bleach_tags %}
+
     <div class="container">
 
         <h1>{{ test_case.name }}</h1>
@@ -34,9 +36,9 @@
                 {% include "panels/test_step_result/progress_bar_panel.html" %}
 
                 <div class="well well-lg">
-                    {{ test_step_result.test_step.description }}
+                    {{ test_step_result.test_step.description | bleach }}
                     <hr>
-                    {{ test_step_result.test_step.expected_result }}
+                    {{ test_step_result.test_step.expected_result | bleach }}
                 </div>
 
                 {% include "components/screenshot/screenshot_preview_panel_custom.html" with screenshot=test_step_result.test_step.screenshot width=800 height=450 %}

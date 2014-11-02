@@ -4,21 +4,33 @@
 
 {% block content %}
 
-<h2>{{ test_case.name }}</h2>
-<span class="help-block">
-    {{ test_case.description }}
-</span>
+    {% load bleach_tags %}
 
-{% for item in order_test_steps %}
+    <h2>{{ test_case.name }}</h2>
+    <span class="help-block">
+        {{ test_case.description }}
+    </span>
 
-       <div class="clearfix">
+    {% for item in order_test_steps %}
+
+        <div class="clearfix">
 
             <div class="pull-left col-md-7">
 
-                <h4>{{ item.number }}. {{ item.test_step.name }}</h4>
-                <span class="help-block">
-                    {{ item.test_step.description }}
-                </span>
+                <h3>{{ item.number }}. {{ item.test_step.name }}</h3>
+                <fieldset>
+                    <legend>Description</legend>
+                    <span class="help-block">
+                        {{ item.test_step.description | bleach }}
+                    </span>
+                </fieldset>
+                <fieldset>
+                    <legend>Expected result</legend>
+                    <span class="help-block">
+                        {{ item.test_step.expected_result | bleach }}
+                    </span>
+                </fieldset>
+
                 <div class="well-sm">
                     <span><span class="glyphicon glyphicon-unchecked"></span> Pass</span>
                     <span><span class="glyphicon glyphicon-unchecked"></span> Skip</span>
@@ -28,19 +40,19 @@
             </div>
             <div class="pull-right col-md-5">
                 {% if item.test_step.screenshot %}
-                <img data-src="holder.js/200x300"
-                     class="img-thumbnail"
-                     alt="{{ item.test_step.screenshot.name }}"
-                     src="{{ item.test_step.screenshot.screenshot.url }}"
-                     style="width: 300px; height: 200px;">
+                    <img data-src="holder.js/200x300"
+                         class="img-thumbnail"
+                         alt="{{ item.test_step.screenshot.name }}"
+                         src="{{ item.test_step.screenshot.screenshot.url }}"
+                         style="width: 300px; height: 200px;">
                 {% endif %}
             </div>
 
-       </div>
-       <hr>
-       <div></div>
-{% empty %}
-    Nothing to print here.
-{% endfor %}
+        </div>
+        <hr>
+        <div></div>
+    {% empty %}
+        Nothing to print here.
+    {% endfor %}
 
 {% endblock %}

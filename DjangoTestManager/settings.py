@@ -44,6 +44,8 @@ INSTALLED_APPS = (
     'TestManagerContent',
     'TestManagerExec',
     'axes',
+    'django_summernote',
+    'django_bleach',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -146,3 +148,41 @@ JIRA_BROWSE_URL = JIRA_BROWSE_URL_LOCAL
 
 AXES_LOCKOUT_TEMPLATE = "pages/account_locked.html"
 AXES_COOLOFF_TIME = 24
+
+SUMMERNOTE_CONFIG = {
+    'iframe': True,
+    'airMode': False,
+    'styleWithTags': True,
+    'direction': 'ltr',
+    'width': '100%',
+    'height': '320',
+    'toolbar': [
+        ['style', ['style']],
+        ['style', ['bold', 'italic', 'underline', 'clear']],
+        ['para', ['ul', 'ol']],
+    ],
+}
+
+BLEACH_ALLOWED_TAGS = [
+    'p',
+    'b', 'i', 'u',
+    'ul', 'ol', 'li',
+    'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+    'span', 'pre', 'blockquote',
+]
+
+BLEACH_ALLOWED_ATTRIBUTES = [
+    'style',
+]
+
+BLEACH_ALLOWED_STYLES = [
+    'font-family',
+    'font-weight',
+    'text-decoration',
+    'font-variant',
+    'color',
+]
+
+BLEACH_STRIP_TAGS = True
+
+BLEACH_STRIP_COMMENTS = True

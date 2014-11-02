@@ -1,11 +1,13 @@
+import bleach
 from django import forms
 from django.template.defaultfilters import filesizeformat
+from django_summernote.widgets import SummernoteWidget
 from DjangoTestManager.settings import CONTENT_TYPES, MAX_UPLOAD_SIZE
 
 from TestManagerContent.models import TestSuite, TestCase, OrderTestCase, TestCaseStatus, TestStep, OrderTestStep, \
     TestStepStatus
 from TestManagerCore.models import Tag, Screenshot, ApplicationFeature
-from TestManagerCore.utils import CustomErrorList
+from TestManagerCore.utils import CustomErrorList, BleachWrapper
 from TestManagerCore.widgets import GroupedSelect
 
 
@@ -269,19 +271,9 @@ class TestStepCreateForm(forms.ModelForm):
             },
         )
 
-        self.fields['description'].widget = forms.Textarea(
-            attrs={
-                'class': 'form-control',
-                'placeholder': 'Verbose description',
-            },
-        )
+        self.fields['description'].widget = SummernoteWidget()
 
-        self.fields['expected_result'].widget = forms.Textarea(
-            attrs={
-                'class': 'form-control',
-                'placeholder': 'Expected result',
-            },
-        )
+        self.fields['expected_result'].widget = SummernoteWidget()
 
         self.fields['application_feature'].widget = forms.Select(
             choices=((i.pk, i.name) for i in ApplicationFeature.objects.all()),
@@ -297,6 +289,18 @@ class TestStepCreateForm(forms.ModelForm):
                 'class': 'form-control',
             },
         )
+
+    def clean_description(self):
+        description = self.cleaned_data['description']
+        if description:
+            description = BleachWrapper.clean(description)
+        return description
+
+    def clean_expected_result(self):
+        expected_result = self.cleaned_data['expected_result']
+        if expected_result:
+            expected_result = BleachWrapper.clean(expected_result)
+        return expected_result
 
     class Meta:
         model = TestStep
@@ -323,19 +327,9 @@ class TestStepUpdateForm(forms.ModelForm):
             },
         )
 
-        self.fields['description'].widget = forms.Textarea(
-            attrs={
-                'class': 'form-control',
-                'placeholder': 'Verbose description',
-            },
-        )
+        self.fields['description'].widget = SummernoteWidget()
 
-        self.fields['expected_result'].widget = forms.Textarea(
-            attrs={
-                'class': 'form-control',
-                'placeholder': 'Expected result',
-            },
-        )
+        self.fields['expected_result'].widget = SummernoteWidget()
 
         self.fields['application_feature'].widget = forms.Select(
             choices=((i.pk, i.name) for i in ApplicationFeature.objects.all()),
@@ -359,6 +353,18 @@ class TestStepUpdateForm(forms.ModelForm):
                 'size': '20',
             },
         )
+
+    def clean_description(self):
+        description = self.cleaned_data['description']
+        if description:
+            description = BleachWrapper.clean(description)
+        return description
+
+    def clean_expected_result(self):
+        expected_result = self.cleaned_data['expected_result']
+        if expected_result:
+            expected_result = BleachWrapper.clean(expected_result)
+        return expected_result
 
     @staticmethod
     def _get_screenshots_tupple():
