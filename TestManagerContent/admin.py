@@ -7,12 +7,12 @@ from TestManagerContent.models import TestSuite
 class TestStepAdmin(admin.ModelAdmin):
 
     list_display = (
-        'author',
-        'creation_date',
-        'modification_date',
         'name',
         'description',
         'expected_result',
+        'author',
+        'creation_date',
+        'modification_date',
         'screenshot',
         'status',
         'application_feature',
@@ -40,12 +40,12 @@ admin.site.register(TestStep, TestStepAdmin)
 class TestCaseAdmin(admin.ModelAdmin):
 
     list_display = (
-        'author',
-        'creation_date',
-        'modification_date',
         'name',
         'description',
         'status',
+        'author',
+        'creation_date',
+        'modification_date',
     )
 
     list_filter = [
