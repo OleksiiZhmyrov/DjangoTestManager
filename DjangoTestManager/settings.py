@@ -158,8 +158,11 @@ SUMMERNOTE_CONFIG = {
     'height': '320',
     'toolbar': [
         ['style', ['style']],
+        ['misc', ['undo', 'redo']],
         ['style', ['bold', 'italic', 'underline', 'clear']],
         ['para', ['ul', 'ol']],
+        ['misc', ['codeview']],
+        ['misc', ['help']]
     ],
 }
 
