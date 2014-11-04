@@ -22,6 +22,10 @@ class UserRegistrationView(CreateView):
     form_class = UserRegistrationForm
     success_url = '/accounts/login/'
 
+    def form_valid(self, form):
+        form.instance.is_active = False
+        return super(UserRegistrationView, self).form_valid(form)
+
 
 class UserProfileUpdateView(UpdateView):
     template_name = "pages/profile_page.html"
