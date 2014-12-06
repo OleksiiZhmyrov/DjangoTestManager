@@ -12,7 +12,7 @@ class TestCaseResultCreateForm(forms.ModelForm):
         self.error_class = CustomErrorList
 
         self.fields['environment'].widget = forms.Select(
-            choices=((i.pk, ', '.join([i.name, i.url])) for i in Environment.objects.all()),
+            choices=((i.pk, ', '.join([i.name, i.url])) for i in Environment.objects.all().order_by('name')),
             attrs={
                 'class': 'form-control',
                 'autofocus': '',
@@ -21,7 +21,7 @@ class TestCaseResultCreateForm(forms.ModelForm):
         )
 
         self.fields['sprint'].widget = forms.Select(
-            choices=((i.pk, i.name) for i in Sprint.objects.all()),
+            choices=((i.pk, i.name) for i in Sprint.objects.all().order_by('name')),
             attrs={
                 'class': 'form-control',
                 'required': '',
@@ -35,16 +35,15 @@ class TestCaseResultCreateForm(forms.ModelForm):
             },
         )
 
-        # self.fields['jira_issues'].widget = forms.SelectMultiple(
-        #     choices=((i.pk, '%s: %s' % (i.key, i.summary[:30])) for i in JiraIssue.objects.all()),
-        #     attrs={
-        #         'class': 'form-control',
-        #         'rows': 5,
-        #     }
-        # )
-
         self.fields['jira_issues'].widget = GroupedSelectMultiple(
-            choices=((False, ((i.pk, '%s: %s' % (i.key, i.summary[:30])) for i in JiraIssue.objects.all())),),
+            choices=(
+                (
+                    False,
+                    (
+                        (i.pk, '%s: %s' % (i.key, i.summary[:50])) for i in JiraIssue.objects.all().order_by('key')
+                    )
+                ),
+            ),
             attrs={
                 'class': 'form-control',
                 'size': '6',
