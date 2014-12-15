@@ -61,3 +61,6 @@ db.sqlite3
 DjangoTestManager/settings_local.py
 */migrations/00*.py
 realdata.json
+
+#OS X specific
+.DS_Store
