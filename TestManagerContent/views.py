@@ -3,6 +3,7 @@ from django.db import IntegrityError
 from django.forms.util import ErrorList
 from django.forms.forms import NON_FIELD_ERRORS
 from django.core.urlresolvers import reverse
+from django.http import HttpResponse
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.views.generic.list import ListView
@@ -17,6 +18,8 @@ from TestManagerContent.forms import OrderTestStepCreateForm, OrderTestStepModif
 from TestManagerContent.forms import TestStepCreateForm, TestStepUpdateForm
 from TestManagerContent.forms import ScreenshotCreateForm, ScreenshotUpdateForm
 from TestManagerExec.models import TestCaseResult
+
+import ezodf
 
 
 class TestSuiteListView(ListView):
@@ -233,6 +236,41 @@ class TestCaseView(DetailView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(TestCaseView, self).dispatch(*args, **kwargs)
+
+
+class TestCaseExportAsSpreadsheet(DetailView):
+    model = TestCase
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        document = ezodf.newdoc(doctype="ods")
+        sheets = document.sheets
+        sheets += ezodf.Table(self.object.name)
+        sheet = sheets[self.object.name]
+
+        sheet[0, 0].set_value(self.object.name)
+
+        test_steps = OrderTestStep.objects.filter(
+            test_case=self.object
+        ).order_by('number')
+
+        for test_step in test_steps:
+            sheet.append_rows(1)
+            sheet[test_step.number, 0].set_value(test_step.number)
+            sheet[test_step.number, 1].set_value(test_step.test_step.name)
+            sheet[test_step.number, 2].set_value(test_step.test_step.description)
+            sheet[test_step.number, 3].set_value(test_step.test_step.expected_result)
+
+        response = HttpResponse(document.tobytes(), content_type='application/vnd.oasis.opendocument.spreadsheet')
+        response['Content-Disposition'] = 'attachment; filename="{filename}.ods"'.format(
+            filename=self.object.name.replace(' ', '_')
+        )
+        return response
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(TestCaseExportAsSpreadsheet, self).dispatch(*args, **kwargs)
 
 
 class TestCasePrintView(DetailView):

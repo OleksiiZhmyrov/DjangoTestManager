@@ -8,6 +8,8 @@ from TestManagerContent.views import TestCaseListView
 from TestManagerContent.views import TestCaseView, TestCaseCreateView, TestCaseModifyView
 from TestManagerContent.views import OrderTestStepCreateView, OrderTestStepModifyView, OrderTestStepDeleteView
 
+from TestManagerContent.views import TestCaseExportAsSpreadsheet
+
 from TestManagerContent.views import TestStepListView
 from TestManagerContent.views import TestStepView, TestStepCreateView, TestStepModifyView
 
@@ -49,6 +51,9 @@ urlpatterns = patterns(
 
     url(r'^content/testcases/view/(?P<pk>[0-9]*)/$', TestCaseView.as_view(),
         name='test_case_view'),
+
+    url(r'^content/testcase/export/spreadsheet/(?P<pk>[0-9]*)', TestCaseExportAsSpreadsheet.as_view(),
+        name='test_case_export_as_spreadsheet_view'),
 
     url(r'^content/testcases/print/(?P<pk>[0-9]*)/$', TestCasePrintView.as_view(),
         name='test_case_print_view'),
