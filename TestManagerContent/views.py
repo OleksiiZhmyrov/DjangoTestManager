@@ -1,3 +1,4 @@
+from TestManagerContent.exporters import OpenDocumentSpreadsheet
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.forms.util import ErrorList
@@ -18,8 +19,6 @@ from TestManagerContent.forms import OrderTestStepCreateForm, OrderTestStepModif
 from TestManagerContent.forms import TestStepCreateForm, TestStepUpdateForm
 from TestManagerContent.forms import ScreenshotCreateForm, ScreenshotUpdateForm
 from TestManagerExec.models import TestCaseResult
-
-import ezodf
 
 
 class TestSuiteListView(ListView):
@@ -244,25 +243,10 @@ class TestCaseExportAsSpreadsheet(DetailView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
 
-        document = ezodf.newdoc(doctype="ods")
-        sheets = document.sheets
-        sheets += ezodf.Table(self.object.name)
-        sheet = sheets[self.object.name]
+        ods = OpenDocumentSpreadsheet()
+        ods.create(test_case_pk=self.object.pk)
 
-        sheet[0, 0].set_value(self.object.name)
-
-        test_steps = OrderTestStep.objects.filter(
-            test_case=self.object
-        ).order_by('number')
-
-        for test_step in test_steps:
-            sheet.append_rows(1)
-            sheet[test_step.number, 0].set_value(test_step.number)
-            sheet[test_step.number, 1].set_value(test_step.test_step.name)
-            sheet[test_step.number, 2].set_value(test_step.test_step.description)
-            sheet[test_step.number, 3].set_value(test_step.test_step.expected_result)
-
-        response = HttpResponse(document.tobytes(), content_type='application/vnd.oasis.opendocument.spreadsheet')
+        response = HttpResponse(ods.document.tobytes(), content_type='application/vnd.oasis.opendocument.spreadsheet')
         response['Content-Disposition'] = 'attachment; filename="{filename}.ods"'.format(
             filename=self.object.name.replace(' ', '_')
         )
