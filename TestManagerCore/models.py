@@ -2,11 +2,54 @@ from django.db import models
 from TestManagerCore.utils import UploadFileHelper
 
 
+class UserProfile(models.Model):
+
+    user = models.ForeignKey(
+        "auth.User",
+
+    )
+
+    projects = models.ManyToManyField(
+        "TestManagerCore.Project",
+        verbose_name="Assigned projects",
+        blank=True,
+        null=True,
+    )
+
+    default_project = models.ForeignKey(
+        "TestManagerCore.Project",
+        related_name="Default project",
+    )
+
+    def __str__(self):
+        return self.user.username
+
+
+class Project(models.Model):
+
+    name = models.CharField(
+        "Project name",
+        max_length=64,
+    )
+
+    description = models.CharField(
+        "Description",
+        max_length=256,
+    )
+
+    def __str__(self):
+        return self.name
+
+
 class ApplicationFeature(models.Model):
 
     name = models.CharField(
         "Name",
         max_length=64,
+    )
+
+    project = models.ForeignKey(
+        "TestManagerCore.Project"
     )
 
     def __str__(self):
@@ -25,6 +68,10 @@ class JiraIssue(models.Model):
         max_length=512,
     )
 
+    project = models.ForeignKey(
+        "TestManagerCore.Project"
+    )
+
     def __str__(self):
         return '%s %s' % (self.key, self.summary)
 
@@ -36,6 +83,10 @@ class Tag(models.Model):
         max_length=64,
     )
 
+    project = models.ForeignKey(
+        "TestManagerCore.Project"
+    )
+
     def __str__(self):
         return self.name
 
@@ -45,6 +96,10 @@ class Sprint(models.Model):
     name = models.CharField(
         "Name",
         max_length=64,
+    )
+
+    project = models.ForeignKey(
+        "TestManagerCore.Project"
     )
 
     def __str__(self):
@@ -93,6 +148,10 @@ class Environment(models.Model):
         max_length=128,
     )
 
+    project = models.ForeignKey(
+        "TestManagerCore.Project"
+    )
+
     def __str__(self):
         return ' '.join([self.name, self.url])
 
@@ -123,7 +182,13 @@ class Screenshot(models.Model):
         auto_now_add=True,
     )
 
-    application_feature = models.ForeignKey("TestManagerCore.ApplicationFeature")
+    application_feature = models.ForeignKey(
+        "TestManagerCore.ApplicationFeature"
+    )
+
+    project = models.ForeignKey(
+        "TestManagerCore.Project"
+    )
 
     def __str__(self):
         return self.name

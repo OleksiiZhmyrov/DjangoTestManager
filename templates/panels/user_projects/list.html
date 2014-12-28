@@ -1,0 +1,24 @@
+<div class="list-group">
+    {% for project in userprofile.projects.all %}
+        {% if project.pk == userprofile.default_project.pk %}
+        <div class="list-group-item list-group-item-success">
+            <h4 class="list-group-item-heading">{{ project.name }}
+                    <span class="badge">active</span>
+            </h4>
+            <p class="list-group-item-text">{{ project.description }}</p>
+        </div>
+        {% else %}
+        <div class="list-group-item">
+            <h4 class="list-group-item-heading">{{ project.name }}</h4>
+            <p class="list-group-item-text">{{ project.description }}</p>
+        </div>
+        {% endif %}
+    {% empty %}
+        <div class="list-group-item">
+            <h4 class="list-group-item-heading">No projects available</h4>
+            <p class="list-group-item-text">
+                You have no access to Test Manager projects. Please contact administrator if you think this is a mistake.
+            </p>
+        </div>
+    {% endfor %}
+</div>

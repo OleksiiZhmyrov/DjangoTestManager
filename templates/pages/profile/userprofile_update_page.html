@@ -1,0 +1,6 @@
+{% extends "pages/profile/base.html" %}
+
+{% block personal_info %}
+    {% include "panels/user_projects/panel.html" %}
+    {% include "forms/auth/user_profile_form_readonly.html" %}
+{% endblock %}

@@ -3,7 +3,8 @@
         "fields": {
             "name": "CI",
             "description": "Continuous integration environment",
-            "url": "http://ci.example.com:8000/"
+            "url": "http://ci.example.com:8000/",
+            "project": 1
         },
         "pk": 1,
         "model": "TestManagerCore.environment"
@@ -38,28 +39,32 @@
     {
         "pk": 1,
         "fields": {
-            "name": "smoke"
+            "name": "smoke",
+            "project": 1
         },
         "model": "TestManagerCore.tag"
     },
     {
         "pk": 2,
         "fields": {
-            "name": "regression"
+            "name": "regression",
+            "project": 1
         },
         "model": "TestManagerCore.tag"
     },
     {
         "pk": 3,
         "fields": {
-            "name": "first priority"
+            "name": "first priority",
+            "project": 1
         },
         "model": "TestManagerCore.tag"
     },
     {
         "pk": 1,
         "fields": {
-            "name": "Sprint 0"
+            "name": "Sprint 0",
+            "project": 1
         },
         "model": "TestManagerCore.sprint"
     },
@@ -68,6 +73,7 @@
         "pk": 1,
         "fields": {
             "owner": 2,
+            "project": 1,
             "application_feature": 1,
             "name": "Google homepage",
             "creation_date": "1970-01-01T00:00:00.000Z",
@@ -80,6 +86,7 @@
         "pk": 2,
         "fields": {
             "owner": 2,
+            "project": 1,
             "application_feature": 1,
             "name": "Google search results page -- Billie Jean",
             "creation_date": "1970-01-01T00:00:00.000Z",

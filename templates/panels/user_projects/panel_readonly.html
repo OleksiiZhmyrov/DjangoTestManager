@@ -1,0 +1,6 @@
+{% extends "panels/user_projects/base.html" %}
+
+{% block panels %}
+    {% include "panels/user_projects/list.html" %}
+    <a href="{% url "user_profile_preferences" %}" class="btn btn-default">Edit</a>
+{% endblock %}

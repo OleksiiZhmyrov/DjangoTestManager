@@ -1,5 +1,4 @@
 from django.db import models
-from TestManagerCore.models import ApplicationFeature
 
 
 class TestStepStatus(models.Model):
@@ -90,9 +89,17 @@ class TestStep(models.Model):
         null=True,
     )
 
-    status = models.ForeignKey(TestStepStatus)
+    project = models.ForeignKey(
+        "TestManagerCore.Project",
+    )
 
-    application_feature = models.ForeignKey(ApplicationFeature)
+    status = models.ForeignKey(
+        "TestManagerContent.TestStepStatus",
+    )
+
+    application_feature = models.ForeignKey(
+        "TestManagerCore.ApplicationFeature",
+    )
 
     def __str__(self):
         return self.name
@@ -130,7 +137,13 @@ class TestCase(models.Model):
         max_length=1024,
     )
 
-    status = models.ForeignKey(TestCaseStatus)
+    status = models.ForeignKey(
+        "TestManagerContent.TestCaseStatus",
+    )
+
+    project = models.ForeignKey(
+        "TestManagerCore.Project",
+    )
 
     linked_issues = models.ManyToManyField(
         "TestManagerCore.JiraIssue",
@@ -191,6 +204,10 @@ class TestSuite(models.Model):
         verbose_name="Related tags",
         blank=True,
         null=True,
+    )
+
+    project = models.ForeignKey(
+        "TestManagerCore.Project",
     )
 
     def __str__(self):

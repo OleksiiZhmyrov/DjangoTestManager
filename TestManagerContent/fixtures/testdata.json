@@ -11,6 +11,7 @@
             "creation_date": "1970-01-01T00:00:00.000Z",
             "modification_date": "1970-01-01T00:00:00.000Z",
             "tags": [],
+            "project": 1,
             "screenshot": 1
         },
         "model": "TestManagerContent.teststep"
@@ -27,6 +28,7 @@
             "creation_date": "1970-01-01T00:00:00.000Z",
             "modification_date": "1970-01-01T00:00:00.000Z",
             "tags": [],
+            "project": 1,
             "screenshot": 2
         },
         "model": "TestManagerContent.teststep"
@@ -43,6 +45,7 @@
             "creation_date": "1970-01-01T00:00:00.000Z",
             "modification_date": "1970-01-01T00:00:00.000Z",
             "tags": [],
+            "project": 1,
             "screenshot": 1
         },
         "model": "TestManagerContent.teststep"
@@ -56,6 +59,7 @@
             "creation_date": "1970-01-01T00:00:00.000Z",
             "modification_date": "1970-01-01T00:00:00.000Z",
             "tags": [1, 2],
+            "project": 1,
             "description": "Verify basic search functionality on Google home page.",
             "name": "Google search functionality"
         },
@@ -70,6 +74,7 @@
             "description": "Simple example of test suite",
             "name": "Test Suite example",
             "tags": [1, 2],
+            "project": 1,
             "disabled": "False"
         },
         "model": "TestManagerContent.testsuite"

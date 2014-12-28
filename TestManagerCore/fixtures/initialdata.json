@@ -2,7 +2,16 @@
     {
         "model": "TestManagerCore.applicationfeature",
         "fields": {
-            "name": "default"
+            "name": "default",
+            "project": 1
+        },
+        "pk": 1
+    },
+    {
+        "model": "TestManagerCore.project",
+        "fields": {
+            "name": "Test Manager Sandbox",
+            "description": "Test project to play with Test Manager features."
         },
         "pk": 1
     }

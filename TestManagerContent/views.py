@@ -1,4 +1,5 @@
 from TestManagerContent.exporters import OpenDocumentSpreadsheet
+from TestManagerContent.decorators import user_has_access
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.forms.util import ErrorList
@@ -10,7 +11,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.views.generic.list import ListView
 
 from TestManagerContent.models import TestSuite, OrderTestCase, TestCase, OrderTestStep, TestStep
-from TestManagerCore.models import Screenshot
+from TestManagerCore.models import Screenshot, UserProfile
 
 from TestManagerContent.forms import TestSuiteCreateForm, TestSuiteUpdateForm
 from TestManagerContent.forms import OrderTestCaseCreateForm, OrderTestCaseModifyForm
@@ -24,9 +25,15 @@ from TestManagerExec.models import TestCaseResult
 class TestSuiteListView(ListView):
     model = TestSuite
     template_name = "pages/test_suite/list_page.html"
-    queryset = TestSuite.objects.filter(disabled=False).order_by('name')
     context_object_name = 'test_suite_list'
     paginate_by = 10
+
+    def get_queryset(self):
+        project = UserProfile.objects.get(user=self.request.user).default_project
+        return TestSuite.objects.filter(
+            disabled=False,
+            project=project,
+        ).order_by('name')
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -40,6 +47,7 @@ class TestSuiteCreateView(CreateView):
     form_class = TestSuiteCreateForm
 
     def form_valid(self, form):
+        form.instance.project = UserProfile.objects.get(user=self.request.user).default_project
         form.instance.author = self.request.user
         form.save()
         return super(TestSuiteCreateView, self).form_valid(form)
@@ -58,8 +66,13 @@ class TestSuiteModifyView(UpdateView):
     form_class = TestSuiteUpdateForm
     context_object_name = 'test_suite'
 
+    def get_form_kwargs(self):
+        kwargs = super(TestSuiteModifyView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def get_success_url(self):
-        return reverse('test_suite_edit', args=(self.object.id,))
+        return reverse('test_suite_view', args=(self.object.id,))
 
     def get_context_data(self, **kwargs):
         context = super(TestSuiteModifyView, self).get_context_data(**kwargs)
@@ -67,6 +80,7 @@ class TestSuiteModifyView(UpdateView):
         return context
 
     @method_decorator(login_required)
+    @method_decorator(user_has_access(TestSuite))
     def dispatch(self, *args, **kwargs):
         return super(TestSuiteModifyView, self).dispatch(*args, **kwargs)
 
@@ -89,10 +103,20 @@ class OrderTestCaseCreateView(CreateView):
         )
         return context
 
+    def get_form_kwargs(self):
+        kwargs = super(OrderTestCaseCreateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def form_valid(self, form):
         form.instance.test_suite = TestSuite.objects.get(
             pk=self.get_context_data()['view'].kwargs.get('test_suite_pk')
         )
+        if form.instance.test_suite.project != form.instance.test_case.project:
+            errors = form.errors.setdefault(NON_FIELD_ERRORS, ErrorList())
+            errors.append('Test Suite and Test Case must belong to the same project. '
+                          'Please return to the previous page and try again.')
+            return super(OrderTestCaseCreateView, self).form_invalid(form)
         try:
             form.save()
             return super(OrderTestCaseCreateView, self).form_valid(form)
@@ -105,6 +129,7 @@ class OrderTestCaseCreateView(CreateView):
         return reverse('test_suite_edit', args=(self.object.test_suite.id,))
 
     @method_decorator(login_required)
+    @method_decorator(user_has_access(TestSuite, pk_field_name='test_suite_pk'))
     def dispatch(self, *args, **kwargs):
         return super(OrderTestCaseCreateView, self).dispatch(*args, **kwargs)
 
@@ -116,6 +141,11 @@ class OrderTestCaseModifyView(UpdateView):
 
     def get_success_url(self):
         return reverse('test_suite_edit', args=(self.object.test_suite.id,))
+
+    def get_form_kwargs(self):
+        kwargs = super(OrderTestCaseModifyView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
     def form_valid(self, form):
         form.instance.test_suite = TestSuite.objects.get(
@@ -130,6 +160,7 @@ class OrderTestCaseModifyView(UpdateView):
             return super(OrderTestCaseModifyView, self).form_invalid(form)
 
     @method_decorator(login_required)
+    @method_decorator(user_has_access(TestSuite, pk_field_name='test_suite_pk'))
     def dispatch(self, *args, **kwargs):
         return super(OrderTestCaseModifyView, self).dispatch(*args, **kwargs)
 
@@ -142,6 +173,7 @@ class OrderTestCaseDeleteView(DeleteView):
         return reverse('test_suite_edit', args=(self.object.test_suite.id,))
 
     @method_decorator(login_required)
+    @method_decorator(user_has_access(TestSuite, pk_field_name='test_suite_pk'))
     def dispatch(self, *args, **kwargs):
         return super(OrderTestCaseDeleteView, self).dispatch(*args, **kwargs)
 
@@ -157,6 +189,7 @@ class TestSuiteView(DetailView):
         return context
 
     @method_decorator(login_required)
+    @method_decorator(user_has_access(TestSuite))
     def dispatch(self, *args, **kwargs):
         return super(TestSuiteView, self).dispatch(*args, **kwargs)
 
@@ -164,9 +197,14 @@ class TestSuiteView(DetailView):
 class TestCaseListView(ListView):
     model = TestCase
     template_name = "pages/test_case/list_page.html"
-    queryset = TestCase.objects.all().order_by('name')
     context_object_name = 'test_case_list'
     paginate_by = 10
+
+    def get_queryset(self):
+        project = UserProfile.objects.get(user=self.request.user).default_project
+        return TestCase.objects.filter(
+            project=project,
+        ).order_by('name')
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -180,6 +218,7 @@ class TestCaseCreateView(CreateView):
     form_class = TestCaseCreateForm
 
     def form_valid(self, form):
+        form.instance.project = UserProfile.objects.get(user=self.request.user).default_project
         form.instance.author = self.request.user
         form.save()
         return super(TestCaseCreateView, self).form_valid(form)
@@ -199,14 +238,20 @@ class TestCaseModifyView(UpdateView):
     context_object_name = 'test_case'
 
     def get_success_url(self):
-        return reverse('test_case_edit', args=(self.object.id,))
+        return reverse('test_case_view', args=(self.object.id,))
 
     def get_context_data(self, **kwargs):
         context = super(TestCaseModifyView, self).get_context_data(**kwargs)
         context['order_test_steps'] = OrderTestStep.objects.filter(test_case=self.object).order_by('number')
         return context
 
+    def get_form_kwargs(self):
+        kwargs = super(TestCaseModifyView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     @method_decorator(login_required)
+    @method_decorator(user_has_access(TestCase))
     def dispatch(self, *args, **kwargs):
         return super(TestCaseModifyView, self).dispatch(*args, **kwargs)
 
@@ -222,7 +267,6 @@ class TestCaseView(DetailView):
         context['order_test_steps'] = OrderTestStep.objects.filter(
             test_case=self.object
         ).order_by('number')
-
         context['order_test_cases'] = OrderTestCase.objects.filter(
             test_case=self.object
         )
@@ -233,6 +277,7 @@ class TestCaseView(DetailView):
         return context
 
     @method_decorator(login_required)
+    @method_decorator(user_has_access(TestCase))
     def dispatch(self, *args, **kwargs):
         return super(TestCaseView, self).dispatch(*args, **kwargs)
 
@@ -241,18 +286,19 @@ class TestCaseExportAsSpreadsheet(DetailView):
     model = TestCase
 
     def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
+        test_case = self.get_object()
 
         ods = OpenDocumentSpreadsheet()
-        ods.create(test_case_pk=self.object.pk)
+        ods.create(test_case_pk=test_case.pk)
 
         response = HttpResponse(ods.document.tobytes(), content_type='application/vnd.oasis.opendocument.spreadsheet')
         response['Content-Disposition'] = 'attachment; filename="{filename}.ods"'.format(
-            filename=self.object.name.replace(' ', '_')
+            filename=test_case.name.replace(' ', '_')
         )
         return response
 
     @method_decorator(login_required)
+    @method_decorator(user_has_access(TestCase))
     def dispatch(self, *args, **kwargs):
         return super(TestCaseExportAsSpreadsheet, self).dispatch(*args, **kwargs)
 
@@ -268,6 +314,7 @@ class TestCasePrintView(DetailView):
         return context
 
     @method_decorator(login_required)
+    @method_decorator(user_has_access(TestCase))
     def dispatch(self, *args, **kwargs):
         return super(TestCasePrintView, self).dispatch(*args, **kwargs)
 
@@ -290,10 +337,20 @@ class OrderTestStepCreateView(CreateView):
         )
         return context
 
+    def get_form_kwargs(self):
+        kwargs = super(OrderTestStepCreateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def form_valid(self, form):
         form.instance.test_case = TestCase.objects.get(
             pk=self.get_context_data()['view'].kwargs.get('test_case_pk')
         )
+        if form.instance.test_case.project != form.instance.test_step.project:
+            errors = form.errors.setdefault(NON_FIELD_ERRORS, ErrorList())
+            errors.append('Test Case and Test Step must belong to the same project. '
+                          'Please return to the previous page and try again.')
+            return super(OrderTestStepCreateView, self).form_invalid(form)
         try:
             form.save()
             return super(OrderTestStepCreateView, self).form_valid(form)
@@ -306,6 +363,7 @@ class OrderTestStepCreateView(CreateView):
         return reverse('test_case_edit', args=(self.object.test_case.id,))
 
     @method_decorator(login_required)
+    @method_decorator(user_has_access(TestCase, pk_field_name='test_case_pk'))
     def dispatch(self, *args, **kwargs):
         return super(OrderTestStepCreateView, self).dispatch(*args, **kwargs)
 
@@ -317,6 +375,11 @@ class OrderTestStepModifyView(UpdateView):
 
     def get_success_url(self):
         return reverse('test_case_edit', args=(self.object.test_case.id,))
+
+    def get_form_kwargs(self):
+        kwargs = super(OrderTestStepModifyView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
     def form_valid(self, form):
         form.instance.test_suite = TestCase.objects.get(
@@ -331,6 +394,7 @@ class OrderTestStepModifyView(UpdateView):
             return super(OrderTestStepModifyView, self).form_invalid(form)
 
     @method_decorator(login_required)
+    @method_decorator(user_has_access(TestCase, pk_field_name='test_case_pk'))
     def dispatch(self, *args, **kwargs):
         return super(OrderTestStepModifyView, self).dispatch(*args, **kwargs)
 
@@ -343,6 +407,7 @@ class OrderTestStepDeleteView(DeleteView):
         return reverse('test_case_edit', args=(self.object.test_case.id,))
 
     @method_decorator(login_required)
+    @method_decorator(user_has_access(TestStep, pk_field_name='test_case_pk'))
     def dispatch(self, *args, **kwargs):
         return super(OrderTestStepDeleteView, self).dispatch(*args, **kwargs)
 
@@ -350,9 +415,14 @@ class OrderTestStepDeleteView(DeleteView):
 class TestStepListView(ListView):
     model = TestStep
     template_name = "pages/test_step/list_page.html"
-    queryset = TestStep.objects.all().order_by('name')
     context_object_name = 'test_step_list'
     paginate_by = 10
+
+    def get_queryset(self):
+        project = UserProfile.objects.get(user=self.request.user).default_project
+        return TestStep.objects.filter(
+            project=project,
+        ).order_by('name')
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -370,6 +440,7 @@ class TestStepView(DetailView):
         return context
 
     @method_decorator(login_required)
+    @method_decorator(user_has_access(TestStep))
     def dispatch(self, *args, **kwargs):
         return super(TestStepView, self).dispatch(*args, **kwargs)
 
@@ -379,7 +450,13 @@ class TestStepCreateView(CreateView):
     template_name = "pages/test_step/create_page.html"
     form_class = TestStepCreateForm
 
+    def get_form_kwargs(self):
+        kwargs = super(TestStepCreateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def form_valid(self, form):
+        form.instance.project = UserProfile.objects.get(user=self.request.user).default_project
         form.instance.author = self.request.user
         form.save()
         return super(TestStepCreateView, self).form_valid(form)
@@ -398,10 +475,16 @@ class TestStepModifyView(UpdateView):
     form_class = TestStepUpdateForm
     context_object_name = 'test_step'
 
+    def get_form_kwargs(self):
+        kwargs = super(TestStepModifyView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def get_success_url(self):
-        return reverse('test_step_edit', args=(self.object.id,))
+        return reverse('test_step_view', args=(self.object.id,))
 
     @method_decorator(login_required)
+    @method_decorator(user_has_access(TestStep))
     def dispatch(self, *args, **kwargs):
         return super(TestStepModifyView, self).dispatch(*args, **kwargs)
 
@@ -409,9 +492,14 @@ class TestStepModifyView(UpdateView):
 class ScreenshotListView(ListView):
     model = Screenshot
     template_name = "pages/screenshot/list_page.html"
-    queryset = Screenshot.objects.all().order_by('name')
     context_object_name = 'screenshot_list'
     paginate_by = 10
+
+    def get_queryset(self):
+        project = UserProfile.objects.get(user=self.request.user).default_project
+        return Screenshot.objects.filter(
+            project=project,
+        ).order_by('name')
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -423,7 +511,13 @@ class ScreenshotCreateView(CreateView):
     template_name = "pages/screenshot/create_page.html"
     form_class = ScreenshotCreateForm
 
+    def get_form_kwargs(self):
+        kwargs = super(ScreenshotCreateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def form_valid(self, form):
+        form.instance.project = UserProfile.objects.get(user=self.request.user).default_project
         form.instance.owner = self.request.user
         form.save()
         return super(ScreenshotCreateView, self).form_valid(form)
@@ -445,6 +539,12 @@ class ScreenshotModifyView(UpdateView):
     def get_success_url(self):
         return reverse('screenshot_edit', args=(self.object.id,))
 
+    def get_form_kwargs(self):
+        kwargs = super(ScreenshotModifyView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     @method_decorator(login_required)
+    @method_decorator(user_has_access(Screenshot))
     def dispatch(self, *args, **kwargs):
         return super(ScreenshotModifyView, self).dispatch(*args, **kwargs)

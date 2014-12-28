@@ -8,7 +8,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Test Manager</a>
+            <a class="navbar-brand" href="{% url "homepage" %}">
+                {% if user.is_authenticated %}
+                    {{ userprofile.default_project.name }}
+                {% else %}
+                    Test Manager
+                {% endif %}
+            </a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

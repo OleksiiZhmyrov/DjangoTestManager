@@ -1,18 +1,23 @@
 from django import forms
 
-from TestManagerCore.models import Environment, Sprint, Browser, JiraIssue
+from TestManagerCore.models import Environment, Sprint, Browser, JiraIssue, UserProfile
 from TestManagerCore.utils import CustomErrorList
 from TestManagerCore.widgets import GroupedSelectMultiple
 from TestManagerExec.models import TestCaseResult, TestStepResult, ExecutionResult
 
 
 class TestCaseResultCreateForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, user, *args, **kwargs):
         super(TestCaseResultCreateForm, self).__init__(*args, **kwargs)
         self.error_class = CustomErrorList
+        self.project = UserProfile.objects.get(user=user).default_project
 
         self.fields['environment'].widget = forms.Select(
-            choices=((i.pk, ', '.join([i.name, i.url])) for i in Environment.objects.all().order_by('name')),
+            choices=(
+                (i.pk, ', '.join([i.name, i.url])) for i in Environment.objects.filter(
+                    project=self.project,
+                ).order_by('name')
+            ),
             attrs={
                 'class': 'form-control',
                 'autofocus': '',
@@ -21,7 +26,11 @@ class TestCaseResultCreateForm(forms.ModelForm):
         )
 
         self.fields['sprint'].widget = forms.Select(
-            choices=((i.pk, i.name) for i in Sprint.objects.all().order_by('name')),
+            choices=(
+                (i.pk, i.name) for i in Sprint.objects.filter(
+                    project=self.project,
+                ).order_by('name')
+            ),
             attrs={
                 'class': 'form-control',
                 'required': '',
@@ -29,7 +38,7 @@ class TestCaseResultCreateForm(forms.ModelForm):
         )
 
         self.fields['browser'].widget = forms.Select(
-            choices=self._get_browsers_tupple(),
+            choices=self._get_browsers_tuple(),
             attrs={
                 'class': 'form-control',
             },
@@ -37,12 +46,11 @@ class TestCaseResultCreateForm(forms.ModelForm):
 
         self.fields['jira_issues'].widget = GroupedSelectMultiple(
             choices=(
-                (
-                    False,
-                    (
-                        (i.pk, '%s: %s' % (i.key, i.summary[:50])) for i in JiraIssue.objects.all().order_by('key')
-                    )
-                ),
+                (False, (
+                    (i.pk, '%s: %s' % (i.key, i.summary[:50])) for i in JiraIssue.objects.filter(
+                        project=self.project,
+                    ).order_by('key')
+                )),
             ),
             attrs={
                 'class': 'form-control',
@@ -59,7 +67,7 @@ class TestCaseResultCreateForm(forms.ModelForm):
         )
 
     @staticmethod
-    def _get_browsers_tupple():
+    def _get_browsers_tuple():
         browser_queryset = Browser.objects.all().order_by('name', '-version')
         browsers = [('', 'none')] + [(i.pk, ' '.join([i.name, i.version])) for i in browser_queryset]
         return list(browsers)
@@ -92,4 +100,3 @@ class TestStepResultUpdateForm(forms.ModelForm):
     class Meta:
         model = TestStepResult
         fields = ['execution_result', 'comment', ]
-

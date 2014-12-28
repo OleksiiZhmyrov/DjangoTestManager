@@ -13,8 +13,7 @@
         <div class="row">
 
             <div class="col-md-8 personal-info">
-                <h3>Personal info</h3>
-                {% include "forms/auth/user_profile_form.html" %}
+                {% block personal_info %}{% endblock %}
             </div>
 
             <div class="col-md-4">

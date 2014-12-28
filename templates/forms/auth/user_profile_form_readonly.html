@@ -8,8 +8,7 @@
         <label class="col-lg-3 control-label">First name:</label>
 
         <div class="col-lg-8">
-            {{ form.first_name }}
-            {{ form.first_name.errors | safe }}
+            <input class="form-control" type="text" placeholder="{{ user.first_name }}" disabled>
         </div>
     </div>
 
@@ -17,8 +16,7 @@
         <label class="col-lg-3 control-label">Last name:</label>
 
         <div class="col-lg-8">
-            {{ form.last_name }}
-            {{ form.last_name.errors | safe }}
+            <input class="form-control" type="text" placeholder="{{ user.last_name }}" disabled>
         </div>
     </div>
 
@@ -26,8 +24,7 @@
         <label class="col-lg-3 control-label">Email address:</label>
 
         <div class="col-lg-8">
-            {{ form.email }}
-            {{ form.email.errors | safe }}
+            <input class="form-control" type="text" placeholder="{{ user.email }}" disabled>
         </div>
     </div>
 
@@ -35,7 +32,7 @@
         <label class="col-md-3 control-label"></label>
 
         <div class="col-md-8">
-            <input type="submit" class="btn btn-primary" value="Save Changes">
+            <input type="submit" class="btn btn-primary" value="Save Changes" disabled>
             <span></span>
             <a href="{% url "user_profile" %}" type="button" class="btn btn-default">Discard</a>
         </div>

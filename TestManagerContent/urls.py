@@ -37,10 +37,10 @@ urlpatterns = patterns(
     url(r'^content/testsuites/(?P<test_suite_pk>[0-9]*)/ordertestcase/add/', OrderTestCaseCreateView.as_view(),
         name='ordertestcase_create'),
 
-    url(r'^content/testsuites/(?P<test_suite_pk>[0-9]*)/ordertestcase/(?P<pk>[0-9])/modify/', OrderTestCaseModifyView.as_view(),
+    url(r'^content/testsuites/(?P<test_suite_pk>[0-9]*)/ordertestcase/(?P<pk>[0-9]*)/modify/', OrderTestCaseModifyView.as_view(),
         name='ordertestcase_modify'),
 
-    url(r'^content/testsuites/(?P<test_suite_pk>[0-9]*)/ordertestcase/(?P<pk>[0-9])/remove/', OrderTestCaseDeleteView.as_view(),
+    url(r'^content/testsuites/(?P<test_suite_pk>[0-9]*)/ordertestcase/(?P<pk>[0-9]*)/remove/', OrderTestCaseDeleteView.as_view(),
         name='ordertestcase_remove'),
 
     url(r'^content/testcases/$', TestCaseListView.as_view(),

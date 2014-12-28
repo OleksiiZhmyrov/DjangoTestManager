@@ -16,12 +16,14 @@ class TestStepAdmin(admin.ModelAdmin):
         'screenshot',
         'status',
         'application_feature',
+        'project',
     )
 
     list_filter = [
         'author',
         'status',
         'application_feature',
+        'project',
     ]
 
     search_fields = [
@@ -30,6 +32,7 @@ class TestStepAdmin(admin.ModelAdmin):
         'description',
         'expected_result',
         'application_feature',
+        'project',
     ]
 
     date_hierarchy = 'creation_date'
@@ -46,11 +49,13 @@ class TestCaseAdmin(admin.ModelAdmin):
         'author',
         'creation_date',
         'modification_date',
+        'project',
     )
 
     list_filter = [
         'author',
         'status',
+        'project',
     ]
 
     search_fields = [
@@ -58,6 +63,7 @@ class TestCaseAdmin(admin.ModelAdmin):
         'name',
         'description',
         'status',
+        'project',
     ]
 
     date_hierarchy = 'creation_date'
@@ -74,18 +80,20 @@ class TestSuiteAdmin(admin.ModelAdmin):
         'modification_date',
         'author',
         'disabled',
+        'project',
     )
 
     list_filter = [
-        'description',
         'author',
         'disabled',
+        'project',
     ]
 
     search_fields = [
         'name',
         'description',
         'author',
+        'project',
     ]
 
     date_hierarchy = 'creation_date'

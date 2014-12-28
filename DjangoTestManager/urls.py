@@ -13,7 +13,7 @@ urlpatterns = patterns(
     url(r'', include('TestManagerExec.urls')),
 
     url(r'^$', RedirectView.as_view(url='/content/testcases/'),
-        name='redirect_from_root'),
+        name='homepage'),
 
     url(r'^accounts/admin/', include(admin.site.urls)),
 

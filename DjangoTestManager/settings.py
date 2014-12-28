@@ -58,6 +58,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'TestManagerCore.middleware.PageGenerationDatetime',
+    'TestManagerCore.middleware.UserprofileContextInjector',
     'axes.middleware.FailedLoginMiddleware',
 )
 

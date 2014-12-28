@@ -1,0 +1,15 @@
+{% extends "panels/user_projects/base.html" %}
+
+{% block panels %}
+    {% include "panels/user_projects/list.html" %}
+
+    <form class="form-inline" role="form" method="post"
+          action="{% url "user_profile_preferences" %}">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.default_project }}
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a href="{% url "user_profile" %}" class="btn btn-default">Discard</a>
+    </form>
+{% endblock %}
