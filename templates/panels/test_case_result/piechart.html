@@ -3,13 +3,13 @@
         <h3 class="panel-title">Pie Chart</h3>
     </div>
     <div class="panel-body text-center">
-        <canvas id="countries" width="300" height="300" class="text-center"></canvas>
+        <canvas id="chart" width="300" height="300"></canvas>
     </div>
 </div>
 
 <script>
     $.get("{% url "test_case_result_view_chart" pk=object.id %}", function(response) {
-        var countries= document.getElementById("countries").getContext("2d");
-        new Chart(countries).Pie(response.data, response.options);
+        var chart= document.getElementById("chart").getContext("2d");
+        new Chart(chart).Pie(response.data, response.options);
     });
 </script>
