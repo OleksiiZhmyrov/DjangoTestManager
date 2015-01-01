@@ -192,3 +192,9 @@ BLEACH_STRIP_TAGS = True
 BLEACH_STRIP_COMMENTS = True
 
 LOG_FILENAME = './env/log.txt'
+
+PIE_CHART_OPTIONS = {
+    'segmentShowStroke': 'true',
+    'segmentStrokeColor': "#FFFFFF",
+    'segmentStrokeWidth': 2,
+}

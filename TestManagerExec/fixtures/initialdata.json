@@ -5,7 +5,8 @@
         "fields": {
             "name": "Not Run",
             "description": "Execution of step or scenario has not been started",
-            "css_styling": ""
+            "css_styling": "",
+            "color": "#FFFFFF"
         }
     },
     {
@@ -14,7 +15,8 @@
         "fields": {
             "name": "Passed",
             "description": "Execution of step or scenario successfully passed",
-            "css_styling": "success"
+            "css_styling": "success",
+            "color": "#D9F0D8"
         }
     },
     {
@@ -23,7 +25,8 @@
         "fields": {
             "name": "Skipped",
             "description": "Execution of step or scenario has been skipped",
-            "css_styling": "warning"
+            "css_styling": "warning",
+            "color": "#FEF8E3"
         }
     },
     {
@@ -32,7 +35,8 @@
         "fields": {
             "name": "Failed",
             "description": "Execution of step or scenario failed",
-            "css_styling": "danger"
+            "css_styling": "danger",
+            "color": "#FADFDF"
         }
     },
     {
@@ -41,7 +45,8 @@
         "fields": {
             "name": "Passed with issues",
             "description": "Execution of step or scenario passed but minor issues occurred",
-            "css_styling": "info"
+            "css_styling": "info",
+            "color": "#D2EEF8"
         }
     }
 ]

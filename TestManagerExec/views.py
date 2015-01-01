@@ -2,16 +2,17 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import NON_FIELD_ERRORS
 from django.core.urlresolvers import reverse
 from django.forms.util import ErrorList
+from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, UpdateView, DetailView
 
-from DjangoTestManager.settings import JIRA_BROWSE_URL
+from DjangoTestManager.settings import JIRA_BROWSE_URL, PIE_CHART_OPTIONS
 
 from TestManagerContent.models import TestCase, OrderTestStep
 from TestManagerContent.decorators import user_has_access
 
 from TestManagerExec.forms import TestCaseResultCreateForm, TestStepResultUpdateForm
-from TestManagerExec.models import TestCaseResult, TestStepResult
+from TestManagerExec.models import TestCaseResult, TestStepResult, ExecutionResult
 
 
 class TestCaseResultCreateView(CreateView):
@@ -142,3 +143,27 @@ class TestCaseResultView(DetailView):
     @method_decorator(user_has_access(TestCaseResult))
     def dispatch(self, *args, **kwargs):
         return super(TestCaseResultView, self).dispatch(*args, **kwargs)
+
+
+class TestCaseResultChartDataView(DetailView):
+    model = TestCaseResult
+
+    def get(self, request, *args, **kwargs):
+        result = []
+        for exec_result in ExecutionResult.objects.all():
+            result.append({
+                'value': self.get_object().test_step_results.filter(
+                    execution_result=exec_result
+                ).count(),
+                'color': exec_result.color,
+                'label': exec_result.name,
+            })
+        return JsonResponse({
+            'data': result,
+            'options': PIE_CHART_OPTIONS,
+        })
+
+    @method_decorator(login_required)
+    @method_decorator(user_has_access(TestCaseResult))
+    def dispatch(self, *args, **kwargs):
+        return super(TestCaseResultChartDataView, self).dispatch(*args, **kwargs)
