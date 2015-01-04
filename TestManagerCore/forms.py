@@ -36,13 +36,13 @@ class UserRegistrationForm(UserCreationForm):
 
     def save(self, *args, **kwargs):
         user = super(UserRegistrationForm, self).save(*args, **kwargs)
+        project = Project.objects.get(pk=1)
         profile = UserProfile(
             user=user,
+            default_project=project,
         )
         profile.save()
-        profile.projects.add(
-            Project.objects.get(pk=1),
-        )
+        profile.projects.add(project)
         return user
 
 
